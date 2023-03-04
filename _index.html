@@ -7,660 +7,8 @@
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-        <!-- <link type="text/css" rel="stylesheet" href="css/main.css">
-		<link type="text/css" rel="stylesheet" href="css/css.css"> -->
-        <style>
-            body {
-                margin: 0;
-                background-color: #000;
-                color: #fff;
-                font-family: Monospace;
-                font-size: 13px;
-                line-height: 24px;
-                overscroll-behavior: none;
-            }
-            .orangeDOM {
-                position: absolute;
-                z-index: 10;
-                left: 50%;
-                top: 50%;
-                color: white;
-                font-weight: bold;
-                font-size: 2em;
-                text-shadow: 2px 2px 2px #00000077;
-            }
-            /*.amodalscreen {
-                width: 100vw;
-                height: 90vw;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }*/
-            a {
-                color: #ff0;
-                text-decoration: none;
-            }
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-            button {
-                cursor: pointer;
-                text-transform: uppercase;
-            }
-
-            #info {
-                position: absolute;
-                top: 0px;
-                width: 100%;
-                padding: 10px;
-                box-sizing: border-box;
-                text-align: center;
-                -moz-user-select: none;
-                -webkit-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                pointer-events: none;
-                z-index: 1; /* TODO Solve this in HTML */
-            }
-
-            a, button, input, select {
-                pointer-events: auto;
-            }
-
-            .dg.ac {
-                -moz-user-select: none;
-                -webkit-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                z-index: 2 !important; /* TODO Solve this in HTML */
-            }
-
-            #overlay {
-                position: absolute;
-                z-index: 2;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: rgba(0,0,0,0.7);
-            }
-
-                #overlay button {
-                    background: #ffffff;
-                    border: 0;
-                    color: #000000;
-                    padding: 16px 20px;
-                    text-transform: uppercase;
-                    cursor: pointer;
-                }
-
-            #notSupported {
-                width: 50%;
-                margin: auto;
-                background-color: #f00;
-                margin-top: 20px;
-                padding: 10px;
-            }
-
-        </style>
-        <style>
-/* ------------------------------------------ BACKGROUND ------------------------------------------ */
-.bg-black { background: black; }.bg-white { background: white; }
-.bg-w-opaci-100 { background: #ffffff; }.bg-w-opaci-50 { background: #ffffff77; }
-.bg-w-opaci-20 { background: #ffffff22; }.bg-w-opaci-33 { background: #ffffff55; }
-.bg-b-opaci-100 { background: #000000; }.bg-b-opaci-50 { background: #00000077; }
-.bg-b-opaci-20 { background: #00000022; }.bg-b-opaci-33 { background: #00000055; }
-.bg-w-opaci-hov-100:hover { background: #ffffff; }
-.bg-w-opaci-hov-50:hover { background: #ffffff77; }
-.bg-w-opaci-hov-20:hover { background: #ffffff22; }
-.bg-w-opaci-hov-33:hover { background: #ffffff55; }
-.bg-b-opaci-hov-100:hover { background: #000000; }
-.bg-b-opaci-hov-50:hover { background: #00000077; }
-.bg-b-opaci-hov-20:hover { background: #00000022; }
-.bg-b-opaci-hov-33:hover { background: #00000055; }
-._ddr { background: red; }._ddg { background: green; }._ddb { background: blue; }
-
-
-.bg-glass-2 
-{
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-}
-.bg-glass-20
-{
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-}
-.bg-glass-50
-{
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
-}
-.bg-glass-100
-{
-    backdrop-filter: blur(100px);
-    -webkit-backdrop-filter: blur(100px);
-}
-
-.bg-glass-3 
-{
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-}
-.bg-glass-6
-{
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
-.bg-glass-4
-{
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-
-/* ------------------------------------------ TEXT ------------------------------------------ */
-.clickble {cursor: pointer; } .grab {cursor: grab; }.grabble {cursor: grab; }
-.stopcursor {cursor: not-allowed !important; }.waitcursor {cursor: wait; }
-.nocursor {cursor: default; }.nopointer {pointer-events: none; }.noclick {pointer-events: none; }
-.noselect {-webkit-user-select: none; -moz-user-select: none;-ms-user-select: none; user-select: none;}
-
-
-
-/* ------------------------------------------ TEXT ------------------------------------------ */
-.tx-xxs {font-size: 0.35rem; } .tx-xs {font-size: 0.55rem; }.tx-xsm {font-size: 0.725rem; }
-.tx-sm {font-size: 0.845rem; } .tx-smd {font-size: 0.92rem; }
-.tx-md {font-size: 1.07rem; } .tx-mdl {font-size: 1.13rem; }
-.tx-lg {font-size: 1.4rem; } .tx-lgx {font-size: 1.68rem; }
-.tx-lx {font-size: 2.4rem; } .tx-xl {font-size: 3rem; }
-.tx-xxl {font-size: 3.4rem; } .tx-xxxl {font-size: 4.5rem; }
-.tx-bold-2 {font-weight: 200}.tx-bold-3 {font-weight: 300}.tx-bold-4 {font-weight: 400}
-.tx-bold-5 {font-weight: 500}.tx-bold-6 {font-weight: 600}.tx-bold-7 {font-weight: 700}
-.tx-bold-8 {font-weight: 800}.tx-bold-9 {font-weight: 900}.tx-bold {font-weight: bold; }
-
-.tx-white {color: white; }.tx-black {color: black; }
-.tx-red {color: red; }.tx-green {color: green; }.tx-blue {color: blue; }
-.tx-center {text-align: center; }
-.tx-end, .tx-right {text-align: right; }.tx-start, .tx-left {text-align: left; }
-
-.tx-lh-100 {line-height: 1; } .tx-lh-150 {line-height: 1.5; } .tx-lh-200 {line-height: 2; }
-.tx-ls-1 {letter-spacing: 1px; } .tx-ls-2 {letter-spacing: 2px; } .tx-ls-3 {letter-spacing: 3px; }
-.tx-ls-5 {letter-spacing: 5px; } .tx-ls-6 {letter-spacing: 6px; } .tx-ls-8 {letter-spacing: 8px; }
-.tx-ls-10 {letter-spacing: 10px; } .tx-ls-15 {letter-spacing: 15px; } .tx-ls-25 {letter-spacing: 25px; }
-.word-s-1 {word-spacing: 1px; } .word-s-2 {word-spacing: 2px; } .word-s-3 {word-spacing: 3px; }
-.word-s-5 {word-spacing: 5px; } .word-s-10 {word-spacing: 10px; } .word-s-20 {word-spacing: 20px; }
-.tx-italic {font-style: italic; }.tx-i {font-style: italic; }
-.tx-deco, .tx-deco *, .underline, .underline * { text-decoration: underline #777; }
-.linethrough { text-decoration: line-through } .linethru { text-decoration: line-through }
-.nodeco { text-decoration: none ; } .nowrap {white-space: nowrap; }
-
-
-
-/* ------------------------------------------ POSITION ------------------------------------------ */
-.pos-rel { position: relative; }.pos-abs { position: absolute; }
-.pos-fixed { position: fixed; }.pos-fix { position: fixed; }
-
-.top-0 { top: 0; } .top-1 { top: 5px; } .top-2 { top: 10px; }
-.top-3 { top: 15px; }.top-4 { top: 20px; } .top-5 { top: 25px; }
-.left-0 { left: 0; } .left-1 { left: 5px; } .left-2 { left: 10px; }
-.left-3 { left: 15px; } .left-4 { left: 20px; } .left-5 { left: 25px; }
-.right-0 { right: 0; } .right-1 { right: 5px; } .right-2 { right: 10px; }
-.right-3 { right: 15px; } .right-4 { right: 20px; } .right-5 { right: 25px; }
-.bottom-0 { bottom: 0; } .bottom-1 { bottom: 5px; } .bottom-2 { bottom: 10px; }
-.bottom-3 { bottom: 15px; } .bottom-4 { bottom: 20px; } .bottom-5 { bottom: 25px; }
-.top-50p {  top: 50%; }.left-50p {  left: 50%; }.right-50p {  right: 50%; }.bottom-50p {  bottom: 50%; }
-
-.z-1 { z-index: 1; } .z-2 { z-index: 2; } .z-3 { z-index: 3; } .z-5 { z-index: 5; } 
-.z-10 { z-index: 10; } .z-50 { z-index: 50; } .z-100 { z-index: 100; } .z-999 { z-index: 999; }
-.z-1001 { z-index: 1001; } .z--999 { z-index: -999; }
-
-
-
-/* ------------------------------------------ STRUCTURE SPACING ------------------------------------------ */
-.w-10 { width: 10%; }.w-20 { width: 20%; }.w-25 { width: 25%; }.w-30 { width: 30%; }.w-40 { width: 40%; }
-.w-33 { width: 33%; }.w-50 { width: 50%; }.w-60 { width: 60%; }.w-70 { width: 70%; }.w-80 { width: 80%; }
-.w-90 { width: 90%; }.w-95 { width: 95%; }.w-100 { width: 100%; }.w-80px { width: 80px; }
-.w-100px { width: 100px; }.w-120px { width: 120px; }.w-150px { width: 150px; }.w-200px { width: 200px; }
-.w-250px { width: 250px; }.w-220px { width: 220px; }.w-300px { width: 300px; }
-.w-400px { width: 400px; }.w-450px { width: 450px; }.w-500px { width: 500px; }
-.w-600px { width: 600px; }.w-650px { width: 650px; }.w-700px { width: 700px; }.w-1080px { width: 1080px; }
-.w-max-80px { max-width: 80px; }
-.w-max-100px { max-width: 100px; }.w-max-120px { max-width: 120px; }.w-max-150px { max-width: 150px; }
-.w-max-200px { max-width: 200px; }.w-max-220px { max-width: 220px; }.w-max-250px { max-width: 250px; }
-.w-max-300px { max-width: 300px; }.w-max-400px { max-width: 400px; }.w-max-450px { max-width: 450px; }
-.w-max-500px { max-width: 500px; }.w-max-600px { max-width: 600px; }.w-max-650px { max-width: 650px; }
-.w-max-700px { max-width: 700px; }
-.w-min-50px { min-width: 50px; }.w-min-80px { min-width: 80px; }
-.w-min-100px { min-width: 100px; }.w-min-120px { min-width: 120px; }.w-min-150px { min-width: 150px; }
-.w-min-200px { min-width: 200px; }.w-min-220px { min-width: 220px; }.w-min-250px { min-width: 250px; }
-.w-min-300px { min-width: 300px; }.w-min-400px { min-width: 400px; }.w-min-450px { min-width: 450px; }
-.w-min-500px { min-width: 500px; }.w-min-600px { min-width: 600px; }.w-min-650px { min-width: 650px; }
-.w-min-700px { min-width: 700px; }
-
-.h-min-100 { min-height: 100%; }.h-min-100vh { min-height: 100vh; }
-.h-100 { height: 100%; }.h-100vh { height: 100vh; }
-
-
-
-/* ------------------------------------------ STRUCTURE SPACING ------------------------------------------ */
-.opaci-0 {opacity: 0 }.opaci-5 {opacity: 0.05; } .opaci-10 {opacity: 0.10; }
-.opaci-15 {opacity: 0.15; } .opaci-25 {opacity: 0.25; }.opaci-50 {opacity: 0.5; }
-.opaci-75 {opacity: 0.75; }.opaci-30 {opacity: 0.3; } .opaci-33 {opacity: 0.33; }
-.opaci-chov-75,.opaci-chov-50,.opaci-chov-25,.opaci-chov-10,.opaci-chov-5,
-.opaci-chov--75,.opaci-chov--50,.opaci-chov--25,.opaci-chov--10,.opaci-chov--5{
-    cursor: pointer !important;
-}
-.opaci-chov-75:hover , .opaci-hov-75:hover {opacity: 1; }  .opaci-hov-75 {opacity: 0.75; }
-.opaci-chov-50:hover , .opaci-hov-50:hover {opacity: 1; }  .opaci-hov-50 {opacity: 0.5; }
-.opaci-chov-25:hover , .opaci-hov-25:hover {opacity: 1; }  .opaci-hov-25 {opacity: 0.25; }
-.opaci-chov-10:hover , .opaci-hov-10:hover {opacity: 1; }  .opaci-hov-10 {opacity: 0.1; }
-.opaci-chov-5:hover , .opaci-hov-5:hover {opacity: 0.5; }  .opaci-hov-5 {opacity: 0.05; }
-.opaci-chov--75:hover , .opaci-hov--75:hover {opacity: 0.75 }  .opaci-hov--75 {opacity: 1; }
-.opaci-chov--50:hover , .opaci-hov--50:hover {opacity: 0.5 }  .opaci-hov--50 {opacity: 1; }
-.opaci-chov--25:hover , .opaci-hov--25:hover {opacity: 0.25 }  .opaci-hov--25 {opacity: 1; }
-.opaci-chov--10:hover , .opaci-hov--10:hover {opacity: 0.1 }  .opaci-hov--10 {opacity: 1; }
-.opaci-chov--5:hover , .opaci-hov--5:hover {opacity: 0.05 }  .opaci-hov--10 {opacity: 1; }
-
-.opaci-ahov-75:hover .opaci-bhov-75 {opacity: 1; }  .opaci-ahov-75 .opaci-bhov-75 {opacity: 0.75; }
-.opaci-ahov-50:hover .opaci-bhov-50 {opacity: 1; }  .opaci-ahov-50 .opaci-bhov-50 {opacity: 0.5; }
-.opaci-ahov-25:hover .opaci-bhov-25 {opacity: 1; }  .opaci-ahov-25 .opaci-bhov-25 {opacity: 0.25; }
-.opaci-ahov-10:hover .opaci-bhov-10 {opacity: 1; }  .opaci-ahov-10 .opaci-bhov-10 {opacity: 0.1; }
-.opaci-ahov-5:hover .opaci-bhov-5 {opacity: 1; }  .opaci-ahov-5 .opaci-bhov-5 {opacity: 0.05; }
-.opaci-ahov-0:hover .opaci-bhov-0 {opacity: 1; }  .opaci-ahov-0 .opaci-bhov-0 {opacity: 0; }
-.opaci-cahov--75 , .opaci-cahov--75 .opaci-cbhov--75,
-.opaci-cahov--50 , .opaci-cahov--50 .opaci-cbhov--50,
-.opaci-cahov--25 , .opaci-cahov--25 .opaci-cbhov--25,
-.opaci-cahov--10 , .opaci-cahov--10 .opaci-cbhov--10,
-.opaci-cahov--5 , .opaci-cahov--5 .opaci-cbhov--5,
-.opaci-cahov--0 , .opaci-cahov--0 .opaci-cbhov-- {
-    cursor: pointer;
-}
-.opaci-cahov--75 .opaci-cbhov--75 , .opaci-ahov--75:hover .opaci-bhov--75 {opacity: 0.75 }  .opaci-ahov--75 .opaci-bhov--75 {opacity: 1; }
-.opaci-cahov--50 .opaci-cbhov--50 , .opaci-ahov--50:hover .opaci-bhov--50 {opacity: 0.5 }  .opaci-ahov--50 .opaci-bhov--50 {opacity: 1; }
-.opaci-cahov--25 .opaci-cbhov--25 , .opaci-ahov--25:hover .opaci-bhov--25 {opacity: 0.25 }  .opaci-ahov--25 .opaci-bhov--25 {opacity: 1; }
-.opaci-cahov--10 .opaci-cbhov--10 , .opaci-ahov--10:hover .opaci-bhov--10 {opacity: 0.1 }  .opaci-ahov--10 .opaci-bhov--10 {opacity: 1; }
-.opaci-cahov--5 .opaci-cbhov--5 , .opaci-ahov--5:hover .opaci-bhov--5 {opacity: 0.05 }  .opaci-ahov--5 .opacib-hov--5 {opacity: 1; }
-.opaci-cahov--0 .opaci-cbhov--0 , .opaci-ahov--0:hover .opaci-bhov--0 {opacity: 0 }  .opaci-ahov--0 .opacib-hov--0 {opacity: 1; }
-
-.invert { filter: invert(1); }.bright-1000 { filter: brightness(10); }
-.scale-50 { transform: scale(0.5); }.scale-60 { transform: scale(0.6); }.scale-70 { transform: scale(0.7); }
-.scale-90 { transform: scale(0.9); }.scale-110 { transform: scale(1.1); }.scale-120 { transform: scale(1.2); }
-.scale-150 { transform: scale(1.5); }.scale-160 { transform: scale(1.6); }.scale-200 { transform: scale(2); }
-.scale-hov-150 {transform: 0;transition: all 0.1s ease-in-out;}
-.scale-hov-160 {transform: 0;transition: all 0.1s ease-in-out;}
-.scale-hov-200 {transform: 0;transition: all 0.1s ease-in-out;}
-.scale-hov-150:hover { transform: scale(1.5) !important;  }
-.scale-hov-160:hover { transform: scale(1.6); }
-.scale-hov-200:hover { transform: scale(2); }
-
-
-
-/* ------------------------------------------ STRUCTURE ------------------------------------------ */
-/* BASE */
-.invisible { visibility: hidden; } .hidden { visibility: hidden; }
-.block { display: block; } .none { display: none; }
-.noverflow-x { overflow-x: hidden; }.noverflow-y { overflow-y: hidden; }
-.noverflow { overflow: hidden; }.autoverflow { overflow: auto; }
-
-/* FLEX */
-.flex { display: flex }
-.flex-1 { flex: 1 } .flex-2 { flex: 2 } .flex-3 { flex: 3 }
-.flex-center { display: flex; justify-content: center; align-items: center }
-.flex-row { display: flex; flex-direction: row; justify-content: center; align-items: center }
-.flex-col { display: flex; flex-direction: column; justify-content: center; align-items: center }
-.flex-row-r { display: flex; flex-direction: row-reverse; justify-content: center; align-items: center }
-.flex-col-r { display: flex; flex-direction: column-reverse; justify-content: center; align-items: center }
-.flex-grid, /* SPECIAL */
-.flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; align-items: center }
-.flex-between { display: flex; justify-content: space-between; align-items: center }
-.flex-around { display: flex; justify-content: space-around; align-items: center }
-.flex-align-start { display: flex; align-items: flex-start !important; } /* SPECIAL SPECIFIC */
-.flex-align-end { display: flex; align-items: flex-end !important; }
-.flex-align-stetch { display: flex; align-items: stretch !important; }
-.flex-justify-start { display: flex; justify-content: flex-start !important; }
-.flex-justify-end { display: flex; justify-content: flex-end !important; }
-.flex-justify-stretch { display: flex; justify-content: stretch !important; }
-.flex-justify-between { display: flex; justify-content: space-between !important; }
-.flex-justify-around { display: flex; justify-content: space-around !important; }
-.flex-align-self-start { align-self: flex-start !important; }
-.flex-align-self-center { align-self: center !important; }
-.flex-align-self-end { align-self: flex-end !important; }
-
-.gap-1 { gap: 5px }.gap-2 { gap: 10px }.gap-3 { gap: 15px }.gap-4 { gap: 20px }.gap-5 { gap: 25px }
-.gap-6 { gap: 30px }.gap-7 { gap: 35px }.gap-8 { gap: 40px }.gap-50 { gap: 50px }.gap-100 { gap: 100px }
-
-/* Basic Range */
-@media only screen and (max-width: 600px)
-{
-    .mq_xs_flex-1 { flex: 1 }
-    .mq_xs_flex-center { display: flex; justify-content: center; align-items: center }
-    .mq_xs_flex-row { display: flex; flex-direction: row; justify-content: center; align-items: center }
-    .mq_xs_flex-col { display: flex; flex-direction: column; justify-content: center; align-items: center }
-    .mq_xs_flex-row-r { display: flex; flex-direction: row-reverse; justify-content: center; align-items: center }
-    .mq_xs_flex-col-r { display: flex; flex-direction: column-reverse; justify-content: center; align-items: center }
-}
-@media only screen and (max-width: 900px)
-{
-    .mq_xs_sm_flex-1 { flex: 1 }
-    .mq_xs_sm_flex-center { display: flex; justify-content: center; align-items: center }
-    .mq_xs_sm_flex-row { display: flex; flex-direction: row; justify-content: center; align-items: center }
-    .mq_xs_sm_flex-col { display: flex; flex-direction: column; justify-content: center; align-items: center }
-    .mq_xs_sm_flex-row-r { display: flex; flex-direction: row-reverse; justify-content: center; align-items: center }
-    .mq_xs_sm_flex-col-r { display: flex; flex-direction: column-reverse; justify-content: center; align-items: center }
-}
-@media only screen and (max-width: 1200px)
-{
-    .mq_xs_md_flex-1 { flex: 1 }
-    .mq_xs_md_flex-center { display: flex; justify-content: center; align-items: center }
-    .mq_xs_md_flex-row { display: flex; flex-direction: row; justify-content: center; align-items: center }
-    .mq_xs_md_flex-col { display: flex; flex-direction: column; justify-content: center; align-items: center }
-    .mq_xs_md_flex-row-r { display: flex; flex-direction: row-reverse; justify-content: center; align-items: center }
-    .mq_xs_md_flex-col-r { display: flex; flex-direction: column-reverse; justify-content: center; align-items: center }
-}
-@media only screen and (max-width: 1436px)
-{
-    .mq_xs_lg_flex-1 { flex: 1 }
-    .mq_xs_lg_flex-center { display: flex; justify-content: center; align-items: center }
-    .mq_xs_lg_flex-row { display: flex; flex-direction: row; justify-content: center; align-items: center }
-    .mq_xs_lg_flex-col { display: flex; flex-direction: column; justify-content: center; align-items: center }
-    .mq_xs_lg_flex-row-r { display: flex; flex-direction: row-reverse; justify-content: center; align-items: center }
-    .mq_xs_lg_flex-col-r { display: flex; flex-direction: column-reverse; justify-content: center; align-items: center }
-}
-
-
-
-/* ------------------------------------------ INNER & OUTER SPACING ------------------------------------------ */
-
-.ma-0 { margin: 0} .ma-1 { margin: 5px} .ma-2 { margin: 10px} .ma-3 { margin: 15px}
-.ma-4 { margin: 20px} .ma-5 { margin: 25px} .ma-6 { margin: 30px} .ma-7 { margin: 35px}
-.ma-8 { margin: 40px} .ma-100 { margin: 100px} .ma-150 { margin: 150px} .ma-200 { margin: 200px}
-
-/* ALL */           
-.ma-0 { margin: 0} .ma-1 { margin: 5px} .ma-2 { margin: 10px} .ma-3 { margin: 15px}
-.ma-4 { margin: 20px} .ma-5 { margin: 25px} .ma-6 { margin: 30px} .ma-7 { margin: 35px}
-.ma-8 { margin: 40px} .ma-100 { margin: 100px} .ma-150 { margin: 150px} .ma-200 { margin: 200px}
-/* HORIZONTAL */
-.mx-0 { margin-left: 0; margin-right: 0} .mx-1 { margin-left: 5px; margin-right: 5px}
-.mx-2 { margin-left: 10px; margin-right: 10px} .mx-3 { margin-left: 15px; margin-right: 15px}
-.mx-4 { margin-left: 20px; margin-right: 20px} .mx-5 { margin-left: 25px; margin-right: 25px}
-.mx-6 { margin-left: 30px; margin-right: 30px} .mx-7 { margin-left: 35px; margin-right: 35px}
-.mx-8 { margin-left: 40px; margin-right: 40px} .mx-100 { margin-left: 100px; margin-right: 100px}
-.mx-150 { margin-left: 150px; margin-right: 150px} .mx-200 { margin-left: 200px; margin-right: 200px}
-/* VERTICAL */
-.my-0 { margin-top: 0; margin-bottom: 0} .my-1 { margin-top: 5px; margin-bottom: 5px}
-.my-2 { margin-top: 10px; margin-bottom: 10px} .my-3 { margin-top: 15px; margin-bottom: 15px}
-.my-4 { margin-top: 20px; margin-bottom: 20px} .my-5 { margin-top: 25px; margin-bottom: 25px}
-.my-6 { margin-top: 30px; margin-bottom: 30px} .my-7 { margin-top: 35px; margin-bottom: 35px}
-.my-8 { margin-top: 40px; margin-bottom: 40px} .my-100 { margin-top: 100px; margin-bottom: 100px}
-.my-200 { margin-top: 200px; margin-bottom: 200px} .my-150 { margin-top: 150px; margin-bottom: 150px}
-/* LEFT */          
-.ml-0 { margin-left: 0} .ml-1 { margin-left: 5px} .ml-2 { margin-left: 10px} .ml-3 { margin-left: 15px}
-.ml-4 { margin-left: 20px} .ml-5 { margin-left: 25px} .ml-6 { margin-left: 30px} .ml-7 { margin-left: 35px}
-.ml-8 { margin-left: 40px} .ml-100 { margin-left: 100px} .ml-150 { margin-left: 150px} .ml-200 { margin-left: 200px}
-/* RIGHT */         
-.mr-0 { margin-right: 0} .mr-1 { margin-right: 5px} .mr-2 { margin-right: 10px} .mr-3 { margin-right: 15px}
-.mr-4 { margin-right: 20px} .mr-5 { margin-right: 25px} .mr-6 { margin-right: 30px} .mr-7 { margin-right: 35px}
-.mr-8 { margin-right: 40px} .mr-100 { margin-right: 100px} .mr-200 { margin-right: 150px} .mr-150 { margin-right: 200px}
-/* TOP */           
-.mt-0 { margin-top: 0} .mt-1 { margin-top: 5px} .mt-2 { margin-top: 10px} .mt-3 { margin-top: 15px}
-.mt-4 { margin-top: 20px} .mt-5 { margin-top: 25px} .mt-6 { margin-top: 30px} .mt-7 { margin-top: 35px}
-.mt-8 { margin-top: 40px} .mt-100 { margin-top: 100px} .mt-200 { margin-top: 200px} .mt-150 { margin-top: 150px}
-/* BOTTOM */        
-.mb-0 { margin-bottom: 0} .mb-1 { margin-bottom: 5px} .mb-2 { margin-bottom: 10px} .mb-3 { margin-bottom: 15px}
-.mb-4 { margin-bottom: 20px} .mb-5 { margin-bottom: 25px} .mb-6 { margin-bottom: 30px} .mb-7 { margin-bottom: 35px}
-.mb-8 { margin-bottom: 40px} .mb-100 { margin-bottom: 100px} .mb-200 { margin-bottom: 200px} .mb-150 { margin-bottom: 150px}
-
-
-/* ALL */           
-.pa-0 { padding: 0} .pa-1 { padding: 5px} .pa-2 { padding: 10px} .pa-3 { padding: 15px}
-.pa-4 { padding: 20px} .pa-5 { padding: 25px} .pa-6 { padding: 30px} .pa-7 { padding: 35px}
-.pa-8 { padding: 40px} .pa-100 { padding: 100px} .pa-150 { padding: 150px} .pa-200 { padding: 200px}
-/* HORIZONTAL */
-.px-0 { padding-left: 0; padding-right: 0} .px-1 { padding-left: 5px; padding-right: 5px}
-.px-2 { padding-left: 10px; padding-right: 10px} .px-3 { padding-left: 15px; padding-right: 15px}
-.px-4 { padding-left: 20px; padding-right: 20px} .px-5 { padding-left: 25px; padding-right: 25px}
-.px-6 { padding-left: 30px; padding-right: 30px} .px-7 { padding-left: 35px; padding-right: 35px}
-.px-8 { padding-left: 40px; padding-right: 40px} .px-100 { padding-left: 100px; padding-right: 100px}
-.px-150 { padding-left: 150px; padding-right: 150px} .px-200 { padding-left: 200px; padding-right: 200px}
-/* VERTICAL */
-.py-0 { padding-top: 0; padding-bottom: 0} .py-1 { padding-top: 5px; padding-bottom: 5px}
-.py-2 { padding-top: 10px; padding-bottom: 10px} .py-3 { padding-top: 15px; padding-bottom: 15px}
-.py-4 { padding-top: 20px; padding-bottom: 20px} .py-5 { padding-top: 25px; padding-bottom: 25px}
-.py-6 { padding-top: 30px; padding-bottom: 30px} .py-7 { padding-top: 35px; padding-bottom: 35px}
-.py-8 { padding-top: 40px; padding-bottom: 40px} .py-100 { padding-top: 100px; padding-bottom: 100px}
-.py-200 { padding-top: 200px; padding-bottom: 200px} .py-150 { padding-top: 150px; padding-bottom: 150px}
-/* LEFT */          
-.pl-0 { padding-left: 0} .pl-1 { padding-left: 5px} .pl-2 { padding-left: 10px} .pl-3 { padding-left: 15px}
-.pl-4 { padding-left: 20px} .pl-5 { padding-left: 25px} .pl-6 { padding-left: 30px} .pl-7 { padding-left: 35px}
-.pl-8 { padding-left: 40px} .pl-100 { padding-left: 100px} .pl-150 { padding-left: 150px} .pl-200 { padding-left: 200px}
-/* RIGHT */         
-.pr-0 { padding-right: 0} .pr-1 { padding-right: 5px} .pr-2 { padding-right: 10px} .pr-3 { padding-right: 15px}
-.pr-4 { padding-right: 20px} .pr-5 { padding-right: 25px} .pr-6 { padding-right: 30px} .pr-7 { padding-right: 35px}
-.pr-8 { padding-right: 40px} .pr-100 { padding-right: 100px} .pr-200 { padding-right: 150px} .pr-150 { padding-right: 200px}
-/* TOP */           
-.pt-0 { padding-top: 0} .pt-1 { padding-top: 5px} .pt-2 { padding-top: 10px} .pt-3 { padding-top: 15px}
-.pt-4 { padding-top: 20px} .pt-5 { padding-top: 25px} .pt-6 { padding-top: 30px} .pt-7 { padding-top: 35px}
-.pt-8 { padding-top: 40px} .pt-100 { padding-top: 100px} .pt-200 { padding-top: 200px} .pt-150 { padding-top: 150px}
-/* BOTTOM */        
-.pb-0 { padding-bottom: 0} .pb-1 { padding-bottom: 5px} .pb-2 { padding-bottom: 10px} .pb-3 { padding-bottom: 15px}
-.pb-4 { padding-bottom: 20px} .pb-5 { padding-bottom: 25px} .pb-6 { padding-bottom: 30px} .pb-7 { padding-bottom: 35px}
-.pb-8 { padding-bottom: 40px} .pb-100 { padding-bottom: 100px} .pb-200 { padding-bottom: 200px} .pb-150 { padding-bottom: 150px}
-
-.ma-8px { margin: 8px}
-.mx-8px { margin-left: 8px; margin-right: 8px}
-.my-8px { margin-top: 8px; margin-bottom: 8px}
-.ml-8px { margin-left: 8px}
-.mr-8px { margin-right: 8px}
-.mt-8px { margin-top: 8px}
-.mb-8px { margin-bottom: 8px}
-
-.pa-8px { padding: 8px}
-.px-8px { padding-left: 8px; padding-right: 8px}
-.py-8px { padding-top: 8px; padding-bottom: 8px}
-.pl-8px { padding-left: 8px}
-.pr-8px { padding-right: 8px}
-.pt-8px { padding-top: 8px}
-.pb-8px { padding-bottom: 8px}
-
-
-
-/* ------------------------------------------ BODER ------------------------------------------ */
-.noborder {border: none; }
-.border-trans-1 {border:  1px solid transparent;}
-.border-trans {border:  1px solid transparent;}
-
-/* ALL */
-.bord-r-8 { border-radius: 8px; } .bord-r-12 { border-radius: 12px; } 
-.bord-r-5 { border-radius: 5px; } .bord-r-10 { border-radius: 10px; } .bord-r-15 { border-radius: 15px; }
-.bord-r-25 { border-radius: 25px; } .bord-r-50 { border-radius: 50px; } .bord-r-100p { border-radius: 100%; }
-/* LEFT */
-.bord-r-l-5 { border-radius: 5px 0 0 5px; } .bord-r-l-10 { border-radius: 10px 0 0 10px; } .bord-r-l-15 { border-radius: 15px 0 0 15px; }
-.bord-r-l-25 { border-radius: 25px 0 0 25px; } .bord-r-l-50 { border-radius: 50px 0 0 50px; }
-/* RIGHT */
-.bord-r-r-5 { border-radius: 0 5px 5px 0; } .bord-r-r-10 { border-radius: 0 10px 10px 0; } .bord-r-r-15 { border-radius: 0 15px 15px 0; }
-.bord-r-r-25 { border-radius: 0 25px 25px 0; } .bord-r-r-50 { border-radius: 0 50px 50px 0; }
-/* TOP RIGHT */
-.border-t-r-5 { border-radius: 5px 5px 0 0; } .border-t-r-10 { border-radius: 10px 10px 0 0; } .border-t-r-15 { border-radius: 15px 15px 0 0; }
-.border-t-r-25 { border-radius: 25px 25px 0 0; } .border-t-r-50 { border-radius: 50px 50px 0 0; }
-/* TOP LEFT */
-/* BOTTOM RIGHT */
-/* BOTTOM LEFT */
-.box-shadow-1-down {box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); }
-.box-shadow-2-down {box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
-.box-shadow-5-down {box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); }
-.box-shadow-7-down {box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); }
-.box-shadow-9-down {box-shadow: 0 2px 6px rgba(0, 0, 0, 0.9); }
-.box-shadow-1 {box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); }
-.box-shadow-2 {box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); }
-.box-shadow-5 {box-shadow: 0 0 6px rgba(0, 0, 0, 0.5); }
-.box-shadow-7 {box-shadow: 0 0 6px rgba(0, 0, 0, 0.7); }
-.box-shadow-9 {box-shadow: 0 0 6px rgba(0, 0, 0, 0.9); }
-
-.box-shadow-hov-1:hover {box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); }
-.box-shadow-hov-2:hover {box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); }
-.box-shadow-hov-5:hover {box-shadow: 0 0 6px rgba(0, 0, 0, 0.5); }
-.box-shadow-hov-7:hover {box-shadow: 0 0 6px rgba(0, 0, 0, 0.7); }
-.box-shadow-hov-9:hover {box-shadow: 0 0 6px rgba(0, 0, 0, 0.9); }
-
-
-
-/* ------------------------------------------ MEDIA QUERY ------------------------------------------ */
-/* show | display | none */
-
-/* 0600px */ /* 0601px */
-/* 0900px */ /* 0901px */
-/* 1200px */ /* 1201px */
-/* 1436px */ /* 1437px */
-
-/* Basic */
-
-/* Only Extra Small */
-@media (min-width: 0601px) { .show-xs { display: none !important } }
-/* Only Small */
-@media (min-width: 0901px) , (max-width: 0600px) { .show-sm { display: none !important } }
-/* Only Medium */
-@media (min-width: 1201px) , (max-width: 0900px) { .show-md { display: none !important } }
-/* Only Large */
-@media (min-width: 1437px) , (max-width: 1200px) { .show-lg { display: none !important } }
-/* Only Extra Large */
-@media (max-width: 1436px) { .show-xl { display: none !important } }
-
-/* Basic Range */
-/* From Extra Small to Small */
-@media (min-width: 0600px) { .show-xs_sm { display: none !important } }
-/* From Extra Small to Small */
-@media (min-width: 0901px) { .show-xs_md { display: none !important } }
-/* From Extra Small to Medium */
-@media (min-width: 1201px) { .show-xs_lg { display: none !important } }
-/* From Extra Small to Large */
-@media (min-width: 1437px) { .show-xs_xl { display: none !important } }
-/* From Small to Medium */
-@media (min-width: 1201px) , (max-width: 0600px) { .show-sm_md { display: none !important } }
-/* From Small to Large */
-@media (min-width: 1437px) , (max-width: 0600px) { .show-sm_xl { display: none !important } }
-/* From Small to Infinity */
-@media (max-width: 0600px) { .show-sm_x { display: none !important } }
-/* From Medium to Large */
-@media (max-width: 0900px) , (min-width: 1437px) { .show-md_lg { display: none !important } }
-/* From Medium to Infinity */
-@media (max-width: 0900px) { .show-md_x { display: none !important } }
-/* From Large to Infinity */
-@media (max-width: 1200px) { .show-lg_x { display: none !important } }
-/* From Large to Infinity */
-@media (max-width: 1436px) { .show-xl_x { display: none !important } }
-
-/* Basic Combo */
-/* Extra Small and Medium */
-@media (min-width: 0601px) , (max-width: 0900px) , (min-width: 1201px) { .show-xs-md { display: none !important } }
-/* Extra Small and Large */
-@media (min-width: 0601px) , (max-width: 1200px) , (min-width: 1437px) { .show-xs-lg { display: none !important } }
-/* Extra Small and Infinity */
-@media (min-width: 0601px) , (max-width: 1436px) { .show-xs-xl { display: none !important } }
-/* Small and Large */
-@media (max-width: 0600px) , (min-width: 0901px) , (max-width: 1200px) , (min-width: 1437px) { .show-sm-lg { display: none !important } }
-/* Small and Infinity */
-@media (max-width: 0600px) , (min-width: 0901px) , (max-width: 1436px) { .show-sm-xl { display: none !important } }
-/* Medium and Infinity */
-@media (max-width: 0900px) , (min-width: 1201px) , (max-width: 1436px){ .show-md-xl { display: none !important } }
-
-/* Advanced Range Combo */
-/* From Extra Small to Small and Large */
-@media (min-width: 0901px) , (max-width: 1200px) , (min-width: 1437px) { .show-xs_sm-lg { display: none !important } }
-/* From Extra Small to Small and Infinity */
-@media (min-width: 0901px) , (max-width: 1436px) { .show-xs_sm-xl { display: none !important } }
-/* From Extra Small to Medium and Infinity */
-@media (min-width: 1201px) , (max-width: 1436px) { .show-xs_md-xl { display: none !important } }
-/* From Small to Medium and Infinity */
-@media (max-width: 0576px) , (min-width: 0901px) , (max-width: 1200px) { .show-sm-lg_x { display: none !important } }
-
-
-
-/* ------------------------------------------ ANIMATION ------------------------------------------ */
-.appear-once-1 { animation: appear 1s;}
-.appear-once-2 { animation: appear 2s;}
-.appear-delay-1 { animation: appeardelay 0.5s;}
-.appear-delay-2 { animation: appeardelay 2s;}
-@keyframes appeardelay {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-@keyframes appear {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
-}
-.appear-hiding { opacity: 0; }
-.appear-hiding-1 { opacity: 0; transition: all 0.1s ease-in-out; }
-.appear-hiding-2 { opacity: 0; transition: all 0.2s ease-in-out; }
-.appear-appear { opacity: 1; }
-
-.spin-1 { animation: spin 1s;  animation-iteration-count: infinite }
-.spin-2 { animation: spin 2s;  animation-iteration-count: infinite }
-.spin-20 { animation: spin 20s;  animation-iteration-count: infinite }
-.spin-60 { animation: spin 60s;  animation-iteration-count: infinite }
-.huerotate-1 { animation: huerotate 20s;  animation-iteration-count: infinite }
-@keyframes huerotate { 0%{ filter: hue-rotate(0); } 50% { filter: hue-rotate(0.8rad); }
-100%{ filter: hue-rotate(0); } }
-@keyframes spin { 0%{ transform: rotate(0deg); } 100% { transform: rotate(359deg); } }
-
-
-.pump-20 { animation: pump 20s;  animation-iteration-count: infinite }
-@keyframes pump { 0%{ transform: scale(1); } 50% { transform: scale(1.06); }
-100%{ transform: scale(1); } }
-
-.hover-1 { animation: hover1 1s;  animation-iteration-count: infinite }
-.hover-2 { animation: hover 2s;  animation-iteration-count: infinite }
-.hover-3 { animation: hover 3s;  animation-iteration-count: infinite }
-.hover-4 { animation: hover 4s;  animation-iteration-count: infinite }
-
-@keyframes hover1 {
-    0%{ transform: translateY(-5px); }
-    50% { transform: translateY(5px); }
-    100% { transform: translateY(-5px); }
-}
-@keyframes hover {
-    0%{ transform: translateY(-10px); }
-    50% { transform: translateY(10px); }
-    100% { transform: translateY(-10px); }
-}
-.shake-1 { animation: shake 1s;  animation-iteration-count: infinite }
-.shake-2 { animation: shake 2s;  animation-iteration-count: infinite }
-@keyframes shake {
-    0%{ transform: translateX(0px); }
-    50% { transform: translateX(10px); }
-    100% { transform: translateX(0px); }
-}
-.shakefull-1 { animation: shakefull 0.1s;  animation-iteration-count: infinite }
-.shakefull-2 { animation: shakefull 0.2s;  animation-iteration-count: infinite }
-@keyframes shakefull {
-    0%{ transform: rotate(0deg); }
-    50% { transform: rotate(10deg); }
-    100% { transform: rotate(0deg); }
-}
-
-.fade-in {
-opacity: 1;
-animation-name: fadeInOpacity;
-animation-iteration-count: 1;
-animation-timing-function: ease-in;
-animation-duration: 2s;
-}
-
-@keyframes fadeInOpacity {
-0% {
-opacity: 0;
-}
-100% {
-opacity: 1;
-}
-}
-        </style>
+        <link type="text/css" rel="stylesheet" href="css/main.css">
+		<link type="text/css" rel="stylesheet" href="css/spirit.css">
 		<style>
 			body {
 				background-color: #f0f0f0;
@@ -687,10 +35,10 @@ opacity: 1;
                 top: 0;
                 left: 0;
                 display: flex;
-                justify-content: flex-center;
-                align-items: flex-start;
+                justify-content: flex-start;
+                align-items: flex-end;
                 flex-direction: column;
-                padding-left: 20px;
+                padding-right: 20px;
             }
             @media only screen and (min-width: 577px)
             {
@@ -731,17 +79,17 @@ opacity: 1;
 		</style>
 	</head>
 	<body>
-        <div class="flex-col " style="position: fixed; top: 0;padding-top: 25px">
+        <div class="flex-column " style="position: fixed; top: 0;padding-top: 25px">
             <div id="modal0" class="amodalscreen none">
                 <div class="" style="background: linear-gradient(25deg, #00000000 25%, #44444477 55%, #11111177 75%, #111111 85%, #000000)">
-                    <h1 class="flex-center tx-ls-3 tx-white mb-5">Abraham Duno  <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
-                    <div class="flex-col w-100">
-                        <span  class="tx-lg pa-4 mb-4 textBox w-max-700px " >
+                    <h1 class="flex-start tx-ls-3 tx-white mb-8">ABOUT US  <span class="pa-3 tx-xl opacity-hover-50 clickable selfCloseButton block ">x</span></h1>
+                    <div class="flex-column">
+                        <span  class="tx-lg pa-4 mb-4 textBox">
                             <span class="tx-orange">General Artist</span>
-                            & Software Developer with 6+ years of experience in full stack software development, 3d modeling & sculpting, rigging and animation for characters, architecture, motion graphics. 
+                            & Software Engineer with 6+ years of experience in modeling, sculpting, rigging and animation for characters, architecture, motion graphics. 
                         </span>
-                        <hr class="invisible my-2">
-                        <ul class="px-8 py-4 textBox mynewfont bg-glass-6  block">
+                        <!-- <hr class="opacity-50 my-8 w-50"> -->
+                        <ul class="px-8 py-4 textBox mynewfont">
                             <li class="tx-orange">Expert in design and creation of characters, people and creatures</li>
                             <li>Highly experienced in sculpting, modeling and texturing for games and 3d printing</li>
                             <li class="tx-orange">Skilled in many areas of architectural design and real state rendering</li>
@@ -754,102 +102,65 @@ opacity: 1;
             </div>
             <div id="modal1" class="amodalscreen none">
                 <div style="background: linear-gradient(25deg, #00000000 25%, #44444477 55%, #11111177 75%, #111111 85%, #000000)">
-                    <h1 class="flex-center tx-ls-3 tx-white mb-5">Art <br> Projects <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
+                    <h1 class="flex-start tx-ls-3 tx-white mb-8">LAST PROJECTS  <span class="pa-3 tx-xl opacity-hover-50 clickable selfCloseButton block ">x</span></h1>
                     <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="https://dunoabraham.artstation.com/projects/A9AoxW" target="_blank">Nameless Girl #1 </a>
                     <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="https://www.youtube.com/watch?v=vVE0Dpn3yEo" target="_blank">Nameless Girl #4 </a>
-                    
+                    <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="https://www.youtube.com/watch?v=Krs6xJTKlk0" target="_blank">Guacamisland </a>
                     <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="https://dunoabraham.artstation.com/projects/Kr3LwG" target="_blank">Warrior Couple </a>
-
-                    <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="https://dunoabraham.artstation.com/projects/qAagBy" target="_blank">Margarita Island </a>
-
-                    <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="https://dunoabraham.artstation.com/projects/mqa9ZZ" target="_blank">Gargoyle </a>
-
-                    <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="https://www.instagram.com/p/CJAW98QD7zO/" target="_blank">Harina Pan </a>
                 </div>
             </div>
             <div id="modal2" class="amodalscreen none">
                 <div style="background: linear-gradient(25deg, #00000000 25%, #44444477 55%, #11111177 75%, #111111 85%, #000000)">
-                    <h1 class="flex-center tx-ls-3 tx-white mb-5">Coding <br> Experiments  <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
+                    <h1 class="flex-start tx-ls-3 tx-white mb-8">CONTACT US  <span class="pa-3 tx-xl opacity-hover-50 clickable selfCloseButton block ">x</span></h1>
                     
-                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="http://duno.altervista.org/code/mm/" target="_blank">Mandala Maker</a>
-                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="http://duno.altervista.org/code/randomidea/" target="_blank">Random Ideas</a>
-                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="http://duno.altervista.org/code/random/" target="_blank">Random Idea</a>
-                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="http://duno.altervista.org/code/drawnimation/" target="_blank">Drawnimation</a>
-                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="http://duno.altervista.org/code/stranger/" target="_blank">Stranger Things</a>
-                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="http://duno.altervista.org/code/clerkshub/sports.php" target="_blank">Clerks Hub</a>
+                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://www.instagram.com/3duno/" target="_blank">Instagram|<small>@3duno</small></a>
+                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://www.youtube.com/channel/UC0A0qWopy-2BnqYvFoENkug" target="_blank">Youtube|@3duno</a>
+                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://dunoabraham.artstation.com/" target="_blank">Artstation|<small>@dunoabraham</small></a>
                     <!-- <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://abrahamduno.vercel.app/" target="_blank">Web Dev|<small>Abraham Duno</small></a>
                     <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://tresduno.vercel.app/" target="_blank">Video & Photo|<small>tresduno</small></a> -->
                 </div>
             </div>
             <div id="modal3" class="amodalscreen none">
                 <div style="background: linear-gradient(25deg, #00000000 25%, #44444477 55%, #11111177 75%, #111111 85%, #000000)">
-                    <h1 class="flex-center tx-ls-3 tx-white mb-5">Game <br> Prototypes <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
-                    <!-- <a class=" pa-2 " href="https://www.gimp.org/" target="_blank">GIMP</a> -->
-                    <!-- <a class=" pa-2 " href="https://www.blender.org" target="_blank">Blender</a>
-                    <a class=" pa-2 " href="https://www.mixamo.com/" target="_blank">Mixamo</a>
-                    <a class=" pa-2 " href="https://threejs.org/" target="_blank">ThreeJs</a> -->
-                    <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="https://www.youtube.com/watch?v=Krs6xJTKlk0" target="_blank">Guacamisland </a>
-
-                    <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="https://thrue-beta.vercel.app/" target="_blank">Thrue </a>
-                    <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="http://duno.altervista.org/games/snake/" target="_blank">Snake </a>
-                    <div class="flex-center">
-                        <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="http://duno.altervista.org/games/sum/" target="_blank">Sum </a>
-                        <div class="px-1 tx-lg">
-                            &
-                        </div>
-                        <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="http://duno.altervista.org/games/sumv2/" target="_blank">SumV2 </a>
-                    </div>
-                    <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="http://duno.altervista.org/games/colorplus/" target="_blank">ColorPlus+ </a>
-                    <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="http://duno.altervista.org/games/arepa2/" target="_blank">Arepa2 </a>
-                    <a style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" class=" px-4 py-2 " href="http://duno.altervista.org/games/guessing/" target="_blank">SportGuess </a>
-                    <!-- <a class=" pa-2 " href="https://vuejs.org/" target="_blank">VueJs</a> -->
-                </div>
-            </div>
-            <div id="modal5" class="amodalscreen none" >
-                <div class="flex-col" style="background: linear-gradient(25deg, #00000000 25%, #44444477 55%, #11111177 75%, #111111 85%, #000000); justify-content: flex-end;">
-                    <h1 class="flex-center tx-ls-3 tx-white mb-5">Contact US <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
-
-                    <!-- <ul class="px-8 py-4 textBox mynewfont">
+                    <h1 class="flex-start tx-ls-3 tx-white mb-8">TECH STACK <span class="pa-3 tx-xl opacity-hover-50 clickable selfCloseButton block ">x</span></h1>
+                    <ul class="px-8 py-4 textBox mynewfont">
 
                         <li class="tx-orange">BA, Computer Science - Universidad de Oriente, Nueva Esparta, Venezuela - 2016–2021</li>
                         <li>Proficient in several softwares like Blender, ZBrush, Cinema 4D and After Effects</li>
                         <li class="tx-orange">Knowledgeable in 3D Web inmplementation, as well as shader scripting</li>
                         <li>Expert in creating engaging and interactive websites, apps and games based on JS</li>
-                        <li class="tx-orange">Experienced in DevOps Tools like Github, Jira, Trello and Gitlab.</li>
-                    </ul> -->
-
+                        <li class="tx-orange">Highly experienced in DevOps Tools like Github, Jira, Trello and Gitlab.</li>
+                    </ul>
+                    <a class=" pa-2 " href="https://www.blender.org" target="_blank">Blender</a>
+                    <a class=" pa-2 " href="https://www.mixamo.com/" target="_blank">Mixamo</a>
+                    <!-- <a class=" pa-2 " href="https://www.gimp.org/" target="_blank">GIMP</a> -->
+                    <a class=" pa-2 " href="https://threejs.org/" target="_blank">ThreeJs</a>
+                    <!-- <a class=" pa-2 " href="https://vuejs.org/" target="_blank">VueJs</a> -->
+                </div>
+            </div>
+            <div id="modal5" class="amodalscreen none">
+                <div class="" style="background: linear-gradient(25deg, #00000000 25%, #44444477 55%, #11111177 75%, #111111 85%, #000000)">
+                    <h1 class="flex-start tx-ls-3 tx-white mb-8">REACH US <span class="pa-3 tx-xl opacity-hover-50 clickable selfCloseButton block ">x</span></h1>
                     <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="mailto:tresduno@gmail.com" target="_blank">Gmail|<small>tresduno</small></a>
                     <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://www.instagram.com/dunoabraham/" target="_blank">Instagram|<small>@dunoabraham</small></a>
-                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://www.instagram.com/3duno/" target="_blank">Instagram|<small>@3duno</small></a>
-                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://www.artstation.com/dunoabraham" target="_blank">Artstation|<small>dunoabraham</small></a>
-                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://github.com/abrahamduno" target="_blank">Github|<small>abrahamduno</small></a>
-
-                    <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://github.com/3dunoabraham" target="_blank">Github|<small>3dunoabraham</small></a>
-
                     <!-- <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://tresweb.vercel.app/" target="_blank">Web Dev Class|<small>tresweb</small></a> -->
                 </div>
             </div>
         </div>
-        <div class="flex-col " style="position: fixed; bottom: 0;padding-bottom: 25px; width: 96vw; margin-left: 2%;">
-            <!-- <div class="w-100" style="background: linear-gradient(-90deg, #ffffff44, #00000077, #ffffff44); height: 10px; transform: translateY(40px);position: relative;">
+        <div class="flex-column" style="position: fixed; bottom: 0;padding-bottom: 25px; width: 96vw; margin-left: 2%;">
+            <div class="w-100" style="background: linear-gradient(-90deg, #ffffff44, #00000077, #ffffff44); height: 10px; transform: translateY(40px);position: relative;">
                 
-            </div> -->
-            <div class="flex-wrap w-100 " >
-                <button class="ma-2 ma-0 tx-ls-2 tx-lgx flex-col clickble py-1 px-3 bord-r-8 opaci-hov-50 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene1">
-                    <div>Abraham</div>
-                    <div>Duno</div>
-                </button>
-                <button class="ma-2 ma-0 tx-ls-2 tx-xxl  clickble py-1 px-3 bord-r-8 opaci-hov-50 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene2">Art</button>
-                <button class="ma-2 ma-0 tx-ls-2 tx-xxl  clickble py-1 px-3 bord-r-8 opaci-hov-50 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene3">Code</button>
+            </div>
+            <div class="flex-between w-100 " >
+                <button class="ma-0 tx-ls-2 tx-xxl  clickable py-1 px-3 border-r-50 opacity-hover-50 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene1">3</button>
+                <button class="ma-0 tx-ls-2 tx-xxl  clickable py-1 px-3 border-r-50 opacity-hover-50 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene2">d</button>
+                <button class="ma-0 tx-ls-2 tx-xxl  clickable py-1 px-3 border-r-50 opacity-hover-50 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene3">u</button>
 
-                <button class="ma-2 ma-0 tx-ls-2 tx-xxl  clickble py-1 px-3 bord-r-8 opaci-hov-50 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene4">Games</button>
-                <button class="ma-2 ma-0 tx-ls-2 tx-lgx  clickble py-1 px-3 bord-r-8 opaci-hov-50 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene5">
-                    <div>Contact</div>
-                    <div>Us</div>
-                </button>
-                <!-- <button class="ma-0 tx-ls-2 tx-xxl  clickble pa-3 opaci-hov-50 scene-goto" style="background: #00000077;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene6">6</button>
-                <button class="ma-0 tx-ls-2 tx-xxl  clickble pa-3 opaci-hov-50 scene-goto" style="background: #00000077;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene7">7</button>
-                <button class="ma-0 tx-ls-2 tx-xxl  clickble pa-3 opaci-hov-50 scene-goto" style="background: #00000077;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene8">8</button> -->
+                <button class="ma-0 tx-ls-2 tx-xxl  clickable py-1 px-3 border-r-50 opacity-hover-50 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene4">n</button>
+                <button class="ma-0 tx-ls-2 tx-xxl  clickable py-1 px-3 border-r-50 opacity-hover-50 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene5">o</button>
+                <!-- <button class="ma-0 tx-ls-2 tx-xxl  clickable pa-3 opacity-hover-50 scene-goto" style="background: #00000077;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene6">6</button>
+                <button class="ma-0 tx-ls-2 tx-xxl  clickable pa-3 opacity-hover-50 scene-goto" style="background: #00000077;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene7">7</button>
+                <button class="ma-0 tx-ls-2 tx-xxl  clickable pa-3 opacity-hover-50 scene-goto" style="background: #00000077;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene8">8</button> -->
             </div>
         </div>
 		<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
@@ -1992,7 +1303,7 @@ THREE_OBJLoader.prototype = {
                 {
                     ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
                             let textgeometry = new THREE.TextGeometry( `
-                                Design, Modeling & Rendering for:
+                                Modeling & Rendering for:
 
                                 Characters & People
                                 Games & Films
@@ -2028,14 +1339,13 @@ THREE_OBJLoader.prototype = {
                 {
                     ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
                             let textgeometry = new THREE.TextGeometry( `
-                                Full-Stack Multi-Platform
-                                Software Development
+                                We Do:
 
-                                Planing & Diagramming
-                                Data Design & Class Modeling
-                                UI/UX Design & Development
-                                Posts & Products Implementation
-                                Third Part Integrations
+                                Scripting & Storyboard
+                                Design & Modeling & Sculpting
+                                Texturing & Lighting & Animation
+                                Rendering & Compositing
+                                Video & Audio Production
                                 3D Website Development`, {
                                 font: font,
                                 size: 1.25,
