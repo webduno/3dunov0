@@ -1653,6 +1653,7 @@ THREE_OBJLoader.prototype = {
 			let CLICKED;
 			let colors;
             let SELECTED;
+            let THEINDEX;
 			let light;
 			let theta = 0;
 
@@ -1685,6 +1686,7 @@ THREE_OBJLoader.prototype = {
                   adomscene.onclick = function(e) {
                     let theIndex = parseInt(e.currentTarget.id.replace("scene",""))
                     console.log("CLICKED DOM BUTTON", theIndex)
+                    THEINDEX =  theIndex
                     SELECTED =  {...scene.children[theIndex+1]}
                     CLICKED =   {...scene.children[theIndex+1]}
                     INTERSECTED =   {...scene.children[theIndex+1]}
@@ -1813,14 +1815,14 @@ THREE_OBJLoader.prototype = {
                                 {
                                     img:"./img/wp2100821-1187062037.jpg",
                                     wireframe:false,
-                                    camera:{pos:[20 ,5,15],lookAt:[0,0,0]},
+                                    camera:{pos:[0,0,0],lookAt:[0,0,0]},
                                     box:{pos:[0,0,0],scale:[0,0,0],rot:[0,0,0],},
                                     color:0xff9999,
                                 },
                                 {
                                     img:"./img/grrrid.jpg",
                                     wireframe:false,
-                                    camera:{pos:[20 ,5,15],lookAt:[0,0,0]},
+                                    camera:{pos:[0,0,0],lookAt:[0,0,0]},
                                     box:{pos:[0, -0,0],scale:[0,0,0],rot:[0,0,(3.14/4)*3],},
                                     color:0xff9999,
                                 },
@@ -1848,7 +1850,7 @@ THREE_OBJLoader.prototype = {
 								{
                                     img:"./img/grad6.jpg",
                                     wireframe:false,
-                                    camera:{pos:[20 ,5,15],lookAt:[0,0,0]},
+                                    camera:{pos:[20 ,5,-35],lookAt:[0,0,0]},
                                     box:{pos:[0,0,0],scale:[1,1,1],rot:[0,0,0],},
                                     color:0x99ffcc,
                                 },
@@ -2159,9 +2161,9 @@ THREE_OBJLoader.prototype = {
 
                             // textobject.position.x = 20
                             // textobject.position.y = 20
-                            textobject.position.x = 40
-                            textobject.position.z = 5
-                            textobject.position.y = 0
+                            textobject.position.x = 0
+                            textobject.position.z = 45
+                            textobject.position.y = 5
                             textobject.rotation.y = Math.PI/2
 
                             // object.position.x = 20
@@ -2474,20 +2476,23 @@ THREE_OBJLoader.prototype = {
 						// 	SELECTED.position.y + 15,
 						// 	0.5) + Math.sin(totalTimeElapsed/20)/80
 						// camera.position.z = SELECTED.position.z + 90
+                        // console.log("theIndex", theIndex)
+                                                // console.log("THEINDEX", THEINDEX)
+
 						camera.position.z = lerp(
 							camera.position.z,
-							SELECTED.position.z + 26+(colors[-(Math.floor(SELECTED.position.z/90))] ? colors[-(Math.floor(SELECTED.position.z/90))].camera.pos[2]:0 ),
+							SELECTED.position.z + 26+(colors[THEINDEX] ? colors[THEINDEX].camera.pos[2]:0 ),
 							0.25)
-						if (colors[-(Math.floor(SELECTED.position.z/90))])
+						if (colors[THEINDEX])
 						{
-							// if (colors[-(Math.floor(SELECTED.position.z/90))].camera.pos)
+							// if (colors[THEINDEX].camera.pos)
 							// {
-							// 	console.log(colors[-(Math.floor(SELECTED.position.z/90))].camera.pos)
+							// 	console.log(colors[THEINDEX].camera.pos)
 							// }
-                            camera.position.x = lerp(camera.position.x ,colors[-(Math.floor(SELECTED.position.z/90))].camera.pos[0],.05)
-                            camera.position.y = lerp(camera.position.y ,colors[parseInt(-(Math.floor(SELECTED.position.z/90)))].camera.pos[1],.05)
+                            camera.position.x = lerp(camera.position.x ,colors[THEINDEX].camera.pos[0],.05)
+                            camera.position.y = lerp(camera.position.y ,colors[parseInt(THEINDEX)].camera.pos[1],.05)
 						}
-						camera.lookAt( SELECTED.position.x, SELECTED.position.y+colors[parseInt(-(Math.floor(SELECTED.position.z/90)))].camera.lookAt[1], SELECTED.position.z   );
+						camera.lookAt( SELECTED.position.x, SELECTED.position.y+colors[parseInt(THEINDEX)].camera.lookAt[1], SELECTED.position.z   );
 					} else {
 					}
 						camera.position.y = camera.position.y+ Math.sin(totalTimeElapsed/20)/80
