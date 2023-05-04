@@ -735,7 +735,7 @@ opacity: 1;
             <div id="modal1" class="amodalscreen none">
                 <div class="" style="background: linear-gradient(25deg, #00000000 25%, #E2EFF377 55%, #ffffff77 75%, #E2EFF3 85%, #E2EFF3)">
                     <h1 class="flex-center tx-ls-3 tx- mb-5">Abraham Duno  <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
-                    <div class="flex-col w-100">
+                    <div class="flex-col flex-align-end w-100">
                         <span  class="tx-lg pa-4 mb-4 textBox w-max-700px " >
                             <span class="tx-orange">General Artist</span>
                             & Software Developer with 6+ years of experience in full stack software development and 3d modeling & sculpting. 
@@ -1850,7 +1850,7 @@ THREE_OBJLoader.prototype = {
 								{
                                     img:"./img/grad6.jpg",
                                     wireframe:false,
-                                    camera:{pos:[20 ,5,-35],lookAt:[0,0,0]},
+                                    camera:{pos:[-40 ,5,-55],lookAt:[0,0,0]},
                                     box:{pos:[0,0,0],scale:[1,1,1],rot:[0,0,0],},
                                     color:0x99ffcc,
                                 },
@@ -2148,8 +2148,8 @@ THREE_OBJLoader.prototype = {
                                 Prototyping & Fashion
                                 Unbuilt Spaces & Real State`, {
                                 font: font,
-                                size: 1.8,
-                                height: 0.2,
+                                size: 0.2,
+                                height: 0.01,
                                 // curveSegments: 2,
                                 // bevelEnabled: true,
                                 // bevelThickness: 1,
@@ -2161,10 +2161,10 @@ THREE_OBJLoader.prototype = {
 
                             // textobject.position.x = 20
                             // textobject.position.y = 20
-                            textobject.position.x = 25
-                            textobject.position.z = 40
-                            textobject.position.y = 5
-                            textobject.rotation.y = 0
+                            textobject.position.x = 45
+                            textobject.position.z = 80
+                            textobject.position.y = 8
+                            textobject.rotation.y = 0.5
 
                             // object.position.x = 20
                             // object.position.y = -11
@@ -2186,8 +2186,8 @@ THREE_OBJLoader.prototype = {
                                 Third Part Integrations
                                 3D Website Development`, {
                                 font: font,
-                                size: 1.25,
-                                height: 0.2,
+                                size: 0.25,
+                                height: 0.01,
                                 // curveSegments: 2,
                                 // bevelEnabled: true,
                                 // bevelThickness: 1,
@@ -2199,10 +2199,10 @@ THREE_OBJLoader.prototype = {
 
                             // textobject.position.x = 20
                             // textobject.position.y = 20
-                            textobject.position.z = 20
-                            textobject.position.x = 65
+                            textobject.position.z = 5
+                            textobject.position.x = 72
                             // textobject.position.z = -30
-                            textobject.position.y = 10
+                            textobject.position.y = 4
                             textobject.rotation.y = Math.PI/2
                             // textobject.rotation.x = -60
                             // textobject.rotation.z = -Math.PI
@@ -2232,8 +2232,8 @@ THREE_OBJLoader.prototype = {
                                 React, Vue, Web3`
                                 , {
                                 font: font,
-                                size: 1.5,
-                                height: 0.2,
+                                size: 0.2,
+                                height: 0.01,
                                 // curveSegments: 2,
                                 // bevelEnabled: true,
                                 // bevelThickness: 1,
@@ -2244,11 +2244,11 @@ THREE_OBJLoader.prototype = {
                             const textobject = new THREE.Mesh( textgeometry,
                                 new THREE.MeshLambertMaterial( { color: 0xffffff } ) );
 
-                            textobject.position.x = 60                           // textobject.position.y = 20
-                            textobject.position.z = -15
+                            textobject.position.x = 55                           // textobject.position.y = 20
+                            textobject.position.z = -37
                             // textobject.position.x = 63
                             // textobject.position.z = -30
-                            textobject.position.y = 10
+                            textobject.position.y = 7.3
                             // textobject.rotation.z = Math.PI/2
                             // textobject.rotation.x = -60
                             textobject.rotation.y = Math.PI/1.5
@@ -2497,6 +2497,7 @@ THREE_OBJLoader.prototype = {
 					} else {
 					}
 						camera.position.y = camera.position.y+ Math.sin(totalTimeElapsed/20)/80
+                        
 				renderer.render( scene, camera );
 
 			}
