@@ -869,15 +869,15 @@ opacity: 1;
                 
             </div> -->
             <div class="flex-wrap w-100 " >
-                <button class="ma-2 ma-0 tx-ls-2 tx-lg flex-col clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene1">
-                    <div>ABOUT ME</div>
+                <button class="ma-1 ma-0 tx-ls-2 tx-lg flex-col clickble py-1 px-1 bord-r-8 opaci-hov-75 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene1">
+                    <div>ABOUT <br> ME</div>
                 </button>
                 <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto"
                 style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene2">Art</button>
                 <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto"
                 style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene3">Code</button>
 
-                <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto"
+                <button class=" ma-1 tx-ls-2 tx-lx  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto"
                 style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene4">Games</button>
                 <button class=" ma-0 tx-ls-2 tx-lg  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto"
                 style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene5">
@@ -1822,7 +1822,7 @@ THREE_OBJLoader.prototype = {
                                 {
                                     img:"./img/grrrid.jpg",
                                     wireframe:false,
-                                    camera:{pos:[0,0,10],lookAt:[0,0,0]},
+                                    camera:{pos:[0,0,17],lookAt:[0,0,0]},
                                     box:{pos:[0, -0,0],scale:[0,0,0],rot:[0,0,(3.14/4)*3],},
                                     color:0xff9999,
                                 },
@@ -2148,7 +2148,7 @@ THREE_OBJLoader.prototype = {
                                 Prototyping & Fashion
                                 Unbuilt Spaces & Real State`, {
                                 font: font,
-                                size: 0.2,
+                                size: 0.1,
                                 height: 0.01,
                                 // curveSegments: 2,
                                 // bevelEnabled: true,
@@ -2157,13 +2157,14 @@ THREE_OBJLoader.prototype = {
                                 // bevelOffset: 0,
                                 // bevelSegments: 2
                             } );
-                            const textobject = new THREE.Mesh( textgeometry, new THREE.MeshLambertMaterial( { color: 0xffffff } ) );
+                            const textobject = new THREE.Mesh( textgeometry, 
+                            new THREE.MeshLambertMaterial( { color: 0x000, emissive: 0x000 } ) );
 
                             // textobject.position.x = 20
                             // textobject.position.y = 20
-                            textobject.position.x = 45
-                            textobject.position.z = 80
-                            textobject.position.y = 8
+                            textobject.position.x = 47
+                            textobject.position.z = 79
+                            textobject.position.y = 4.5
                             textobject.rotation.y = 0.5
 
                             // object.position.x = 20
@@ -2186,7 +2187,7 @@ THREE_OBJLoader.prototype = {
                                 Third Part Integrations
                                 3D Website Development`, {
                                 font: font,
-                                size: 0.25,
+                                size: 0.15,
                                 height: 0.01,
                                 // curveSegments: 2,
                                 // bevelEnabled: true,
@@ -2195,14 +2196,15 @@ THREE_OBJLoader.prototype = {
                                 // bevelOffset: 0,
                                 // bevelSegments: 2
                             } );
-                            const textobject = new THREE.Mesh( textgeometry, new THREE.MeshLambertMaterial( { color: 0xffffff } ) );
+                            const textobject = new THREE.Mesh( textgeometry, 
+                            new THREE.MeshLambertMaterial( { color: 0x000 } ) );
 
                             // textobject.position.x = 20
                             // textobject.position.y = 20
-                            textobject.position.z = 5
+                            textobject.position.z = 2.5
                             textobject.position.x = 72
                             // textobject.position.z = -30
-                            textobject.position.y = 4.5
+                            textobject.position.y = 0
                             textobject.rotation.y = Math.PI/2
                             // textobject.rotation.x = -60
                             // textobject.rotation.z = -Math.PI
@@ -2232,7 +2234,7 @@ THREE_OBJLoader.prototype = {
                                 React, Vue, Web3`
                                 , {
                                 font: font,
-                                size: 0.2,
+                                size: 0.15,
                                 height: 0.01,
                                 // curveSegments: 2,
                                 // bevelEnabled: true,
@@ -2242,13 +2244,13 @@ THREE_OBJLoader.prototype = {
                                 // bevelSegments: 2
                             } );
                             const textobject = new THREE.Mesh( textgeometry,
-                                new THREE.MeshLambertMaterial( { color: 0xffffff } ) );
+                                new THREE.MeshLambertMaterial( { color: 0x000 } ) );
 
                             textobject.position.x = 55                           // textobject.position.y = 20
-                            textobject.position.z = -37
+                            textobject.position.z = -38
                             // textobject.position.x = 63
                             // textobject.position.z = -30
-                            textobject.position.y = 7.5
+                            textobject.position.y = 4.8
                             // textobject.rotation.z = Math.PI/2
                             // textobject.rotation.x = -60
                             textobject.rotation.y = Math.PI/1.5
