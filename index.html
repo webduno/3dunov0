@@ -2053,66 +2053,66 @@ THREE_OBJLoader.prototype = {
             //       // document.querySelector('h1').style.display = 'none';
             //     } );
             {
-                objloader.load( './models/city1.obj', function ( object ) {
-                  // Store.state.scene.add( cube );
-               //    object.rotation.z = Math.PI;
-                  object.scale.set(0.0015,0.0015,0.0015)
-                    console.log(object)
-                    object.rotation.y -= Math.PI / 3
-                    // object.rotation.z -= Math.PI / 4
-                    // object.rotation.y += Math.PI / 4 * 1.6
-                    // object.rotation.y = Math.PI / 2
-                    object.position.x = -5
-                    object.position.z = -410
-                    object.position.y = 40.5
-                    // object.position.y = 5   
-                    object.castShadow = true
+//                 objloader.load( './models/city1.obj', function ( object ) {
+//                   // Store.state.scene.add( cube );
+//                //    object.rotation.z = Math.PI;
+//                   object.scale.set(0.0015,0.0015,0.0015)
+//                     console.log(object)
+//                     object.rotation.y -= Math.PI / 3
+//                     // object.rotation.z -= Math.PI / 4
+//                     // object.rotation.y += Math.PI / 4 * 1.6
+//                     // object.rotation.y = Math.PI / 2
+//                     object.position.x = -5
+//                     object.position.z = -410
+//                     object.position.y = 40.5
+//                     // object.position.y = 5   
+//                     object.castShadow = true
 
-                    // let material = new THREE.MeshLambertMaterial({ color: 0xffaa00 });
+//                     // let material = new THREE.MeshLambertMaterial({ color: 0xffaa00 });
 
-                    object.traverse( function (child)
-                    {
-                        if ( child instanceof THREE.Mesh )
-                        {
-                            child.material = new THREE.MeshLambertMaterial({ color: 0xcccccc })
-                        }
-                    })
-;                    // teslaT = new THREE.Mesh( object, material );
-                    // teslaT = object
-                    scene.add( object );
-                  // document.querySelector('h1').style.display = 'none';
-                } );
+//                     object.traverse( function (child)
+//                     {
+//                         if ( child instanceof THREE.Mesh )
+//                         {
+//                             child.material = new THREE.MeshLambertMaterial({ color: 0xcccccc })
+//                         }
+//                     })
+// ;                    // teslaT = new THREE.Mesh( object, material );
+//                     // teslaT = object
+//                     scene.add( object );
+//                   // document.querySelector('h1').style.display = 'none';
+//                 } );
             }
                         {
-                objloader.load( './models/city1.obj', function ( object ) {
-                  // Store.state.scene.add( cube );
-               //    object.rotation.z = Math.PI;
-                  object.scale.set(0.0015,0.0015,0.0015)
-                    console.log(object)
-                    // object.rotation.y -= Math.PI / 3
-                    object.rotation.z -= Math.PI
-                    // object.rotation.y += Math.PI / 4 * 1.6
-                    // object.rotation.y = Math.PI / 2
-                    object.position.x = -5
-                    object.position.z = -410
-                    object.position.y = 39.5
-                    // object.position.y = 5   
-                    object.castShadow = true
+            //     objloader.load( './models/city1.obj', function ( object ) {
+            //       // Store.state.scene.add( cube );
+            //    //    object.rotation.z = Math.PI;
+            //       object.scale.set(0.0015,0.0015,0.0015)
+            //         console.log(object)
+            //         // object.rotation.y -= Math.PI / 3
+            //         object.rotation.z -= Math.PI
+            //         // object.rotation.y += Math.PI / 4 * 1.6
+            //         // object.rotation.y = Math.PI / 2
+            //         object.position.x = -5
+            //         object.position.z = -410
+            //         object.position.y = 39.5
+            //         // object.position.y = 5   
+            //         object.castShadow = true
 
-                    // let material = new THREE.MeshLambertMaterial({ color: 0xffaa00 });
+            //         // let material = new THREE.MeshLambertMaterial({ color: 0xffaa00 });
 
-                    object.traverse( function (child)
-                    {
-                        if ( child instanceof THREE.Mesh )
-                        {
-                            child.material = new THREE.MeshLambertMaterial({ color: 0xcccccc })
-                        }
-                    });
-                    // teslaT = new THREE.Mesh( object, material );
-                    // teslaT = object
-                    scene.add( object );
-                  // document.querySelector('h1').style.display = 'none';
-                } );
+            //         object.traverse( function (child)
+            //         {
+            //             if ( child instanceof THREE.Mesh )
+            //             {
+            //                 child.material = new THREE.MeshLambertMaterial({ color: 0xcccccc })
+            //             }
+            //         });
+            //         // teslaT = new THREE.Mesh( object, material );
+            //         // teslaT = object
+            //         scene.add( object );
+            //       // document.querySelector('h1').style.display = 'none';
+            //     } );
             }
 
 
@@ -2263,39 +2263,39 @@ THREE_OBJLoader.prototype = {
                     } );
                 }
                 {
-                    ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
-                            let textgeometry = new THREE.TextGeometry( `
-                                Reach Us
-                                `, {
-                                font: font,
-                                size: 3,
-                                height: 0.2,
-                                // curveSegments: 2,
-                                // bevelEnabled: true,
-                                // bevelThickness: 1,
-                                // bevelSize: 0.5,
-                                // bevelOffset: 0,
-                                // bevelSegments: 2
-                            } );
-                            const textobject = new THREE.Mesh( textgeometry, new THREE.MeshLambertMaterial( { color: 0xffffff } ) );
+                    // ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
+                    //         let textgeometry = new THREE.TextGeometry( `
+                    //             Reach Us
+                    //             `, {
+                    //             font: font,
+                    //             size: 3,
+                    //             height: 0.2,
+                    //             // curveSegments: 2,
+                    //             // bevelEnabled: true,
+                    //             // bevelThickness: 1,
+                    //             // bevelSize: 0.5,
+                    //             // bevelOffset: 0,
+                    //             // bevelSegments: 2
+                    //         } );
+                    //         const textobject = new THREE.Mesh( textgeometry, new THREE.MeshLambertMaterial( { color: 0xffffff } ) );
 
-                            textobject.position.x = -50
-                            // textobject.position.y = 20
-                            textobject.position.z = -420
-                            // textobject.position.x = 63
-                            // textobject.position.z = -30
-                            textobject.position.y = 66
-                            // textobject.position.y = 55
-                            // textobject.rotation.z = Math.PI/2
-                            // textobject.rotation.x = -60
-                            // textobject.rotation.y = -Math.PI/4
+                    //         textobject.position.x = -50
+                    //         // textobject.position.y = 20
+                    //         textobject.position.z = -420
+                    //         // textobject.position.x = 63
+                    //         // textobject.position.z = -30
+                    //         textobject.position.y = 66
+                    //         // textobject.position.y = 55
+                    //         // textobject.rotation.z = Math.PI/2
+                    //         // textobject.rotation.x = -60
+                    //         // textobject.rotation.y = -Math.PI/4
 
-                            // object.position.x = 20
-                            // object.position.y = -11
-                            // object.position.z = -90
+                    //         // object.position.x = 20
+                    //         // object.position.y = -11
+                    //         // object.position.z = -90
 
-                            scene.add( textobject );
-                    } );
+                    //         scene.add( textobject );
+                    // } );
                 }
                 // {
                 //     ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
