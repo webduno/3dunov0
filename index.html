@@ -728,18 +728,24 @@ opacity: 1;
                 color: white;
             }
             .tx-orange {
-                color: #fd8b46;
+                color: #ff6600;
             }
             .tx-shadow {
                 text-shadow: 4px 4px 2px #00000077;
             }
             .textBox {
-                background: linear-gradient(-45deg,#111111,#00000077);
+                /* background: linear-gradient(-45deg,#111111,#00000077); */
+    /* background: linear-gradient(-135deg,#ffffff, #ffffff); */
+    background: linear-gradient(-135deg, #d7c6Bf, #7A7f7f);
+
                 box-shadow: 2px 2px 4px #00000077;
                 text-shadow: -1px 1px 0 #000;
                 margin: 2px 0;
                 color: white;
-            }
+    border-radius: 15px;
+
+     box-shadow: -2px 2px 0 2px #aAbEc1;
+}
 
 .scene-goto-btn-mbl {
     /* border: 1px solid red; */
@@ -784,6 +790,17 @@ opacity: 1;
                 box-shadow: -2px 2px 0 2px #8A867D, inset 2px 2px 1px #ffffff44;
             }
 
+
+            @media only screen and (max-width: 600px) {
+                .mobileresponsivelist {
+                background: linear-gradient(-45deg, #E7D6B677, #5A564Dbb);
+                    max-height: 350px;
+                    overflow: scroll;
+                    padding: 8px;
+                    border-radius: 8px;
+                }
+            }
+            
 		</style>
 	</head>
 	<body>
@@ -792,29 +809,31 @@ opacity: 1;
         </a>
         <div class="flex-col " style="position: fixed; top: 0;padding-top: 25px; background: white">
             <div id="modal1" class="amodalscreen none">
-                <div class="bg-glass-5" style="background: linear-gradient(25deg, #00000000 25%, #E2EFF3cc 55%, #ffffff77 75%, #E2EFF3 85%, #E2EFF3)">
+                <div class="bg-glass-5" style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77)">
                     <h1 class="flex-center tx-ls-3 tx- mb-5">Abraham Duno  <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
                     <div class="flex-col flex-align-end w-100">
-                        <span  class="tx-lg pa-4 mb-4 textBox w-max-700px " >
-                            <span class="tx-orange">General Artist</span>
-                            & Software Developer with 6+ years of experience in full stack software development and 3d modeling & sculpting. 
+                        <span  class="tx-lgx pa-4 mb-4 textBox w-max-600px tx-bold-2 "  style="line-height: 1.25em;">
+                            <span class="tx-bold-8 " style="color:#ffbb00; text-shadow: -2px 2px 0 #650;" >General Artist</span>
+                            &
+                            <span class="tx-bold-8 " style="color:#b8eaff; text-shadow: -2px 2px 0 #005A75">Software Developer</span>
+                            with 7+ years of experience in Full-Stack Multi-Platform App/Website Development and 3D Graphic Design & Production. 
                         </span>
                         <hr class="invisible my-2">
-                        <ul class="px-8 py-4 textBox mynewfont bg-glass-6 tx-mdl block show-sm_x">
-                            <li class="tx-orange">Characters & Creature Design</li>
-                            <li>Game & 3D Printing Experience</li>
-                            <li class="tx-orange">Architectural Design & Rendering</li>
+                        <ul class="px-8 py-4  mynewfont bg-glass-6 tx-lg block show-sm_x" style="background: white;">
+                            <li class="tx-bold-8 py-3 tx-blac">Game Dev & 3D Printing Experience</li>
+                            <li>Characters & Creature Design</li>
+                            <li class="tx-bold-8 py-3 tx-blac">Architectural Design & Rendering</li>
                             <li>Proficient in Blender & ZBrush</li>
-                            <li class="tx-orange">3D Web Design & Development</li>
+                            <li class="tx-bold-8 py-3 tx-blac">3D Web Design & Development</li>
                             <li>Motion Graphics Production</li>
                          
                         </ul>
-                        <ul class="px-4 py-1 textBox mynewfont bg-glass-6 tx-smd block show_xs">
-                            <li class="tx-orange">Characters & Creature Design</li>
-                            <li>Game & 3D Printing Experience</li>
-                            <li class="tx-orange">Architectural Design & Rendering</li>
+                        <ul class="px-4 py-1  mynewfont bg-glass-6 tx-smd block show-xs" style="background: white;">
+                            <li class="tx-bold-8 tx-blac">Game Dev & 3D Printing Experience</li>
+                            <li>Characters & Creature Design</li>
+                            <li class="tx-bold-8 tx-blac">Architectural Design & Rendering</li>
                             <li>Proficient in Blender & ZBrush</li>
-                            <li class="tx-orange">3D Web Design & Development</li>
+                            <li class="tx-bold-8 tx-blac">3D Web Design & Development</li>
                             <li>Motion Graphics Production</li>
                          
                         </ul>
@@ -824,8 +843,25 @@ opacity: 1;
             <div id="modal2" class="amodalscreen none">
                 <div style="background: linear-gradient(25deg, #00000000 25%, #E2EFF377 55%, #ffffff77 75%, #E2EFF3 85%, #E2EFF3)">
                     <h1 class="flex-center tx-ls-3 tx- mb-5">Art <br> Projects <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
-                    <a class="extLink1 px-4 py-2 " 
+                    <div class="flex-wrap gap-2 w-max-700px flex-justify-start mobileresponsivelist">
+                        <a class="extLink1 px-4 py-2 tx-xl " 
                     href="https://dunoabraham.artstation.com/projects/A9AoxW" target="_blank">Nameless Girl #1 </a>
+                    <hr class="w-100" />
+                    
+                    <a class="extLink1 px-4 py-2 " 
+                    href="https://www.youtube.com/watch?v=vVE0Dpn3yEo" target="_blank">Nameless Girl #4 </a>
+                    
+                    <a class="extLink1 px-4 py-2 " 
+                    href="https://dunoabraham.artstation.com/projects/Kr3LwG" target="_blank">Warrior Couple </a>
+
+                    <a class="extLink1 px-4 py-2 " 
+                    href="https://dunoabraham.artstation.com/projects/qAagBy" target="_blank">Margarita Island </a>
+
+                    <a class="extLink1 px-4 py-2 " 
+                    href="https://dunoabraham.artstation.com/projects/mqa9ZZ" target="_blank">Gargoyle </a>
+
+                    <a class="extLink1 px-4 py-2 " 
+                    href="https://www.instagram.com/p/CJAW98QD7zO/" target="_blank">Harina Pan </a>
                     <a class="extLink1 px-4 py-2 " 
                     href="https://www.youtube.com/watch?v=vVE0Dpn3yEo" target="_blank">Nameless Girl #4 </a>
                     
@@ -842,25 +878,42 @@ opacity: 1;
                     href="https://www.instagram.com/p/CJAW98QD7zO/" target="_blank">Harina Pan </a>
                 </div>
             </div>
+            </div>
             <div id="modal3" class="amodalscreen none">
                 <div style="background: linear-gradient(25deg, #00000000 25%, #E2EFF377 55%, #ffffff77 75%, #E2EFF3 85%, #E2EFF3)">
                     <h1 class="flex-center tx-ls-3 tx- mb-5">Coding <br> Experiments  <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
                     
-                    <a class=" px-4 py-2 tx-right extLink1"  
-                    href="http://duno.altervista.org/code/mm/" target="_blank">Mandala Maker</a>
-                    <a class=" px-4 py-2 tx-right extLink1"  
-                    href="http://duno.altervista.org/code/randomidea/" target="_blank">Random Ideas</a>
-                    <a class=" px-4 py-2 tx-right extLink1"  
-                    href="http://duno.altervista.org/code/random/" target="_blank">Random Idea</a>
-                    <a class=" px-4 py-2 tx-right extLink1"  
-                    href="http://duno.altervista.org/code/drawnimation/" target="_blank">Drawnimation</a>
-                    <a class=" px-4 py-2 tx-right extLink1"  
-                    href="http://duno.altervista.org/code/stranger/" target="_blank">Stranger Things</a>
-                    <a class=" px-4 py-2 tx-right extLink1"  
-                    href="http://duno.altervista.org/code/clerkshub/sports.php" target="_blank">Clerks Hub</a>
+                    <div class="flex-wrap gap-2 w-max-700px flex-justify-start mobileresponsivelist">
+
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/mm/" target="_blank">Mandala Maker</a>
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/randomidea/" target="_blank">Random Ideas</a>
+                        <hr class="w-100" />
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/random/" target="_blank">Random Idea</a>
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/drawnimation/" target="_blank">Drawnimation</a>
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/stranger/" target="_blank">Stranger Things</a>
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/clerkshub/sports.php" target="_blank">Clerks Hub</a>
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/mm/" target="_blank">Mandala Maker</a>
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/randomidea/" target="_blank">Random Ideas</a>
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/random/" target="_blank">Random Idea</a>
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/drawnimation/" target="_blank">Drawnimation</a>
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/stranger/" target="_blank">Stranger Things</a>
+                        <a class=" px-4 py-2 tx-right extLink1"  
+                        href="http://duno.altervista.org/code/clerkshub/sports.php" target="_blank">Clerks Hub</a>
                     <!-- <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://abrahamduno.vercel.app/" target="_blank">Web Dev|<small>Abraham Duno</small></a>
                     <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://tresduno.vercel.app/" target="_blank">Video & Photo|<small>tresduno</small></a> -->
                 </div>
+            </div>
             </div>
             <div id="modal4" class="amodalscreen none">
                 <div style="background: linear-gradient(25deg, #00000000 25%, #E2EFF377 55%, #ffffff77 75%, #E2EFF3 85%, #E2EFF3)">
@@ -869,28 +922,62 @@ opacity: 1;
                     <!-- <a class=" pa-2 " href="https://www.blender.org" target="_blank">Blender</a>
                     <a class=" pa-2 " href="https://www.mixamo.com/" target="_blank">Mixamo</a>
                     <a class=" pa-2 " href="https://threejs.org/" target="_blank">ThreeJs</a> -->
-                    <a class="extLink1 px-4 py-2 " 
-                    href="https://www.youtube.com/watch?v=Krs6xJTKlk0" target="_blank">Guacamisland </a>
 
-                    <a class="extLink1 px-4 py-2 " 
-                    href="https://thrue-beta.vercel.app/" target="_blank">Thrue </a>
-                    <a class="extLink1 px-4 py-2 " 
-                    href="http://duno.altervista.org/games/snake/" target="_blank">Snake </a>
-                    <div class="flex-center">
-                        <a class="extLink1 px-4 py-2 " 
-                        href="http://duno.altervista.org/games/sum/" target="_blank">Sum </a>
-                        <div class="px-1 tx-lg">
-                            &
-                        </div>
-                        <a class="extLink1 px-4 py-2 " 
-                        href="http://duno.altervista.org/games/sumv2/" target="_blank">SumV2 </a>
-                    </div>
-                    <a class="extLink1 px-4 py-2 " 
-                    href="http://duno.altervista.org/games/colorplus/" target="_blank">ColorPlus+ </a>
-                    <a class="extLink1 px-4 py-2 " 
-                    href="http://duno.altervista.org/games/arepa2/" target="_blank">Arepa2 </a>
-                    <a class="extLink1 px-4 py-2 " 
-                    href="http://duno.altervista.org/games/guessing/" target="_blank">SportGuess </a>
+
+
+    
+                    <div class="flex-wrap gap-2 w-max-700px flex-justify-start mobileresponsivelist">
+                    <a class="extLink1 px-4 py-2 flex-col gap-2"  
+                    href="https://www.youtube.com/watch?v=Krs6xJTKlk0" target="_blank">
+                    <div>Guacamisland</div>
+                    <img src="/img/Guacamisland.png" alt="" width="100">
+                 </a>
+
+                 <a class="extLink1 px-4 py-2 " 
+                 href="https://thrue-beta.vercel.app/" target="_blank">Thrue </a>
+                 <a class="extLink1 px-4 py-2 " 
+                 href="http://duno.altervista.org/games/snake/" target="_blank">Snake </a>
+                 <div class="flex-center">
+                     <a class="extLink1 px-4 py-2 " 
+                     href="http://duno.altervista.org/games/sum/" target="_blank">Sum </a>
+                     <div class="px-1 tx-lg">
+                         &
+                     </div>
+                     <a class="extLink1 px-4 py-2 " 
+                     href="http://duno.altervista.org/games/sumv2/" target="_blank">SumV2 </a>
+                 </div>
+                 <a class="extLink1 px-4 py-2 " 
+                 href="http://duno.altervista.org/games/colorplus/" target="_blank">ColorPlus+ </a>
+                 <a class="extLink1 px-4 py-2 " 
+                 href="http://duno.altervista.org/games/arepa2/" target="_blank">Arepa2 </a>
+                 <a class="extLink1 px-4 py-2 " 
+                 href="http://duno.altervista.org/games/guessing/" target="_blank">SportGuess </a>
+                 <a class="extLink1 px-4 py-2 " 
+                 href="https://thrue-beta.vercel.app/" target="_blank">Thrue </a>
+                 <a class="extLink1 px-4 py-2 " 
+                 href="http://duno.altervista.org/games/snake/" target="_blank">Snake </a>
+                 <div class="flex-center">
+                     <a class="extLink1 px-4 py-2 " 
+                     href="http://duno.altervista.org/games/sum/" target="_blank">Sum </a>
+                     <div class="px-1 tx-lg">
+                         &
+                     </div>
+                     <a class="extLink1 px-4 py-2 " 
+                     href="http://duno.altervista.org/games/sumv2/" target="_blank">SumV2 </a>
+                 </div>
+                 <a class="extLink1 px-4 py-2 " 
+                 href="http://duno.altervista.org/games/colorplus/" target="_blank">ColorPlus+ </a>
+                 <a class="extLink1 px-4 py-2 " 
+                 href="http://duno.altervista.org/games/arepa2/" target="_blank">Arepa2 </a>
+                 <a class="extLink1 px-4 py-2 " 
+                 href="http://duno.altervista.org/games/guessing/" target="_blank">SportGuess </a>
+                </div>
+
+
+
+
+
+
                     <!-- <a class=" pa-2 " href="https://vuejs.org/" target="_blank">VueJs</a> -->
                 </div>
             </div>
@@ -932,19 +1019,19 @@ opacity: 1;
         <div class="flex-col " style="position: fixed; bottom: 0;padding-bottom: 25px; width: 96vw; margin-left: 2%;">
             
             <div class="flex-wrap w-100 show-sm_x" >
-                <button class="ma-1 ma-0 tx-ls-2 tx-lg flex-col clickble py-1 px-1 bord-r-8 opaci-hov-75 scene-goto" style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene1">
-                    <div>ABOUT <br> ME</div>
+                <button class="ma-1 ma-0 tx-ls-2 tx-lg flex-col clickble py-1 px-1 bord-r-8 opaci-hov-75 scene-goto scene-goto-btn-mbl-extra1" id="scene1">
+                    <div>ABOUT</div>
                 </button>
-                <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto"
-                style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene2">Art</button>
-                <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto"
-                style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene3">Code</button>
+                <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto scene-goto-btn-mbl"
+                 id="scene2">Art</button>
+                <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto scene-goto-btn-mbl"
+                 id="scene3">Code</button>
 
-                <button class=" ma-1 tx-ls-2 tx-lx  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto"
-                style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene4">Games</button>
-                <button class=" ma-0 tx-ls-2 tx-lg  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto"
-                style="background: #ffffff44;border: none;text-shadow: 2px 3px #000000aa,  -2px 3px #00000077; color: #ccc" id="scene5">
-                    <div>CONTACT ME</div>
+                <button class=" ma-1 tx-ls-2 tx-lx  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto scene-goto-btn-mbl"
+                 id="scene4">Games</button>
+                <button class=" ma-0 tx-ls-2 tx-lg  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto scene-goto-btn-mbl-extra2"
+                 id="scene5">
+                    <div>CONTACT</div>
                 </button>
             </div>
             
@@ -2352,6 +2439,16 @@ THREE_OBJLoader.prototype = {
                             // object.position.z = -90
 
                             scene.add( textobject );
+
+
+        // Adding a sphere
+        const sphereGeometry = new THREE.SphereGeometry(2, 32, 32); // Sphere geometry with radius 1
+        const sphereMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff, emissive: 0x777777, opacity: 0.9, transparent: true }); // Red color
+        const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+
+        sphereMesh.position.set(48.2, 2, 76); // Position the sphere
+                            
+                            scene.add( sphereMesh )
                     } );
                 }
 
@@ -2364,7 +2461,7 @@ THREE_OBJLoader.prototype = {
                                 Planing & Diagramming
                                 Data Design & Class Modeling
                                 UI/UX Design & Development
-                                Posts & Products Implementation
+                                3D Products Catalogue
                                 Third Part Integrations
                                 3D Website Development`, {
                                 font: font,
@@ -2448,7 +2545,7 @@ THREE_OBJLoader.prototype = {
                             textobject.position.z = -37
                             // textobject.position.x = 63
                             // textobject.position.z = -30
-                            textobject.position.y = 5.5
+                            textobject.position.y = 5.2
                             // textobject.rotation.z = Math.PI/2
                             // textobject.rotation.x = -60
                             textobject.rotation.y = Math.PI/1.5
