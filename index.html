@@ -840,11 +840,14 @@ opacity: 1;
                     padding: 36px 48px 36px 24px;
                 }
             }
-            
+            .finishedLoading {
+                display: none;
+            }
 		</style>
 	</head>
 	<body>
-        <a class="nodeco pos-abs left-50p pt-4 " style="transform: translateX(-50%);" href="/">
+
+        <a class="nodeco pos-abs left-50p pt-4 " style="transform: translateX(-50%);" href="/" id="loadingWater">
             <img src="/favicon-32x32.png" alt="logo" width="48" class="box-shadow-5-down bord-r-100p">
         </a>
         <div class="flex-col " style="position: fixed; top: 0;padding-top: 25px; background: white">
@@ -2236,7 +2239,8 @@ THREE_OBJLoader.prototype = {
                 objloader.load( './models/island_water.obj', function ( object ) {
                   object.scale.set(11,11,11)
                     console.log(object)
-                    loadedWater = true
+                    // loadedWater = true
+                    document.getElementById("loadingWater").className += " finishedLoading"
                     object.position.x = 0
                     object.position.z = -10
                     object.position.y = -8
@@ -2829,7 +2833,7 @@ THREE_OBJLoader.prototype = {
                                 
 
 
-                                if (!loadedWater) {
+                                if (!                    document.getElementById("loadingWater").className.includes("finishedLoading")) {
 
 return;
 }
