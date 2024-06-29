@@ -893,11 +893,11 @@ opacity: 1;
                 </div>
             </div>
             <div id="modal2" class="amodalscreen none">
-                <div style="background: linear-gradient(25deg, #00000000 25%, #E2EFF377 55%, #ffffff77 75%, #E2EFF3 85%, #E2EFF3)">
+                <div style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77)">
                     <h1 class="flex-center tx-ls-3 tx- mb-5">Art <br> Projects <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
                     <div class="flex-wrap gap-2 w-max-700px flex-justify-start mobileresponsivelist">
                         <a class="extLink1 px-4 py-2 tx-xl " 
-                    href="https://dunoabraham.artstation.com/projects/A9AoxW" target="_blank">Nameless Girl #1 </a>
+                    href="https://www.instagram.com/p/CrhVUwZMC1M/" target="_blank">Jacobs Ladder </a>
                     <hr class="w-100" />
                     
                     <a class="extLink1 px-4 py-2 " 
@@ -932,7 +932,7 @@ opacity: 1;
             </div>
             </div>
             <div id="modal3" class="amodalscreen none">
-                <div style="background: linear-gradient(25deg, #00000000 25%, #E2EFF377 55%, #ffffff77 75%, #E2EFF3 85%, #E2EFF3)">
+                <div style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77)">
                     <h1 class="flex-center tx-ls-3 tx- mb-5">Coding <br> Experiments  <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
                     
                     <div class="flex-wrap gap-2 w-max-700px flex-justify-start mobileresponsivelist">
@@ -968,7 +968,7 @@ opacity: 1;
             </div>
             </div>
             <div id="modal4" class="amodalscreen none">
-                <div style="background: linear-gradient(25deg, #00000000 25%, #E2EFF377 55%, #ffffff77 75%, #E2EFF3 85%, #E2EFF3)">
+                <div style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77)">
                     <h1 class="flex-center tx-ls-3 tx- mb-5">Game <br> Prototypes <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
                     <!-- <a class=" pa-2 " href="https://www.gimp.org/" target="_blank">GIMP</a> -->
                     <!-- <a class=" pa-2 " href="https://www.blender.org" target="_blank">Blender</a>
@@ -1037,7 +1037,7 @@ opacity: 1;
             </div>
             <div id="modal5" class="amodalscreen none" >
                 <div class="flex-col" 
-                style="background: linear-gradient(25deg, #00000000 25%, #E2EFF377 55%, #ffffff77 75%, #E2EFF3 85%, #E2EFF3); justify-content: flex-start;">
+                style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77); justify-content: flex-start;">
                     <h1 class="flex-center tx-ls-3 tx- mb-5">Contact <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
 
                     <!-- <ul class="px-8 py-4 textBox mynewfont">
@@ -1873,10 +1873,10 @@ THREE_OBJLoader.prototype = {
             msg: "Hello World",
             goToIndex: 4,
         },
-        // "contact_section": {
-        //     msg: "Hello World",
-        //     goToIndex: 5,
-        // },
+        "contact_section": {
+            msg: "Hello World",
+            goToIndex: 5,
+        },
     }
 			const lerp = (x, y, a) => x * (1 - a) + y * a;
             const loadedWater = false
@@ -2056,7 +2056,7 @@ THREE_OBJLoader.prototype = {
 
     
     light = new THREE.PointLight( 0xFFDE9F, 1, 75 );
-    light.position.set( -15, 10, -50 );
+    light.position.set( -15, 5, -50 );
     // light.position.set( 10, 10, 20 );
     light.castShadow = true;            // default false
     scene.add( light );
@@ -2093,7 +2093,7 @@ THREE_OBJLoader.prototype = {
                                 {
                                     img:"./img/grrrid.jpg",
                                     wireframe:false,
-                                    camera:{pos:[0,0,17],lookAt:[0,0,0]},
+                                    camera:{pos:[30,30,70],lookAt:[0,0,0]},
                                     box:{pos:[0, -0,0],scale:[0,0,0],rot:[0,0,(3.14/4)*3],},
                                     color:0xff9999,
                                 },
@@ -2429,6 +2429,28 @@ THREE_OBJLoader.prototype = {
 				const ffontLoader = new THREE.FontLoader();
                 {
                     ffontLoader.load( 'fonts/Lilita One_Regular.json', function ( font ) {
+                            let textgeometry = new THREE.TextGeometry( '?', {
+                                font: font,
+                                size: 6,
+                                height: .1,
+                                curveSegments: 2,
+                                bevelEnabled: true,
+                                bevelThickness: 1,
+                                bevelSize: 0.5,
+                                bevelOffset: 0,
+                                bevelSegments: 2
+                            } );
+                            const textobject = new THREE.Mesh( textgeometry, new THREE.MeshStandardMaterial( { color: 0xff0000 } ) );
+                            textobject.position.z = 37.5
+                            textobject.name = "about_section"
+                            textobject.position.x = 6.5
+                            textobject.position.y = -9
+                            textobject.rotation.y = -0.25 
+                            scene.add( textobject );
+                    } );
+                }
+                {
+                    ffontLoader.load( 'fonts/Lilita One_Regular.json', function ( font ) {
                             let textgeometry = new THREE.TextGeometry( 'DUNO', {
                                 font: font,
                                 size: 10,
@@ -2543,7 +2565,7 @@ THREE_OBJLoader.prototype = {
         const sphereGeometry2 = new THREE.SphereGeometry(8, 3, 3); // Sphere geometry with radius 1
         const sphereMaterial2 = new THREE.MeshLambertMaterial({ color: 0xC0B6A3,castShadow:true,   }); // Red color
         const sphereMesh2 = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
-        sphereMesh2.name = "about_section"
+        sphereMesh2.name = "contact_section"
 
         sphereMesh2.position.set(-22, -9, -8); // Position the sphere
                             
