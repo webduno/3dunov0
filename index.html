@@ -9,13 +9,25 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <!-- <link type="text/css" rel="stylesheet" href="css/main.css">
 		<link type="text/css" rel="stylesheet" href="css/css.css"> -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+
         <style>
+            /* @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap'); */
+            .lilita-one-regular {
+                font-family: "Lilita One", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                }
             body {
                 margin: 0;
                 background-color: #000;
                 background: linear-gradient(45deg, #cc9944, #aaeeff, #44aaff);
                 color: #fff;
-                font-family: Monospace;
+                font-family: "Lilita One", sans-serif !important;
+                /* font-family: cursive !important; */
+                /* font-family: Monospace; */
                 font-size: 13px;
                 line-height: 24px;
                 overscroll-behavior: none;
@@ -683,6 +695,10 @@ opacity: 1;
             .mynewfont *,
             .mynewfont {
                 font-family: Arial;
+                
+                font-family: "Lilita One", sans-serif !important;
+                /* font-family: cursive !important; */
+
             }
 			.orangeDOM {
 				position: fixed;
@@ -709,16 +725,18 @@ opacity: 1;
                     font-size: 2.5em;
                 }
                 .amodalscreen > div h1 {
-                    font-size: 2.2em;
+                    font-size: 3.2em;
+                    line-height: 1.25em;
                 }
             }
             @media only screen and (max-width: 576px)
             {
                 .amodalscreen > div a {
-                    font-size: 1.6em;
+                    font-size: 1.7em;
                 }
                 .amodalscreen > div h1 {
-                    font-size: 1.5em;
+                    font-size: 2.3em;
+                    font-weight: 200;
                 }
             }
             /* .amodalscreen a {
@@ -733,18 +751,25 @@ opacity: 1;
             .tx-shadow {
                 text-shadow: 4px 4px 2px #00000077;
             }
-            .textBox {
+            .textBox > div {
+    background: linear-gradient(-135deg, #F1E7C2, #F1E7C2);
+    border-radius: 35px 0 0 35px;
+    box-shadow: -1px 1px 0 2px #591F03, 0 2px 3px #00000077;
+
+            }
+                .textBox {
+                    
                 /* background: linear-gradient(-45deg,#111111,#00000077); */
     /* background: linear-gradient(-135deg,#ffffff, #ffffff); */
-    background: linear-gradient(-135deg, #d7c6Bf, #7A7f7f);
+    background: linear-gradient(-135deg, #FEF266, #F09920);
 
                 box-shadow: 2px 2px 4px #00000077;
-                text-shadow: -1px 1px 0 #000;
+                text-shadow: -1px 1px 0 #000, 1px -1px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000;
                 margin: 2px 0;
                 color: white;
-    border-radius: 15px;
+    border-radius: 45px 0 0 45px;
 
-     box-shadow: -2px 2px 0 2px #aAbEc1;
+     box-shadow: -1px 1px 2px 2px #591F03;
 }
 
 .scene-goto-btn-mbl {
@@ -753,37 +778,45 @@ opacity: 1;
     border-radius: 15px;
     box-shadow: -2px 2px 0 2px #5A564D, inset 2px 2px 1px #ffffff44;
     color: #fff;
-    text-shadow: -1px 1px #000;
+    text-shadow: -2px 2px #000, 2px -2px #000, 2px 2px #000, -2px -2px #000;
     border: none;
+    font-weight: 6;
+    font-family: "Lilita One", sans-serif !important;
 
 }
 
 .scene-goto-btn-mbl-extra1 {
+    font-family: "Lilita One", sans-serif !important;
     /* border: 1px solid red; */
-    background: linear-gradient(-150deg, #71E0FF, #3977aF);
     border-radius: 15px;
-    box-shadow: -2px 2px 0 2px #3977aF, inset 2px 2px 1px #ffffff44;
+    background: linear-gradient(-150deg, #71E0FF, #37a1ff);
+    box-shadow: -2px 2px 1px 2px #001a31, inset 2px 2px 1px #ffffff99;
     color: #fff;
-    text-shadow: -1px 1px #000;
+    text-shadow: -2px 2px #000;
     border: none;
+    font-weight: 6;
 
 }
 .scene-goto-btn-mbl-extra2 {
+    font-family: "Lilita One", sans-serif !important;
     /* border: 1px solid red; */
-    background: linear-gradient(-150deg, #FFE071, #aF7739);
     border-radius: 15px;
-    box-shadow: -2px 2px 0 2px #aF7739, inset 2px 2px 1px #ffffff44;
+    background: linear-gradient(-150deg, #FCBD7F, #D95E0F);
+    box-shadow: -2px 2px 1px 2px #591F03, inset 2px 2px 1px #ffffff99;
     color: #fff;
-    text-shadow: -1px 1px #000;
+    text-shadow: -2px 2px #000;
     border: none;
+    font-weight: 6;
 
 }
             .extLink1 {
+                font-family: "Lilita One", sans-serif !important;
                 background: linear-gradient(-45deg, #E7D6B677, #5A564Dbb);
                 backdrop-filter: blur(4px);
                 -webkit-backdrop-filter: blur(4px);
                 text-shadow: -1px 1px 0 #000;
                 color: white;
+                font-weight: 200;
                 margin-bottom: 8px;
 
                 border-radius: 15px;
@@ -797,7 +830,14 @@ opacity: 1;
                     max-height: 350px;
                     overflow: scroll;
                     padding: 8px;
-                    border-radius: 8px;
+                    border-radius: 35px 0 0 35px;
+                    padding-top: 16px;
+                    padding-left: 16px;
+                }
+            }
+            @media only screen and (min-width: 600px) {
+                .textBox > div {
+                    padding: 36px 48px 36px 24px;
                 }
             }
             
@@ -811,32 +851,36 @@ opacity: 1;
             <div id="modal1" class="amodalscreen none">
                 <div class="bg-glass-5" style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77)">
                     <h1 class="flex-center tx-ls-3 tx- mb-5">Abraham Duno  <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
-                    <div class="flex-col flex-align-end w-100">
-                        <span  class="tx-lgx pa-4 mb-4 textBox w-max-600px tx-bold-2 "  style="line-height: 1.25em;">
-                            <span class="tx-bold-8 " style="color:#ffbb00; text-shadow: -2px 2px 0 #650;" >General Artist</span>
-                            &
-                            <span class="tx-bold-8 " style="color:#b8eaff; text-shadow: -2px 2px 0 #005A75">Software Developer</span>
-                            with 7+ years of experience in Full-Stack Multi-Platform App/Website Development and 3D Graphic Design & Production. 
+                    <div class="flex-col flex-align-end w-100 ">
+                        <span  class="tx-lgx pa-3 mb-4 textBox  w-max-600px tx-bold-2 "  style="line-height: 1.25em;">
+                            <div class="pa-3">
+                                <span class="tx-bold-2 tx-lx tx-ls-3" style="color:#ffaa00; text-shadow: -2px 2px 0 #410;" >General Artist</span>
+                                &
+                                <span class="tx-bold-2 tx-lx tx-ls-3" style="color:#72bdff; text-shadow: -2px 2px 0 #001a31">Software Developer</span>
+                                with 7+ years of experience in Full-Stack Multi-Platform App/Website Development and 3D Graphic Design & Production. 
+                            </div>
                         </span>
                         <hr class="invisible my-2">
-                        <ul class="px-8 py-4  mynewfont bg-glass-6 tx-lg block show-sm_x" style="background: white;">
-                            <li class="tx-bold-8 py-3 tx-blac">Game Dev & 3D Printing Experience</li>
+                        <div class=" scene-goto-btn-mbl-extra2 px-8 py-4   mynewfont bg-glass-6 tx-lg block show-sm_x" style="border-radius: 15px 0 0 15px;">
+                            <a style="color:white; text-shadow: -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000;" class="py-4  block" href="https://duno.vercel.app" target="_blank">Go to Blog</a>
+                            <!-- <li class="tx-bold-8 py-3 tx-blac">Game Dev & 3D Printing Experience</li>
                             <li>Characters & Creature Design</li>
                             <li class="tx-bold-8 py-3 tx-blac">Architectural Design & Rendering</li>
                             <li>Proficient in Blender & ZBrush</li>
                             <li class="tx-bold-8 py-3 tx-blac">3D Web Design & Development</li>
-                            <li>Motion Graphics Production</li>
+                            <li>Motion Graphics Production</li> -->
                          
-                        </ul>
-                        <ul class="px-4 py-1  mynewfont bg-glass-6 tx-smd block show-xs" style="background: white;">
-                            <li class="tx-bold-8 tx-blac">Game Dev & 3D Printing Experience</li>
+                        </div>
+                        <div class=" scene-goto-btn-mbl-extra2 px-4 pr-8  py-1  mynewfont bg-glass-6 tx-smd block show-xs" style="border-radius: 15px 0 0 15px;">
+                            <a style="color:white; text-shadow: -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000;" class="py-4  block" href="https://duno.vercel.app" target="_blank">Go to Blog</a>
+                            <!-- <li class="tx-bold-8 tx-blac">Game Dev & 3D Printing Experience</li>
                             <li>Characters & Creature Design</li>
                             <li class="tx-bold-8 tx-blac">Architectural Design & Rendering</li>
                             <li>Proficient in Blender & ZBrush</li>
                             <li class="tx-bold-8 tx-blac">3D Web Design & Development</li>
-                            <li>Motion Graphics Production</li>
+                            <li>Motion Graphics Production</li> -->
                          
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -930,7 +974,7 @@ opacity: 1;
                     <a class="extLink1 px-4 py-2 flex-col gap-2"  
                     href="https://www.youtube.com/watch?v=Krs6xJTKlk0" target="_blank">
                     <div>Guacamisland</div>
-                    <img src="/img/Guacamisland.png" alt="" width="100">
+                    <!-- <img src="/img/Guacamisland.png" alt="" width="100"> -->
                  </a>
 
                  <a class="extLink1 px-4 py-2 " 
@@ -950,6 +994,8 @@ opacity: 1;
                  href="http://duno.altervista.org/games/colorplus/" target="_blank">ColorPlus+ </a>
                  <a class="extLink1 px-4 py-2 " 
                  href="http://duno.altervista.org/games/arepa2/" target="_blank">Arepa2 </a>
+                 <hr class="w-100" />
+                 
                  <a class="extLink1 px-4 py-2 " 
                  href="http://duno.altervista.org/games/guessing/" target="_blank">SportGuess </a>
                  <a class="extLink1 px-4 py-2 " 
@@ -997,19 +1043,16 @@ opacity: 1;
 
                     <a class=" px-4 py-2 tx-right extLink1" 
                     
-                    href="https://twitter.com/tresduno" target="_blank">Twitter|<small>@tresduno</small></a>
+                    href="https://x.com/webduno" target="_blank">Twitter|<small>@webduno</small></a>
                     <a class=" px-4 py-2 tx-right extLink1" 
                     
-                    href="https://www.instagram.com/dunoabraham/" target="_blank">Instagram|<small>@dunoabraham</small></a>
+                    href="https://github.com/webduno" target="_blank">Github|<small>webduno</small></a>
                     <a class=" px-4 py-2 tx-right extLink1" 
                     
-                    href="https://www.instagram.com/3duno/" target="_blank">Instagram|<small>@3duno</small></a>
+                    href="https://github.com/webpov" target="_blank">Github|<small>webpov</small></a>
                     <a class=" px-4 py-2 tx-right extLink1" 
                     
-                    href="https://github.com/3dunoabraham" target="_blank">Github|<small>3dunoabraham</small></a>
-                    <a class=" px-4 py-2 tx-right extLink1" 
-                    
-                    href="https://github.com/abrahamduno" target="_blank">Github|<small>abrahamduno</small></a>
+                    href="mailto:webpovinfo@gmail.com" target="_blank">Email|webpovinfo<small>@gmail</small></a>
 
 
                     <!-- <a class=" px-4 py-2 tx-right" style="background: linear-gradient(-45deg,#111111,#00000077);box-shadow: 2px 2px 4px #00000077; margin: 2px 0" href="https://tresweb.vercel.app/" target="_blank">Web Dev Class|<small>tresweb</small></a> -->
@@ -1019,17 +1062,17 @@ opacity: 1;
         <div class="flex-col " style="position: fixed; bottom: 0;padding-bottom: 25px; width: 96vw; margin-left: 2%;">
             
             <div class="flex-wrap w-100 show-sm_x" >
-                <button class="ma-1 ma-0 tx-ls-2 tx-lg flex-col clickble py-1 px-1 bord-r-8 opaci-hov-75 scene-goto scene-goto-btn-mbl-extra1" id="scene1">
+                <button class="ma-1 ma-0 tx-ls-2 tx-lg flex-col clickble py-1 px-1 bord-r-8  scene-goto scene-goto-btn-mbl-extra1" id="scene1">
                     <div>ABOUT</div>
                 </button>
-                <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto scene-goto-btn-mbl"
+                <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8  scene-goto scene-goto-btn-mbl"
                  id="scene2">Art</button>
-                <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto scene-goto-btn-mbl"
+                <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8  scene-goto scene-goto-btn-mbl"
                  id="scene3">Code</button>
 
-                <button class=" ma-1 tx-ls-2 tx-lx  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto scene-goto-btn-mbl"
+                <button class=" ma-1 tx-ls-2 tx-xl  clickble py-1 px-3 bord-r-8  scene-goto scene-goto-btn-mbl"
                  id="scene4">Games</button>
-                <button class=" ma-0 tx-ls-2 tx-lg  clickble py-1 px-3 bord-r-8 opaci-hov-75 scene-goto scene-goto-btn-mbl-extra2"
+                <button class=" ma-1 tx-ls-2 tx-lg  clickble py-1 px-3 bord-r-8  scene-goto scene-goto-btn-mbl-extra2"
                  id="scene5">
                     <div>CONTACT</div>
                 </button>
@@ -1041,7 +1084,7 @@ opacity: 1;
                 <button class=" ma-1 tx-ls-2 tx-lg  clickble py-2 px-2  scene-goto scene-goto-btn-mbl"
                  id="scene3">Code</button>
 
-                <button class=" ma-1 tx-ls-2 tx-mdl  clickble py-2 px-2  scene-goto scene-goto-btn-mbl"
+                <button class=" ma-1 tx-ls-2 tx-lg  clickble py-2 px-2  scene-goto scene-goto-btn-mbl"
                  id="scene4">Games</button>
                 <button class="ma-1 ma-0 tx-ls-2 tx-md flex-col clickble py-2 px-2  scene-goto scene-goto-btn-mbl-extra1"  id="scene1">
                     <div>About</div>
@@ -1805,7 +1848,28 @@ THREE_OBJLoader.prototype = {
 
 
 
-
+    const actionsLookup = {
+        "about_section": {
+            msg: "Hello World",
+            goToIndex: 1,
+        },
+        "art_section": {
+            msg: "Hello World",
+            goToIndex: 2,
+        },
+        "code_section": {
+            msg: "Hello World",
+            goToIndex: 3,
+        },
+        "game_section": {
+            msg: "Hello World",
+            goToIndex: 4,
+        },
+        // "contact_section": {
+        //     msg: "Hello World",
+        //     goToIndex: 5,
+        // },
+    }
 			const lerp = (x, y, a) => x * (1 - a) + y * a;
 
 			let totalTimeElapsed = 0
@@ -1963,7 +2027,7 @@ THREE_OBJLoader.prototype = {
                 
 				// scene.background = new THREE.Color( 0xE2EFF3 );
 
-				light = new THREE.PointLight( 0xFFDE9F, 1, 100 );
+				light = new THREE.PointLight( 0xFFDE9F, 1.5, 100 );
     light.position.set( 40, 10, 40 );
     // light.position.set( 10, 10, 20 );
     light.castShadow = true;            // default false
@@ -2344,7 +2408,7 @@ THREE_OBJLoader.prototype = {
 
 				const ffontLoader = new THREE.FontLoader();
                 {
-                    ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
+                    ffontLoader.load( 'fonts/Lilita One_Regular.json', function ( font ) {
                             let textgeometry = new THREE.TextGeometry( 'DUNO', {
                                 font: font,
                                 size: 10,
@@ -2357,6 +2421,7 @@ THREE_OBJLoader.prototype = {
                                 bevelSegments: 2
                             } );
                             const textobject = new THREE.Mesh( textgeometry, new THREE.MeshStandardMaterial( { color: 0xffffff } ) );
+                            textobject.name = "about_section"
                             textobject.position.z = 15
                             textobject.position.x = -20
                             textobject.position.y = 5
@@ -2365,7 +2430,7 @@ THREE_OBJLoader.prototype = {
                     } );
                 }
                 {
-                    ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
+                    ffontLoader.load( 'fonts/Lilita One_Regular.json', function ( font ) {
                             let textgeometry = new THREE.TextGeometry( 'web', {
                                 font: font,
                                 size: 13,
@@ -2378,6 +2443,7 @@ THREE_OBJLoader.prototype = {
                                 bevelSegments: 2
                             } );
                             const textobject = new THREE.Mesh( textgeometry, new THREE.MeshStandardMaterial( { color: 0xffffff } ) );
+                            textobject.name = "contact_section"
                             textobject.position.z = 13
                             textobject.position.x = -17
                             textobject.position.y = 25
@@ -2415,6 +2481,7 @@ THREE_OBJLoader.prototype = {
 
 
 
+                            textobject.name = "art_section"
 
 
 
@@ -2445,6 +2512,7 @@ THREE_OBJLoader.prototype = {
         const sphereGeometry = new THREE.SphereGeometry(2, 32, 32); // Sphere geometry with radius 1
         const sphereMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff, emissive: 0x777777, opacity: 0.9, transparent: true }); // Red color
         const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+        sphereMesh.name = "art_section"
 
         sphereMesh.position.set(48.2, 2, 76); // Position the sphere
                             
@@ -2477,6 +2545,7 @@ THREE_OBJLoader.prototype = {
                             const textobject = new THREE.Mesh( textgeometry, 
                             new THREE.MeshLambertMaterial( { color: 0x000 } ) );
 
+                            textobject.name = "code_section"
                             // textobject.position.x = 20
                             // textobject.position.y = 20
                             // textobject.position.z = -30
@@ -2549,6 +2618,7 @@ THREE_OBJLoader.prototype = {
                             // textobject.rotation.z = Math.PI/2
                             // textobject.rotation.x = -60
                             textobject.rotation.y = Math.PI/1.5
+                            textobject.name = "game_section"
 
                             // object.position.x = 20
                             // object.position.y = -11
@@ -2739,7 +2809,7 @@ THREE_OBJLoader.prototype = {
 
 						if ( INTERSECTED )
 						{
-							INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+							if(INTERSECTED?.material?.emissive) { INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex ); }
 						}
 
 						INTERSECTED = intersects[ 0 ].object;
@@ -2747,8 +2817,94 @@ THREE_OBJLoader.prototype = {
 						{
 							orange = true
 						}
-						INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-						INTERSECTED.material.emissive.setHex( 0x550000 );
+						if(INTERSECTED?.material?.emissive) { INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex(); }
+						if(INTERSECTED?.material?.emissive) { INTERSECTED.material.emissive.setHex( 0x005500 ); }
+
+                        // console.log("INTERSECTED", INTERSECTED)
+                        if (INTERSECTED.name in actionsLookup) {
+                            const lookupItem = actionsLookup[INTERSECTED.name]
+                            if (lookupItem.goToIndex) {
+                                // alert(lookupItem.msg)
+                                
+
+
+
+
+
+
+
+
+
+
+                                var sceness = document.querySelectorAll('.amodalscreen');
+let modalAlreadyOpen = false;
+sceness.forEach(function(adomscene) {
+    if (!adomscene.classList.contains('none')) {
+        modalAlreadyOpen = true;
+
+        return; // Early return if a modal is already open
+    }
+});
+
+console.log("modalAlreadyOpen", modalAlreadyOpen)
+if (modalAlreadyOpen) {
+
+    return;
+} else {
+    if(INTERSECTED?.material?.emissive) { INTERSECTED.material.emissive.setHex( 0x000000 ); }
+
+}
+
+
+                                let theIndex = lookupItem.goToIndex
+                    // console.log("CLICKED DOM BUTTON", theIndex)
+                    if (theIndex == THEINDEX) {return}
+                    THEINDEX =  theIndex
+                    SELECTED =  {...scene.children[theIndex+1]}
+                    CLICKED =   {...scene.children[theIndex+1]}
+                    INTERSECTED =   {...scene.children[theIndex+1]}
+                    
+                    camera.lookAt(
+                        SELECTED.position.x + colors[theIndex].camera.lookAt[0],
+                        SELECTED.position.y + colors[theIndex].camera.lookAt[1],
+                        SELECTED.position.z + colors[theIndex].camera.lookAt[2]
+                    )
+
+
+
+                    sceness.forEach(function(adomscene) {
+                        if ("modal"+theIndex != adomscene.id)
+                        {
+                            adomscene.className += " none"
+                        } else {
+                        }
+                    })
+                    if ( document.getElementById("modal"+theIndex ) )
+                    {
+                        document.getElementById("modal"+theIndex ).classList.toggle("none")
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            }
+
+
+                        }
 
 					}
 
