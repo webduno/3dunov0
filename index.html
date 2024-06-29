@@ -1802,6 +1802,57 @@ THREE_OBJLoader.prototype = {
 
 
 
+function handleEvent(e) {
+        console.log("asd", INTERSECTED.name);
+        if (INTERSECTED && INTERSECTED.name in actionsLookup) {
+        const lookupItem = actionsLookup[INTERSECTED.name];
+        console.log("lookupItem", lookupItem);
+
+        var sceness = document.querySelectorAll('.amodalscreen');
+        let modalAlreadyOpen = false;
+        sceness.forEach(function(adomscene) {
+            if (!adomscene.classList.contains('none')) {
+                modalAlreadyOpen = true;
+                return; // Early return if a modal is already open
+            }
+        });
+
+        console.log("modalAlreadyOpen", modalAlreadyOpen);
+
+        if (modalAlreadyOpen) {
+            console.log("modalAlreadyOpen213", modalAlreadyOpen);
+            return;
+        } else {
+            console.log("777");
+            if (INTERSECTED?.material?.emissive) {
+                INTERSECTED.material.emissive.setHex(0x000000);
+            }
+        }
+
+        let theIndex = lookupItem.goToIndex;
+        console.log("theIndex == THEINDEX", theIndex, THEINDEX);
+        if (theIndex == THEINDEX) { return; }
+        THEINDEX = theIndex;
+        SELECTED = { ...scene.children[theIndex + 1] };
+        CLICKED = { ...scene.children[theIndex + 1] };
+        INTERSECTED = { ...scene.children[theIndex + 1] };
+
+        camera.lookAt(
+            SELECTED.position.x + colors[theIndex].camera.lookAt[0],
+            SELECTED.position.y + colors[theIndex].camera.lookAt[1],
+            SELECTED.position.z + colors[theIndex].camera.lookAt[2]
+        );
+
+        sceness.forEach(function(adomscene) {
+            if ("modal" + theIndex != adomscene.id) {
+                adomscene.className += " none";
+            }
+        });
+        if (document.getElementById("modal" + theIndex)) {
+            document.getElementById("modal" + theIndex).classList.toggle("none");
+        }
+    }
+}
 
 
 
@@ -1937,56 +1988,6 @@ THREE_OBJLoader.prototype = {
 
 
 
-                function handleEvent(e) {
-    if (INTERSECTED && INTERSECTED.name in actionsLookup) {
-        const lookupItem = actionsLookup[INTERSECTED.name];
-        console.log("asd");
-
-        var sceness = document.querySelectorAll('.amodalscreen');
-        let modalAlreadyOpen = false;
-        sceness.forEach(function(adomscene) {
-            if (!adomscene.classList.contains('none')) {
-                modalAlreadyOpen = true;
-                return; // Early return if a modal is already open
-            }
-        });
-
-        console.log("modalAlreadyOpen", modalAlreadyOpen);
-
-        if (modalAlreadyOpen) {
-            console.log("modalAlreadyOpen213", modalAlreadyOpen);
-            return;
-        } else {
-            console.log("777");
-            if (INTERSECTED?.material?.emissive) {
-                INTERSECTED.material.emissive.setHex(0x000000);
-            }
-        }
-
-        let theIndex = lookupItem.goToIndex;
-        console.log("theIndex == THEINDEX", theIndex, THEINDEX);
-        if (theIndex == THEINDEX) { return; }
-        THEINDEX = theIndex;
-        SELECTED = { ...scene.children[theIndex + 1] };
-        CLICKED = { ...scene.children[theIndex + 1] };
-        INTERSECTED = { ...scene.children[theIndex + 1] };
-
-        camera.lookAt(
-            SELECTED.position.x + colors[theIndex].camera.lookAt[0],
-            SELECTED.position.y + colors[theIndex].camera.lookAt[1],
-            SELECTED.position.z + colors[theIndex].camera.lookAt[2]
-        );
-
-        sceness.forEach(function(adomscene) {
-            if ("modal" + theIndex != adomscene.id) {
-                adomscene.className += " none";
-            }
-        });
-        if (document.getElementById("modal" + theIndex)) {
-            document.getElementById("modal" + theIndex).classList.toggle("none");
-        }
-    }
-}
 
 // document.addEventListener("click", handleEvent);
 document.addEventListener("mousedown", handleEvent);
@@ -2998,8 +2999,11 @@ function isMobileDevice() {
     return hasTouchScreen || isMobileUA;
 }
 if (isMobileDevice()) {
-    alert()
-    handleEvent()
+    // alert()
+    setTimeout(()=>{
+console.log("qqqqq")
+        handleEvent({})
+    }, 300)
 }
 
 
