@@ -1871,7 +1871,7 @@ THREE_OBJLoader.prototype = {
         // },
     }
 			const lerp = (x, y, a) => x * (1 - a) + y * a;
-
+            const loadedWater = false
 			let totalTimeElapsed = 0
 			let tRate = 0.5
 			let container;
@@ -2236,6 +2236,7 @@ THREE_OBJLoader.prototype = {
                 objloader.load( './models/island_water.obj', function ( object ) {
                   object.scale.set(11,11,11)
                     console.log(object)
+                    loadedWater = true
                     object.position.x = 0
                     object.position.z = -10
                     object.position.y = -8
@@ -2828,6 +2829,11 @@ THREE_OBJLoader.prototype = {
                                 
 
 
+                                if (!loadedWater) {
+
+return;
+}
+
 
 
 
@@ -2847,6 +2853,8 @@ sceness.forEach(function(adomscene) {
 });
 
 console.log("modalAlreadyOpen", modalAlreadyOpen)
+console.log("modalAlreadyOpen", modalAlreadyOpen)
+
 if (modalAlreadyOpen) {
 
     return;
