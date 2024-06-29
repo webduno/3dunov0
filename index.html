@@ -2963,9 +2963,44 @@ return;
 
 
 
+function isMobileDevice() {
+    let hasTouchScreen = false;
+    let isMobileUA = false;
 
+    if ("maxTouchPoints" in navigator) {
+        console.log("Checking maxTouchPoints in navigator.");
+        hasTouchScreen = navigator.maxTouchPoints > 0;
+    } else if ("msMaxTouchPoints" in navigator) {
+        console.log("Checking msMaxTouchPoints in navigator.");
+        hasTouchScreen = navigator.msMaxTouchPoints > 0;
+    } else if (window.matchMedia && matchMedia("(pointer:coarse)").matches) {
+        console.log("Checking matchMedia with (pointer: coarse).");
+        hasTouchScreen = true;
+    } else if ('orientation' in window) {
+        console.log("Checking window.orientation.");
+        hasTouchScreen = true; // This is a deprecated method but a good fallback.
+    } else {
+        console.log("Falling back to user agent string.");
+        const userAgent = navigator.userAgent;
+        isMobileUA = /\b(BlackBerry|webOS|iPhone|IEMobile|Android|Windows Phone|iPad|iPod)\b/i.test(userAgent);
+    }
 
+    // Ensure it's truly a mobile device and not a desktop with touch support
+    if (hasTouchScreen) {
+        console.log("Device has touch screen capabilities.");
+        if (!isMobileUA && window.innerWidth > 800) {
+            console.log("Touch screen but likely a desktop due to large screen size.");
+            hasTouchScreen = false;
+        }
+    }
 
+    console.log(`hasTouchScreen: ${hasTouchScreen}, isMobileUA: ${isMobileUA}`);
+    return hasTouchScreen || isMobileUA;
+}
+if (isMobileDevice()) {
+    alert()
+    handleEvent()
+}
 
 
 
