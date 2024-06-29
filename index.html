@@ -2314,7 +2314,8 @@ if(INTERSECTED?.material?.emissive) { INTERSECTED.material.emissive.setHex( 0x00
                         if ( child instanceof THREE.Mesh )
                         {
                             child.material = new THREE.MeshStandardMaterial({
-                color: 0xC7E4EC,
+                color: 0xC7E4fC,
+                emissive: 0x37647C,
                 opacity: 0.9,
                 transparent: true,
                 roughness: 0.1, // Lower roughness
@@ -2483,10 +2484,10 @@ if(INTERSECTED?.material?.emissive) { INTERSECTED.material.emissive.setHex( 0x00
 
 				const ffontLoader = new THREE.FontLoader();
                 {
-                    ffontLoader.load( 'fonts/Lilita One_Regular.json', function ( font ) {
+                    ffontLoader.load( 'fonts/helvetiker_regular.typeface.json', function ( font ) {
                             let textgeometry = new THREE.TextGeometry( '?', {
                                 font: font,
-                                size: 6,
+                                size: 8,
                                 height: .1,
                                 curveSegments: 2,
                                 bevelEnabled: true,
@@ -2495,7 +2496,7 @@ if(INTERSECTED?.material?.emissive) { INTERSECTED.material.emissive.setHex( 0x00
                                 bevelOffset: 0,
                                 bevelSegments: 2
                             } );
-                            const textobject = new THREE.Mesh( textgeometry, new THREE.MeshStandardMaterial( { color: 0xff0000 } ) );
+                            const textobject = new THREE.Mesh( textgeometry, new THREE.MeshStandardMaterial( { color: 0xff0000, emissive: 0x220000 } ) );
                             textobject.position.z = 37.5
                             textobject.name = "about_section"
                             textobject.position.x = 6.5
