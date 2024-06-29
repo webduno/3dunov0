@@ -846,8 +846,13 @@ opacity: 1;
 		</style>
 	</head>
 	<body>
+        <div class="tx-center  pos-abs py-4 tx-xl left-50p pt-4 z-100 " style="transform: translateX(-50%); line-height: 1.2em;" id="loadingWater">
+            <div class="hover-4">Loading</div>
+            <div>Please, wait...</div>
+            
+        </div>
 
-        <a class="nodeco pos-abs left-50p pt-4 " style="transform: translateX(-50%);" href="/" id="loadingWater">
+        <a class="nodeco pos-abs left-50p pt-4 none" style="transform: translateX(-50%);" href="/"  id="mainlogo">
             <img src="/favicon-32x32.png" alt="logo" width="48" class="box-shadow-5-down bord-r-100p">
         </a>
         <div class="flex-col " style="position: fixed; top: 0;padding-top: 25px; background: white">
@@ -2051,7 +2056,7 @@ THREE_OBJLoader.prototype = {
 
     
     light = new THREE.PointLight( 0xFFDE9F, 1, 75 );
-    light.position.set( 0, 10, -50 );
+    light.position.set( -15, 10, -50 );
     // light.position.set( 10, 10, 20 );
     light.castShadow = true;            // default false
     scene.add( light );
@@ -2241,6 +2246,8 @@ THREE_OBJLoader.prototype = {
                     console.log(object)
                     // loadedWater = true
                     document.getElementById("loadingWater").className += " finishedLoading"
+                    document.getElementById("mainlogo").className +=                     document.getElementById("mainlogo").className.replace("none","")
+                    
                     object.position.x = 0
                     object.position.z = -10
                     object.position.y = -8
@@ -2251,7 +2258,15 @@ THREE_OBJLoader.prototype = {
                     {
                         if ( child instanceof THREE.Mesh )
                         {
-                            child.material = new THREE.MeshLambertMaterial({ color: 0xC7E4EC, opacity: 0.9, transparent: true })
+                            child.material = new THREE.MeshStandardMaterial({
+                color: 0xC7E4EC,
+                opacity: 0.9,
+                transparent: true,
+                roughness: 0.1, // Lower roughness
+                metalness: 0.5, // Increase metalness
+                specular: 1.0 // Increase specular
+            });
+
                         }
                     });
                     scene.add( object );
@@ -2426,7 +2441,6 @@ THREE_OBJLoader.prototype = {
                                 bevelSegments: 2
                             } );
                             const textobject = new THREE.Mesh( textgeometry, new THREE.MeshStandardMaterial( { color: 0xffffff } ) );
-                            textobject.name = "about_section"
                             textobject.position.z = 15
                             textobject.position.x = -20
                             textobject.position.y = 5
@@ -2460,13 +2474,15 @@ THREE_OBJLoader.prototype = {
                 {
                     ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
                             let textgeometry = new THREE.TextGeometry( `
-                                Design, Modeling & Rendering for:
+                                Design, Modeling & Rendering:
 
                                 Characters & People
                                 Games & Films
-                                Products & Motion Graphics
-                                Prototyping & Fashion
-                                Unbuilt Spaces & Real State`, {
+                                 Products & Motion Graphics
+                                  Prototyping & Fashion
+                                    Unbuilt Spaces
+                                      Real State
+                                `, {
                                 font: font,
                                 size: 0.1,
                                 height: 0.01,
@@ -2522,21 +2538,31 @@ THREE_OBJLoader.prototype = {
         sphereMesh.position.set(48.2, 2, 76); // Position the sphere
                             
                             scene.add( sphereMesh )
+
+                            
+        const sphereGeometry2 = new THREE.SphereGeometry(8, 3, 3); // Sphere geometry with radius 1
+        const sphereMaterial2 = new THREE.MeshLambertMaterial({ color: 0xC0B6A3,castShadow:true,   }); // Red color
+        const sphereMesh2 = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
+        sphereMesh2.name = "about_section"
+
+        sphereMesh2.position.set(-22, -9, -8); // Position the sphere
+                            
+                            scene.add( sphereMesh2 )
                     } );
                 }
 
                 {
                     ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
                             let textgeometry = new THREE.TextGeometry( `
-                                Full-Stack Multi-Platform
-                                Software Development
+                                    Full-Stack Multi-Platform
+                                  Software Development
 
                                 Planing & Diagramming
                                 Data Design & Class Modeling
                                 UI/UX Design & Development
                                 3D Products Catalogue
-                                Third Part Integrations
-                                3D Website Development`, {
+                                  Third Part Integrations
+                                    3D Website Development`, {
                                 font: font,
                                 size: 0.15,
                                 height: 0.01,
@@ -2581,7 +2607,15 @@ THREE_OBJLoader.prototype = {
 
                             textobject.rotation.y = -0.4
                             scene.add( textobject );
+// Adding a sphere
+const sphereGeometry = new THREE.SphereGeometry(2.85, 32, 32); // Sphere geometry with radius 1
+        const sphereMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff, emissive: 0x777777, opacity: 0.9, transparent: true }); // Red color
+        const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+        sphereMesh.name = "code_section"
 
+        sphereMesh.position.set(-19.6, -13, 36); // Position the sphere
+                            
+                            scene.add( sphereMesh )
 
                     } );
                 }
@@ -2595,12 +2629,14 @@ THREE_OBJLoader.prototype = {
                                 // with a 3D Website
                                 // or 3D Online Gallery`
                                 `
-                                We use Blender,
-                                ZBrush & Sculptris
+                                   I use Blender,
+                                 ZBrush/Sculptris
                                 GIMP, PS, AE
-                                Mixamo, Cinema 4D,
-                                Three.js (WebGL)
-                                React, Vue, Web3`
+                                Mixamo, C4D,
+                                 Three.js (WebGL)
+                                  JS, React, Vue
+                                            Web3
+                                `
                                 , {
                                 font: font,
                                 size: 0.3,
@@ -2630,6 +2666,21 @@ THREE_OBJLoader.prototype = {
                             // object.position.z = -90
 
                             scene.add( textobject );
+
+
+                            
+// Adding a sphere
+const sphereGeometry = new THREE.SphereGeometry(2.9, 32, 32); // Sphere geometry with radius 1
+        const sphereMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff, emissive: 0x777777, opacity: 0.9, transparent: true }); // Red color
+        const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+        sphereMesh.name = "game_section"
+
+        sphereMesh.position.set(46, 2, -41.25); // Position the sphere
+                            
+                            scene.add( sphereMesh )
+
+
+                            
                     } );
                 }
                 {
@@ -2832,8 +2883,8 @@ THREE_OBJLoader.prototype = {
                                 // alert(lookupItem.msg)
                                 
 
-
-                                if (!                    document.getElementById("loadingWater").className.includes("finishedLoading")) {
+                                console.log("totalTimeElapsed", totalTimeElapsed)
+                                if (!                    document.getElementById("loadingWater").className.includes("finishedLoading") || totalTimeElapsed < 60 ) {
 
 return;
 }
