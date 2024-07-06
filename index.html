@@ -9,104 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 
-        <style>
-            .lilita-one-regular {
-                font-family: "Lilita One", sans-serif;
-                font-weight: 400;
-                font-style: normal;
-                }
-            body {
-                margin: 0;
-                background-color: #000;
-                background: linear-gradient(45deg, #cc9944, #aaeeff, #44aaff);
-                color: #fff;
-                font-family: "Lilita One", sans-serif !important;
-                font-size: 13px;
-                line-height: 24px;
-                overscroll-behavior: none;
-            }
-            .orangeDOM {
-                position: absolute;
-                z-index: 10;
-                left: 50%;
-                top: 50%;
-                color: white;
-                font-weight: bold;
-                font-size: 2em;
-                text-shadow: 2px 2px 2px #00000077;
-            }
-            a {
-                color: #ff0;
-                text-decoration: none;
-            }
+<link rel="stylesheet" href="/css/main.css">
 
-            a:hover {
-                text-decoration: underline;
-            }
-
-            button {
-                cursor: pointer;
-                text-transform: uppercase;
-            }
-
-            #info {
-                position: absolute;
-                top: 0px;
-                width: 100%;
-                padding: 10px;
-                box-sizing: border-box;
-                text-align: center;
-                -moz-user-select: none;
-                -webkit-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                pointer-events: none;
-                z-index: 1; 
-            }
-
-            a, button, input, select {
-                pointer-events: auto;
-            }
-
-            .dg.ac {
-                -moz-user-select: none;
-                -webkit-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                z-index: 2 !important; 
-            }
-
-            #overlay {
-                position: absolute;
-                z-index: 2;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: rgba(0,0,0,0.7);
-            }
-
-                #overlay button {
-                    background: #ffffff;
-                    border: 0;
-                    color: #000000;
-                    padding: 16px 20px;
-                    text-transform: uppercase;
-                    cursor: pointer;
-                }
-
-            #notSupported {
-                width: 50%;
-                margin: auto;
-                background-color: #f00;
-                margin-top: 20px;
-                padding: 10px;
-            }
-
-        </style>
         <style>
 /* ------------------------------------------ BACKGROUND ------------------------------------------ */
 .bg-black { background: black; }.bg-white { background: white; }
@@ -1112,12 +1016,14 @@ opacity: 1;
                                         <!-- <div>first</div>
                                         <div>second</div>
                                         <div>third</div> -->
-                                        <a class=" px-4 py-2 tx-center extLink1"  href="https://webqub.com/trade" target="_blank">📈Trading Dashboard</a>
+                                        <a class=" px-4 py-2 tx-center extLink1"  href="https://webqub.com/trade" target="_blank">📈Trading</a>
                         <a class=" px-4 py-2 tx-center extLink1 showy-md_x show-md_x"  href="https://runbob.vercel.app/" target="_blank">🌍3D Open World</a>
                         <a class=" px-4 py-2 tx-center extLink1 showy-md_x show-xs"  href="https://runbob.vercel.app/" target="_blank">🌍3D Open World</a>
-                        <a class=" px-4 py-2 tx-center extLink1"  href="https://mylady.vercel.app" target="_blank">🧍‍♀️Body Configurator</a>
-                        <a class=" px-4 py-2 tx-center extLink1 "  href="https://arteesan.vercel.app/" target="_blank">🎰Defi Lottery</a>
-                        <a class=" px-4 py-2 tx-center extLink1 "  href="https://openfarm-pi.vercel.app/" target="_blank">🏧DEX</a>
+                        <a class=" px-4 py-2 tx-center extLink1"  href="https://mylady.vercel.app" target="_blank">🧍‍♀️BodyBuilder</a>
+                        <div class="flex-center gap-2">
+                        <a class=" px-4 py-2 tx-center extLink1 nowrap"  href="https://arteesan.vercel.app/" target="_blank">🏦DEX</a>
+                        <a class=" px-4 py-2 tx-center extLink1 nowrap"  href="https://arteesan.vercel.app/" target="_blank">🎰D-Lottery</a>
+                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -1125,18 +1031,18 @@ opacity: 1;
                             <div class="w-100 flex ">
                                 <div class="show-sm_x py-1"></div>
 
-                                <div class="bord-r-r-25 flex w-90 w-min-300px w-max-600px pa-2 gap-2" style="background: #AD9E7A;">
-                                    <a target="_blank" href="https://github.com/webduno" class="opaci-chov--50 px-2 tx-white block tx-sm py-1 bord-r-15 flex-col" style="background: #71644E;">
+                                <div class="bord-r-r-25 flex w-90 w-min-300px w-max-600px pa-2 gap-2 flex flex-justify-around" style="background: #AD9E7A;">
+                                    <a target="_blank" href="https://github.com/webduno" class="opaci-chov--50 px-2 tx-white block tx-sm py-1 bord-r-15 flex-col" style="background: #71747E;">
                                         <div class="show-md_x py-1"></div>
                                         Github
                                         <div class="show-md_x py-1"></div>
                                     </a>
-                                    <a target="_blank" href="https://r3g.vercel.app/" class="opaci-chov--50 px-2 tx-white block tx-sm py-1 bord-r-15 flex-col" style="background: #71644E;">
+                                    <a target="_blank" href="https://r3g.vercel.app/" class="opaci-chov--50 px-2 tx-white block tx-sm py-1 bord-r-15 flex-col" style="background: #71747E;">
                                         <div class="show-md_x py-1"></div>
                                         Framework
                                         <div class="show-md_x py-1"></div>
                                     </a>
-                                    <a target="_blank" href="https://chatgpt.com/g/g-H2oa0rSsM-r3gg-react-three-game-guide-webpov" class="opaci-chov--50 px-2 tx-white block tx-sm py-1 bord-r-15 flex-col" style="background: #71644E;">
+                                    <a target="_blank" href="https://chatgpt.com/g/g-H2oa0rSsM-r3gg-react-three-game-guide-webpov" class="opaci-chov--50 px-2 tx-white block tx-sm py-1 bord-r-15 flex-col" style="background: #71747E;">
                                         <div class="show-md_x py-1"></div>
                                         CustomGPT
                                         <div class="show-md_x py-1"></div>
