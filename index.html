@@ -560,6 +560,57 @@
 
 /* Basic */
 
+
+/* Only Extra Small */
+@media (min-height: 0601px) { .showy-xs { display: none !important } }
+/* Only Small */
+@media (min-height: 0901px) , (max-height: 0600px) { .showy-sm { display: none !important } }
+/* Only Medium */
+@media (min-height: 1201px) , (max-height: 0900px) { .showy-md { display: none !important } }
+/* Only Large */
+@media (min-height: 1437px) , (max-height: 1200px) { .showy-lg { display: none !important } }
+/* Only Extra Large */
+@media (max-height: 1436px) { .showy-xl { display: none !important } }
+
+/* Basic Range */
+/* From Extra Small to Small */
+@media (min-height: 0600px) { .showy-xs_sm { display: none !important } }
+/* From Extra Small to Small */
+@media (min-height: 0901px) { .showy-xs_md { display: none !important } }
+/* From Extra Small to Medium */
+@media (min-height: 1201px) { .showy-xs_lg { display: none !important } }
+/* From Extra Small to Large */
+@media (min-height: 1437px) { .showy-xs_xl { display: none !important } }
+/* From Small to Medium */
+@media (min-height: 1201px) , (max-height: 0600px) { .showy-sm_md { display: none !important } }
+/* From Small to Large */
+@media (min-height: 1437px) , (max-height: 0600px) { .showy-sm_xl { display: none !important } }
+/* From Small to Infinity */
+@media (max-height: 0600px) { .showy-sm_x { display: none !important } }
+/* From Medium to Large */
+@media (max-height: 0900px) , (min-height: 1437px) { .showy-md_lg { display: none !important } }
+/* From Medium to Infinity */
+@media (max-height: 0900px) { .showy-md_x { display: none !important } }
+/* From Large to Infinity */
+@media (max-height: 1200px) { .showy-lg_x { display: none !important } }
+/* From Large to Infinity */
+@media (max-height: 1436px) { .showy-xl_x { display: none !important } }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Only Extra Small */
 @media (min-width: 0601px) { .show-xs { display: none !important } }
 /* Only Small */
@@ -1062,10 +1113,10 @@ opacity: 1;
                                         <div>second</div>
                                         <div>third</div> -->
                                         <a class=" px-4 py-2 tx-center extLink1"  href="https://webqub.com/" target="_blank">📈Trading Dashboard</a>
-                        <a class=" px-4 py-2 tx-center extLink1 show-md_x"  href="https://opet.vercel.app" target="_blank">🌍3D Open World</a>
-                        <a class=" px-4 py-2 tx-center extLink1 show-xs"  href="https://opet.vercel.app" target="_blank">🌍3D Open World</a>
+                        <a class=" px-4 py-2 tx-center extLink1 showy-md_x show-md_x"  href="https://runbob.vercel.app/" target="_blank">🌍3D Open World</a>
+                        <a class=" px-4 py-2 tx-center extLink1 showy-md_x show-xs"  href="https://runbob.vercel.app/" target="_blank">🌍3D Open World</a>
                         <a class=" px-4 py-2 tx-center extLink1"  href="https://mylady.vercel.app" target="_blank">🧍‍♀️Body Configurator</a>
-                        <a class=" px-4 py-2 tx-center extLink1 "  href="http://duno.altervista.org/code/random/" target="_blank">🎰Defi Lottery</a>
+                        <a class=" px-4 py-2 tx-center extLink1 "  href="https://github.com/arteesanio/OpenFarm-Lotto-Contracts/" target="_blank">🎰Defi Lottery</a>
                                     </div>
                                 </div>
                             </div>
@@ -1180,7 +1231,7 @@ opacity: 1;
                             <div class="show-sm_x">Coding CV</div>
                             <div class="flex-col gap-3 flex-align-start">
                                 <div class="flex-center gap-2">
-                                    <a class="goldenFrame bord-r-100p opaci-chov--50" href="/cv_code.pdf" target="_blank">
+                                    <a class="goldenFrame bord-r-100p opaci-chov--50 showy-md_x" href="/cv_code.pdf" target="_blank">
                                         <div style="box-shadow: inset -5px 2px 10px #ffffff, inset 5px -5px 10px #5A2004; background: radial-gradient(#FBE138, #FB7402);" class="bord-r-100p h-50px w-50px flex-col">
                                             <!-- Go1 -->
                                              <div class="pos-abs tx-lg">📄</div>
@@ -1195,7 +1246,6 @@ opacity: 1;
                                 </div>
                                 
                         <div class="w-min-200px  flex-col flex-align-start flex-justify-start show-sm_x">
-                            <div class="show-xs">Youtube Tutorials</div>
                             <div class="show-sm_x flex gap-1"><div>Youtube</div> <div>Tutorials</div></div>
                             <div class="flex-col gap-3">
                                 <div class="flex-center gap-2">
@@ -1216,8 +1266,7 @@ opacity: 1;
                             </div>
                         </div>
                         <div class="w-min-200px pl-4 flex-col flex-align-start show-xs">
-                            <div class="show-xs">Youtube Tutorials</div>
-                            <div class="show-sm_x">Youtube Tutorials</div>
+                            <div class="show-xs">Youtube Coding Tutorials</div>
                             <div class="flex-col gap-3">
                                 <div class="flex-center gap-2">
                                     <div class="goldenFrame bord-r-100p">
