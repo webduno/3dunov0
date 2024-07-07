@@ -147,11 +147,76 @@ function addLightsToScene() {
 
 function getColors() {
   return [
-    { img: "./img/wp2100821-1187062037.jpg", wireframe: false, camera: { pos: [0, 0, 0], lookAt: [0, 0, 0] }, box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] }, color: 0xff9999 },
-    { img: "./img/grrrid.jpg", wireframe: false, camera: { pos: [30, 30, 90], lookAt: [0, 0, 0] }, box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, (3.14 / 4) * 3] }, color: 0xff9999 },
-    { img: "./img/th-1084040338.jpg", wireframe: false, camera: { pos: [50, 5, 55], lookAt: [0, 0, 0] }, box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] }, color: 0xffcc99 },
-    { img: "./img/th-813177686.jpg", wireframe: false, camera: { pos: [-20, -10, 20], lookAt: [0, 0, 0] }, box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0.0, 0, 0] }, color: 0xffff99 },
-    { img: "./img/grad5.jpg", wireframe: false, camera: { pos: [59, 7, -66], lookAt: [0, 0, 0] }, box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] }, color: 0xccff99 },
+    {
+      img: "./img/wp2100821-1187062037.jpg", wireframe: false,
+      camera: { pos: [0, 0, 0], lookAt: [0, 0, 0] },
+      box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] },
+      color: 0xff9999,
+    },
+    {
+      img: "./img/grrrid.jpg", wireframe: false,
+      camera: { pos: [30, 30, 90], lookAt: [0, 0, 0] },
+      box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, (3.14 / 4) * 3] },
+      color: 0xff9999,
+    },
+    {
+      img: "./img/th-1084040338.jpg", wireframe: false,
+      camera: { pos: [50, 5, 55], lookAt: [0, 0, 0] },
+      box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] },
+      color: 0xffcc99,
+    },
+    {
+      img: "./img/th-813177686.jpg", wireframe: false,
+      camera: { pos: [-20, -10, 20], lookAt: [0, 0, 0] },
+      box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0.0, 0, 0] },
+      color: 0xffff99,
+    },
+    {
+      img: "./img/grad5.jpg", wireframe: false,
+      camera: { pos: [59, 7, -66], lookAt: [0, 0, 0] },
+      box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] },
+      color: 0xccff99,
+    },
+    {
+      img: "./img/grad5.jpg", wireframe: false,
+      camera: { pos: [-20 ,25,5], lookAt: [0, 0, 0] },
+      box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] },
+      color: 0xccff99,
+    },
+    
+
+
+
+
+
+
+
+
+
+
+
+                                
+    {
+      img:"./img/grad6.jpg",
+      wireframe:false,
+      camera:{pos:[-40 ,5,-55],lookAt:[0,0,0]},
+      box:{pos:[0,0,0],scale:[1,1,1],rot:[0,0,0],},
+      color:0x99ffcc,
+  },
+{
+      img:"./img/grad1.jpg",
+      wireframe:true,
+      camera:{pos:[220 ,5,115],lookAt:[0,0,0]},
+      box:{pos:[0,120,0],scale:[1,1,1],rot:[0,0,0],},
+      color:0x99ccff,
+  },
+{
+      img:"./img/grad1.jpg",
+      wireframe:false,
+      camera:{pos:[-20 ,5,-15],lookAt:[0,0,0]},
+      box:{pos:[0,120,0],scale:[1,1,1],rot:[0,0,0],},
+      color:0x9999ff,
+  },
   ];
 }
 
