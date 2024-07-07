@@ -231,6 +231,7 @@ function onLoadIslandWater() {
   }, 1000);
   setTimeout(() => loadIslandRock(scene), 3000);
   setTimeout(() => loadIslandMountain(scene), 5000);
+  setTimeout(() => loadIslandGreen(scene), 7000);
   setTimeout(() => loadIslandLightGreen(scene), 7000);
   setTimeout(() => initTexts(scene, ffontLoader), 9000);
 }
