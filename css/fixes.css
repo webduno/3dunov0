@@ -1,0 +1,252 @@
+body {
+    background-color: #f0f0f0;
+    color: #444;
+}
+a {
+    color: #08f;
+}
+.mynewfont *,
+.mynewfont {
+    font-family: Arial;
+    
+    font-family: "Lilita One", sans-serif !important;
+    /* font-family: cursive !important; */
+
+}
+.orangeDOM {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    letter-spacing: 5px;
+}
+.amodalscreen > div {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-center;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 20px;
+}
+@media only screen and (min-width: 577px)
+{
+    .amodalscreen > div a {
+        font-size: 2.5em;
+    }
+    .amodalscreen > div h1 {
+        font-size: 3.2em;
+        line-height: 1.25em;
+    }
+}
+@media only screen and (max-width: 576px)
+{
+    .amodalscreen > div a {
+        font-size: 1.7em;
+    }
+    .amodalscreen > div h1 {
+        font-size: 2.3em;
+        font-weight: 200;
+    }
+}
+/* .amodalscreen a {
+    text-shadow: 4px 4px 2px #00000077;
+} */
+.tx-white {
+    color: white;
+}
+.tx-orange {
+    color: #ff6600;
+}
+.tx-shadow {
+    text-shadow: 4px 4px 2px #00000077;
+}
+.textBox > div {
+background: linear-gradient(-135deg, #F1E7C2, #F1E7C2);
+border-radius: 35px 0 0 35px;
+box-shadow: -1px 1px 0 2px #591F03, 0 2px 3px #00000077;
+
+}
+    .textBox {
+        
+    /* background: linear-gradient(-45deg,#111111,#00000077); */
+/* background: linear-gradient(-135deg,#ffffff, #ffffff); */
+background: linear-gradient(-135deg, #FEF266, #F09920);
+
+    box-shadow: 2px 2px 4px #00000077;
+    text-shadow: -1px 1px 0 #000, 1px -1px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000;
+    margin: 2px 0;
+    color: white;
+border-radius: 45px 0 0 45px;
+
+box-shadow: -1px 1px 2px 2px #591F03;
+}
+
+
+
+
+
+
+.goldenFrame > div {
+background: linear-gradient(-135deg, #F1E7C2, #F1E7C2);
+/* border-radius: 35px; */
+box-shadow: -1px 1px 0 2px #591F03, 0 2px 3px #00000077;
+
+}
+    .goldenFrame {
+        
+    /* background: linear-gradient(-45deg,#111111,#00000077); */
+/* background: linear-gradient(-135deg,#ffffff, #ffffff); */
+background: linear-gradient(-135deg, #FEF266, #F09920);
+
+    box-shadow: 2px 2px 4px #00000077;
+    text-shadow: -1px 1px 0 #000, 1px -1px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000;
+    margin: 2px 0;
+    color: white;
+/* border-radius: 45px 0 0 45px; */
+
+box-shadow: -1px 1px 2px 2px #591F03;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.textBoxTransparent > div {
+background: linear-gradient(-135deg, #F1E7C277, #F1E7C277);
+border-radius: 35px 0 0 35px;
+box-shadow: -1px 1px 0 2px #591F03, 0 2px 3px #00000077;
+
+}
+    .textBoxTransparent {
+        
+    /* background: linear-gradient(-45deg,#111111,#00000077); */
+/* background: linear-gradient(-135deg,#ffffff, #ffffff); */
+background: linear-gradient(-135deg, #FEF26677, #F0992077);
+
+    box-shadow: 2px 2px 4px #00000077;
+    text-shadow: -1px 1px 0 #000, 1px -1px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000;
+    margin: 2px 0;
+    color: white;
+border-radius: 45px 0 0 45px;
+
+box-shadow: -1px 1px 2px 2px #591F03;
+}
+
+
+
+
+
+
+
+
+
+.scene-goto-btn-mbl {
+/* border: 1px solid red; */
+background: linear-gradient(-45deg, #E7D6B6, #5A564D);
+border-radius: 15px;
+box-shadow: -2px 2px 0 2px #5A564D, inset 2px 2px 1px #ffffff44;
+color: #fff;
+text-shadow: -2px 2px #000, 2px -2px #000, 2px 2px #000, -2px -2px #000;
+border: none;
+font-weight: 6;
+font-family: "Lilita One", sans-serif !important;
+
+}
+
+.scene-goto-btn-mbl-extra1 {
+font-family: "Lilita One", sans-serif !important;
+/* border: 1px solid red; */
+border-radius: 15px;
+background: linear-gradient(-150deg, #71E0FF, #37a1ff);
+box-shadow: -2px 2px 1px 2px #001a31, inset 2px 2px 1px #ffffff99;
+color: #fff;
+text-shadow: -2px 2px #000;
+border: none;
+font-weight: 6;
+
+}
+.scene-goto-btn-mbl-extra2 {
+font-family: "Lilita One", sans-serif !important;
+/* border: 1px solid red; */
+border-radius: 15px;
+background: linear-gradient(-150deg, #FCBD7F, #D95E0F);
+box-shadow: -2px 2px 1px 2px #591F03, inset 2px 2px 1px #ffffff99;
+color: #fff;
+text-shadow: -2px 2px #000;
+border: none;
+font-weight: 6;
+
+}
+.extLink1 {
+    font-family: "Lilita One", sans-serif !important;
+    background: linear-gradient(-45deg, #E7D6B677, #5A564Dbb);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    text-shadow: -1px 1px 0 #000;
+    color: white;
+    font-weight: 200;
+    margin-bottom: 8px;
+
+    border-radius: 15px;
+    box-shadow: -2px 2px 0 2px #8A867D, inset 2px 2px 1px #ffffff44;
+}
+
+.extLink1:hover {
+    /* color: #ffaa00; */
+    background: linear-gradient(-45deg, #E7D6B6bb, #5A564Dff);
+    box-shadow: -2px 2px 0 2px #4b4944, inset 2px 2px 1px #ffffff;
+    text-shadow: -2px 2px 1px #000;
+}
+
+/* @media only screen and (max-width: 992px) { */
+    .mobileresponsivelist {
+    background: linear-gradient(-45deg, #E7D6B677, #5A564Dbb);
+        max-height: 350px;
+        overflow: scroll;
+        padding: 8px;
+        border-radius: 35px;
+        padding-top: 16px;
+        padding-left: 16px;
+    }
+/* } */
+@media only screen and (min-width: 600px) {
+    .textBox > div {
+        padding: 36px 48px 36px 24px;
+    }
+}
+.finishedLoading {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tx-xxs {font-size: 0.35rem !important; } .tx-xs {font-size: 0.55rem !important; }.tx-xsm {font-size: 0.725rem !important; }
+.tx-sm {font-size: 0.845rem !important; } .tx-smd {font-size: 0.92rem !important; }
+.tx-md {font-size: 1.07rem !important; } .tx-mdl {font-size: 1.13rem !important; }
+.tx-lg {font-size: 1.4rem !important; } .tx-lgx {font-size: 1.68rem !important; }
+.tx-lx {font-size: 2.4rem !important; } .tx-xl {font-size: 3rem !important; }
+.tx-xxl {font-size: 3.4rem !important; } .tx-xxxl {font-size: 4.5rem !important; }
+
