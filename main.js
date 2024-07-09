@@ -300,7 +300,7 @@ function render() {
   if (intersects.length > 0) {
     handleIntersect(intersects[0].object);
   } else {
-    if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+    if (INTERSECTED) INTERSECTED?.material.emissive.setHex(INTERSECTED.currentHex);
     if (orange) orangeLevel -= parseInt(orangeLevel / 2);
     orange = false;
     INTERSECTED = null;
