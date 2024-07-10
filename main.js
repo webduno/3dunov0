@@ -54,6 +54,9 @@ function init() {
   const mainToggle = document.getElementById("mainToggle");
   mainToggle.addEventListener("click", handleToggle);
   mainToggle.addEventListener("touchstart", handleToggle);
+  if (window.location.hash === "#game") {
+    handleToggle();
+  }
 }
 
 function initGame() {
