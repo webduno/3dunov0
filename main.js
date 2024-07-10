@@ -39,17 +39,23 @@ const pointer = new THREE.Vector2();
 const radius = 100;
 
 init();
-
 function init() {
-  document.getElementById("mainToggle").addEventListener("click", ()=>{
-    document.getElementById("mainToggleContainer").style.display = "none"
-    document.getElementById("loadingWater").style.display = ""
-    document.getElementById("mainButtons").style.display = ""
-    document.body.style.background = ""
-    initGame()
+  // Function to handle the toggle action
+  function handleToggle() {
+    document.getElementById("mainToggleContainer").style.display = "none";
+    document.getElementById("loadingWater").style.display = "";
+    document.getElementById("mainButtons").style.display = "";
+    document.body.style.background = "";
+    initGame();
     animate();
-  });
+  }
+
+  // Add event listener for click and touch events
+  const mainToggle = document.getElementById("mainToggle");
+  mainToggle.addEventListener("click", handleToggle);
+  mainToggle.addEventListener("touchstart", handleToggle);
 }
+
 function initGame() {
   setupCloseButtons();
   setupSceneGotoButtons();
