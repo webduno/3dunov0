@@ -109,11 +109,13 @@ function updateScene(theIndex) {
   document.querySelectorAll('.amodalscreen').forEach(adomscene => {
     if ("modal" + theIndex != adomscene.id) {
       adomscene.className += " none";
+    } else {
+      // console.log("adomscene", adomscene, theIndex)
     }
   });
   
   const modal = document.getElementById("modal" + theIndex);
-  if (modal) modal.classList.toggle("none");
+  if (modal) { modal.classList.toggle("none"); }
 }
 
 function handleEvent(e) {
@@ -320,7 +322,7 @@ function render() {
   if (intersects.length > 0) {
     handleIntersect(intersects[0].object);
   } else {
-    if (INTERSECTED) INTERSECTED?.material.emissive.setHex(INTERSECTED.currentHex);
+    if (INTERSECTED) INTERSECTED?.material?.emissive?.setHex(INTERSECTED.currentHex);
     if (orange) orangeLevel -= parseInt(orangeLevel / 2);
     orange = false;
     INTERSECTED = null;

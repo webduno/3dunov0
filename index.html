@@ -15,39 +15,34 @@
   
 </head>
 <body style="background: linear-gradient(145deg, #282B33, #181818);">
-  <div class="flex-wrap flex-align-start pb-100  tx-white" style="min-height: calc(100vh - 100px);" id="mainToggleContainer">
+  <div class="flex-wrap gap-3 flex-align-start pb-100  tx-white" style="min-height: calc(100vh - 100px);" id="mainToggleContainer">
     <div class="w-100 tx-center">
-      <div class="tx-altfont-1 tx-lx py-8">Abraham Duno&apos;s<br /><br />Portfolio</div>
+      <div class="tx-altfont-1 tx-lx py-8 show-sm_x">Abraham Duno&apos;s<br /><br />Portfolio</div>
+      <div class="tx-altfont-1 tx-lgx py-4 show-xs">Abraham Duno&apos;s Portfolio</div>
     </div>
-    <a class=" w-min-200px h-min-200px flex-col nodeco block opaci-chov--50" href="/portfolio" style="text-decoration: inherit;" >
+    <a class=" w-min-200px  flex-col nodeco block opaci-chov--50" href="/portfolio" style="text-decoration: inherit;" >
       <div style="background:linear-gradient(145deg,#465666, #111111); box-shadow: inset 2px 2px 4px -2px #ffffff, 10px 10px 15px #00000077;" class="pa-3 bord-r-25">
         <div class="pa-1 bord-r- flex-col w-min-200px"
           style="background: linear-gradient(145deg, #17F2F6, #0f8fff); box-shadow: 0 0 50px #07c2e666; border-radius: 20px;"
         >
-          <div class="tx-lx tx-bold-8 tx-white   py-8 tx-center w-100 flex-col bord-r-15 nodeco tx-altfont-1 " 
-          style="background: linear-gradient(145deg, #465666,#333333); ">
+          <div class="tx-lx tx-bold-8 tx-white   py-4 tx-center w-100 flex-col bord-r-15 nodeco tx-altfont-1 " 
+            style="background: linear-gradient(145deg, #465666,#333333); "
+          >
           <div class="flex-col gap-5 box-shadow-5-down bord-r-50 hover-jump "
-            style="width: 170px; height: 170px; background: linear-gradient(145deg,#666666, #222222); box-shadow: inset -5px -5px 5px 5px #383D41, 0 5px 5px #00000077;"
-            >
-            <div class="show-sm_x "></div>
-            <!-- <div>Enter</div> -->
+            style="width: 170px; height: 150px; background: linear-gradient(145deg,#666666, #222222); box-shadow: inset -5px -5px 5px 5px #383D41, 0 5px 5px #00000077;"
+          >
+            <div class="show-sm_x py-1"></div>
             <div style="text-shadow: -2px 2px 2px #000000;" class="">🌐</div>
-            <div>Website</div>
-            <div class="show-sm_x "></div>
+            <div class="show-xs tx-lgx">Website</div>
+            <div class="show-sm_x ">Website</div>
+            <div class="show-sm_x py-1"></div>
           </div>
           </div>
         </div>
-    </div>
-    </a>
-
-    <!-- <a class="goldenFrame pa-1 bord-r-100p opaci-chov--50" href="/docs/cv_code.pdf" target="_blank">
-      <div style="" class="pa-3 bord-r-100p flex-col">
-        <div class="pos-abs tx-xsm">&lt;/&gt;</div>
       </div>
-    </a> -->
-    <div class="pa-100 show-sm_x"></div>
-    <div class="pa-4  show-xs w-100"></div>
-
+    </a>
+    <div class="pa-100 show-md_x"></div>
+    <div class="pa-1  show-xs w-100"></div>
     <div class=" w-min-200px h-min-200px flex-col nodeco block opaci-chov--50"  style="text-decoration: inherit;"  id="mainToggle">
       <div style="background:linear-gradient(145deg,#665646, #111111); box-shadow: inset 2px 2px 4px -2px #ffffff, 10px 10px 15px #00000077;" class="pa-3 bord-r-50">
         <div class="pa-1 bord-r- flex-col w-min-200px"
@@ -68,7 +63,34 @@
         </div>
     </div>
     </div>
+    <div class="w-100 tx-center pt-100">
+      <div class=" flex-wrap w-100 pb-100 pt-8 tx-mdl " style="">
+        <div class="flex-wrap">
+          <a target="_blank" href="/docs/cv.pdf" class="nodeco tx-white px-4 py-2 flex-col tx-altfont-1">
+            <div>𝕏 / Twitter</div>
+          <div>@webduno</div>
+        </a>
+        <a target="_blank" href="/docs/cv.pdf" class="nodeco tx-white px-4 py-2 flex-col tx-altfont-1">
+          <div>📜</div>
+        <div>CV</div>
+      </a>
+        <a target="_blank" href="/docs/cv_code.pdf" class="nodeco tx-white px-4 py-2 flex-col tx-altfont-1">
+          <div>📰 Blog</div>
+        <div>duno.vercel.app</div>
+      </a>
+        </div>
+      </div>
+    </div>
   </div>
+
+
+
+
+
+
+
+
+
   <div class="tx-center  pos-abs py-4 tx-xl left-50p pt-4 z-100 " style="transform: translateX(-50%); line-height: 1.2em;display: none;" id="loadingWater">
     <div class="hover-4">Loading</div>
     <div>Please, wait...</div>
@@ -79,7 +101,7 @@
     <img src="/favicon-32x32.png" alt="logo" width="48" class="box-shadow-5-down bord-r-100p">
   </a>
   <div class="flex-col " style="position: fixed; top: 0;padding-top: 25px; background: white">
-    <div id="modal1" class="amodalscreen none">
+    <div id="modal1" class="amodalscreen none z-800">
       <div class="bg-glass-5" style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77)">
         <h1 class="flex-center tx-ls-3 tx- mb-5">Abraham Duno  <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
         <div class="flex-col flex-align-end w-100 ">
@@ -129,7 +151,7 @@
     
     
     
-    <div id="modal2" class="amodalscreen none">
+    <div id="modal2" class="amodalscreen none z-800">
       
       <div  style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77); " class="bg-glass-5" >
         <h1 class="flex-center tx-ls-3 tx- mb-5">Art<br> Portfolio   <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
@@ -395,7 +417,7 @@
     </div>
   </div>
     </div>
-    <div id="modal3" class="amodalscreen none ">
+    <div id="modal3" class="amodalscreen none z-800 ">
       <div  style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77); " class="bg-glass-5" >
         <h1 class="flex-center tx-ls-3 tx- mb-5">Coding <br> Projects  <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
         
@@ -632,7 +654,7 @@
         </div>
       </div>
     </div>
-    <div id="modal4" class="amodalscreen none">
+    <div id="modal4" class="amodalscreen none z-800">
       <div style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77)">
         <h1 class="flex-center tx-ls-3 tx- mb-5">Games & <br> Prototypes <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
         
@@ -701,7 +723,7 @@
       
     </div>
   </div>
-  <div id="modal5" class="amodalscreen none" >
+  <div id="modal5" class="amodalscreen none z-800" >
     <div class="flex-col" 
     style="background: linear-gradient(45deg, #cc9944, #aaeeff77, #ffffff77, #44aaff77); justify-content: flex-start;">
     <h1 class="flex-center tx-ls-3 tx- mb-5">Contact <span class="pa-3 tx-xl opaci-hov-50 clickble selfCloseButton block ">x</span></h1>
