@@ -273,3 +273,15 @@ font-weight: 6;
   100%{transform: translateY(0px)}
 }
 .hover-jump{animation: hoverjump 10s;  animation-iteration-count: infinite }
+
+/* Z-INDEX */
+.z-1{z-index: 1}.z-2{z-index: 2}.z-3{z-index: 3}.z-5{z-index: 5}.z-8{z-index: 8}
+.z-10{z-index: 10}.z-20{z-index: 20}.z-30{z-index: 30}.z-50{z-index: 50}
+.z-100{z-index: 100}.z-200{z-index: 200}.z-300{z-index: 300}.z-400{z-index: 400}
+.z-500{z-index: 500}.z-600{z-index: 600}.z-700{z-index: 700}.z-800{z-index: 800}
+.z-999{z-index: 999}.z-1000{z-index: 1000}.z-1001{z-index: 1001}
+.z--1{z-index: -1}.z--2{z-index: -2}.z--3{z-index: -3}.z--5{z-index: -5} 
+.z--10{z-index: -10}.z--50{z-index: -50}
+.z--100{z-index: -100}.z--200{z-index: -200}.z--300{z-index: -300}.z--400{z-index: -400}
+.z--500{z-index: -500}.z--600{z-index: -600}.z--700{z-index: -700}.z--800{z-index: -800}
+.z--999{z-index: -999}.z--1000{z-index: -1000}.z--1001{z-index: -1001}
