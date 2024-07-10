@@ -12,6 +12,9 @@ import {
   loadIslandGreen,
   loadIslandLightGreen,
 } from './models.js';
+import {
+  updateCameraPosition,
+} from './helper.js';
 
 import * as THREE from 'three';
 
@@ -23,7 +26,6 @@ const actionsLookup = {
   "contact_section": { msg: "Hello World", goToIndex: 5 },
 };
 
-const lerp = (x, y, a) => x * (1 - a) + y * a;
 
 let loadedWater = false,
     totalTimeElapsed = 0,
@@ -40,6 +42,15 @@ init();
 animate();
 
 function init() {
+  document.getElementById("mainToggle").addEventListener("click", ()=>{
+    document.getElementById("mainToggleContainer").style.display = "none"
+    document.getElementById("loadingWater").style.display = ""
+    document.getElementById("mainButtons").style.display = ""
+    document.body.style.background = ""
+    initGame()
+  });
+}
+function initGame() {
   setupCloseButtons();
   setupSceneGotoButtons();
   
@@ -307,7 +318,7 @@ function render() {
   }
 
   if (SELECTED) {
-    updateCameraPosition();
+    updateCameraPosition(camera, colors, SELECTED, totalTimeElapsed, THEINDEX);
   }
 
   renderer.render(scene, camera);
@@ -337,14 +348,6 @@ function handleIntersect(intersectedObject) {
       }
     }
   }
-}
-
-function updateCameraPosition() {
-  camera.position.z = lerp(camera.position.z, SELECTED.position.z + 26 + (colors[THEINDEX]?.camera.pos[2] || 0), 0.25);
-  camera.position.x = lerp(camera.position.x, colors[THEINDEX]?.camera.pos[0] || 0, 0.05);
-  camera.position.y = lerp(camera.position.y, colors[THEINDEX]?.camera.pos[1] || 0, 0.05);
-  camera.lookAt(SELECTED.position.x, SELECTED.position.y + colors[THEINDEX]?.camera.lookAt[1] || 0, SELECTED.position.z);
-  camera.position.y += Math.sin(totalTimeElapsed / 20) / 80;
 }
 
 function isMobileDevice() {

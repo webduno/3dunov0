@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
+
+html, body {
+	scroll-behavior: smooth;
+}
+
+.tx-altfont-1 {     font-family: 'Raleway', sans-serif !important}
+
+
 body {
     background-color: #f0f0f0;
     color: #444;
