@@ -260,3 +260,16 @@ font-weight: 6;
 .tx-xxl {font-size: 3.4rem !important; } .tx-xxxl {font-size: 4.5rem !important; }
 
 .w-max-1080px{max-width: 1080px}
+
+@keyframes hoverjump {
+	0%{transform: translateY(0px)}
+	33%{transform: translateY(0px)}
+  35%{transform: translateY(-15px) rotate(2deg);}
+  36%{transform: translateY(-12px) rotate(-3deg);}
+  38%{transform: translateY(0px)}
+  39%{transform: translateY(-4px)}
+  40%{transform: translateY(-3px)}
+  41%{transform: translateY(0px)}
+  100%{transform: translateY(0px)}
+}
+.hover-jump{animation: hoverjump 10s;  animation-iteration-count: infinite }
