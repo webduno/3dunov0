@@ -39,7 +39,6 @@ const pointer = new THREE.Vector2();
 const radius = 100;
 
 init();
-animate();
 
 function init() {
   document.getElementById("mainToggle").addEventListener("click", ()=>{
@@ -48,6 +47,7 @@ function init() {
     document.getElementById("mainButtons").style.display = ""
     document.body.style.background = ""
     initGame()
+    animate();
   });
 }
 function initGame() {
