@@ -37,6 +37,7 @@ let loadedWater = false,
 
 const pointer = new THREE.Vector2();
 const radius = 100;
+let touchStartTime = 0;
 
 init();
 function init() {
@@ -53,7 +54,26 @@ function init() {
   // Add event listener for click and touch events
   const mainToggle = document.getElementById("mainToggle");
   mainToggle.addEventListener("click", handleToggle);
-  mainToggle.addEventListener("touchend", handleToggle);
+  mainToggle.addEventListener("touchstart", () => {
+    touchStartTime = new Date().getTime();
+  });
+  
+  mainToggle.addEventListener("touchend", () => {
+    let touchEndTime = new Date().getTime();
+    let touchDuration = touchEndTime - touchStartTime;
+  
+    // If the touch duration is less than 200ms, treat it as a tap
+    if (touchDuration < 200) {
+      handleToggle();
+    }
+  });
+  
+  
+  
+  
+  
+  
+  
   if (window.location.hash === "#game") {
     handleToggle();
   }
