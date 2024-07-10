@@ -53,7 +53,7 @@ function init() {
   // Add event listener for click and touch events
   const mainToggle = document.getElementById("mainToggle");
   mainToggle.addEventListener("click", handleToggle);
-  mainToggle.addEventListener("touchstart", handleToggle);
+  mainToggle.addEventListener("touchend", handleToggle);
   if (window.location.hash === "#game") {
     handleToggle();
   }
