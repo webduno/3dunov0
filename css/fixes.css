@@ -259,3 +259,4 @@ font-weight: 6;
 .tx-lx {font-size: 2.4rem !important; } .tx-xl {font-size: 3rem !important; }
 .tx-xxl {font-size: 3.4rem !important; } .tx-xxxl {font-size: 4.5rem !important; }
 
+.w-max-1080px{max-width: 1080px}
