@@ -667,7 +667,7 @@ function initGamesText(scene, ffontLoader) {
         const textobject = new THREE.Mesh( textgeometry,
           new THREE.MeshLambertMaterial( { color: 0x000 } ) );
           
-          textobject.position.x = 53           
+          textobject.position.x = 52           
           textobject.position.z = -37
           textobject.position.y = 5.2
           textobject.rotation.y = Math.PI/1.5
