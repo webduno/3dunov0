@@ -601,6 +601,12 @@
 .hover-2 { animation: hover 2s;  animation-iteration-count: infinite }
 .hover-3 { animation: hover 3s;  animation-iteration-count: infinite }
 .hover-4 { animation: hover 4s;  animation-iteration-count: infinite }
+.hover-5 { animation: hover 5s;  animation-iteration-count: infinite }
+.hover-6 { animation: hover 6s;  animation-iteration-count: infinite }
+.hover-7 { animation: hover 7s;  animation-iteration-count: infinite }
+.hover-8 { animation: hover 8s;  animation-iteration-count: infinite }
+.hover-9 { animation: hover 9s;  animation-iteration-count: infinite }
+.hover-10 { animation: hover 10s;  animation-iteration-count: infinite }
 
 @keyframes hover1 {
     0%{ transform: translateY(-5px); }
