@@ -1,5 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
 
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
 html, body {
 	scroll-behavior: smooth;
 }
@@ -8,70 +34,70 @@ html, body {
 
 
 body {
-    background-color: #f0f0f0;
-    color: #444;
+  background-color: #f0f0f0;
+  color: #444;
 }
 a {
-    color: #08f;
+  color: #08f;
 }
 .mynewfont *,
 .mynewfont {
-    font-family: Arial;
-    
-    font-family: "Lilita One", sans-serif !important;
-    /* font-family: cursive !important; */
+  font-family: Arial;
+  
+  font-family: "Lilita One", sans-serif !important;
+  /* font-family: cursive !important; */
 
 }
 .orangeDOM {
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 10px;
-    letter-spacing: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  letter-spacing: 5px;
 }
 .amodalscreen > div {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: flex-center;
-    align-items: flex-start;
-    flex-direction: column;
-    padding-left: 20px;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-left: 20px;
 }
 @media only screen and (min-width: 577px)
 {
-    .amodalscreen > div a {
-        font-size: 2.5em;
-    }
-    .amodalscreen > div h1 {
-        font-size: 3.2em;
-        line-height: 1.25em;
-    }
+  .amodalscreen > div a {
+      font-size: 2.5em;
+  }
+  .amodalscreen > div h1 {
+      font-size: 3.2em;
+      line-height: 1.25em;
+  }
 }
 @media only screen and (max-width: 576px)
 {
-    .amodalscreen > div a {
-        font-size: 1.7em;
-    }
-    .amodalscreen > div h1 {
-        font-size: 2.3em;
-        font-weight: 200;
-    }
+  .amodalscreen > div a {
+      font-size: 1.7em;
+  }
+  .amodalscreen > div h1 {
+      font-size: 2.3em;
+      font-weight: 200;
+  }
 }
 /* .amodalscreen a {
-    text-shadow: 4px 4px 2px #00000077;
+  text-shadow: 4px 4px 2px #00000077;
 } */
 .tx-white {
-    color: white;
+  color: white;
 }
 .tx-orange {
-    color: #ff6600;
+  color: #ff6600;
 }
 .tx-shadow {
-    text-shadow: 4px 4px 2px #00000077;
+  text-shadow: 4px 4px 2px #00000077;
 }
 .textBox > div {
 background: linear-gradient(-135deg, #F1E7C2, #F1E7C2);
