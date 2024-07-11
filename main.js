@@ -63,7 +63,7 @@ function init() {
     let touchDuration = touchEndTime - touchStartTime;
   
     // If the touch duration is less than 200ms, treat it as a tap
-    if (touchDuration < 200) {
+    if (touchDuration < 100) {
       handleToggle();
     }
   });
