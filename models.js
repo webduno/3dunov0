@@ -395,7 +395,7 @@ THREE_OBJLoader.prototype = {
               
 function loadIslandSand(scene) {
   var objloader = new THREE_OBJLoader();
-  objloader.load('./models/island_sand.obj', function (object) {
+  objloader.load('../models/island_sand.obj', function (object) {
     object.scale.set(11, 11, 11);
     object.position.set(0, -8, -10);
     object.traverse(function (child) {
@@ -409,7 +409,7 @@ function loadIslandSand(scene) {
 
 function loadIslandRock(scene) {
   var objloader = new THREE_OBJLoader();
-  objloader.load('./models/island_rock.obj', function (object) {
+  objloader.load('../models/island_rock.obj', function (object) {
     object.scale.set(11, 11, 11);
     object.position.set(0, -8, -10);
     object.traverse(function (child) {
@@ -423,7 +423,7 @@ function loadIslandRock(scene) {
 
 function loadIslandWater(scene, successCallback) {
   var objloader = new THREE_OBJLoader();
-  objloader.load('./models/island_water.obj', function (object) {
+  objloader.load('../models/island_water.obj', function (object) {
     object.scale.set(11, 11, 11);
     object.position.set(0, -8, -10);
     object.traverse(function (child) {
@@ -448,7 +448,7 @@ function loadIslandWater(scene, successCallback) {
 
 function loadIslandMountain(scene) {
   var objloader = new THREE_OBJLoader();
-  objloader.load('./models/island_mountain.obj', function (object) {
+  objloader.load('../models/island_mountain.obj', function (object) {
     object.scale.set(11, 11, 11);
     object.position.set(0, -8, -10);
     object.traverse(function (child) {
@@ -462,7 +462,7 @@ function loadIslandMountain(scene) {
 
 function loadIslandGreen(scene) {
   var objloader = new THREE_OBJLoader();
-  objloader.load('./models/island_green.obj', function (object) {
+  objloader.load('../models/island_green.obj', function (object) {
     object.scale.set(11, 11, 11);
     object.position.set(0, -8, -10);
     object.traverse(function (child) {
@@ -476,7 +476,7 @@ function loadIslandGreen(scene) {
 
 function loadIslandLightGreen(scene) {
   var objloader = new THREE_OBJLoader();
-  objloader.load('./models/island_lightgreen.obj', function (object) {
+  objloader.load('../models/island_lightgreen.obj', function (object) {
     object.scale.set(11, 11, 11);
     object.position.set(0, -8, -10);
     object.traverse(function (child) {
@@ -489,7 +489,7 @@ function loadIslandLightGreen(scene) {
 }
 
 function initAboutText(scene, ffontLoader) {
-  ffontLoader.load( 'fonts/helvetiker_regular.typeface.json', function ( font ) {
+  ffontLoader.load( '../fonts/helvetiker_regular.typeface.json', function ( font ) {
     let textgeometry = new THREE.TextGeometry( '?', {
       font: font,
       size: 8,
@@ -511,7 +511,7 @@ function initAboutText(scene, ffontLoader) {
   } );
 }
 function initDunoText(scene, ffontLoader) {
-  ffontLoader.load( 'fonts/Lilita One_Regular.json', function ( font ) {
+  ffontLoader.load( '../fonts/Lilita One_Regular.json', function ( font ) {
     let textgeometry = new THREE.TextGeometry( 'DUNO', {
       font: font,
       size: 10,
@@ -534,7 +534,7 @@ function initDunoText(scene, ffontLoader) {
 function initWebText(scene, ffontLoader) {
   
   {
-    ffontLoader.load( 'fonts/Lilita One_Regular.json', function ( font ) {
+    ffontLoader.load( '../fonts/Lilita One_Regular.json', function ( font ) {
       let textgeometry = new THREE.TextGeometry( 'web', {
         font: font,
         size: 13,
@@ -560,7 +560,7 @@ function initWebText(scene, ffontLoader) {
 function initArtText(scene, ffontLoader) {
   
   {
-    ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
+    ffontLoader.load( '../fonts/helvetiker_bold.typeface.json', function ( font ) {
       let textgeometry = new THREE.TextGeometry( `
                                 Design, Modeling & Rendering:
         
@@ -605,7 +605,7 @@ function initArtText(scene, ffontLoader) {
 }
 function initCodeText(scene, ffontLoader) {
   {
-    ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
+    ffontLoader.load( '../fonts/helvetiker_bold.typeface.json', function ( font ) {
       let textgeometry = new THREE.TextGeometry( `
                                   Full-Stack Multi-Platform
                                 Software Development
@@ -648,7 +648,7 @@ function initGamesText(scene, ffontLoader) {
   
     
   {
-    ffontLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
+    ffontLoader.load( '../fonts/helvetiker_bold.typeface.json', function ( font ) {
       let textgeometry = new THREE.TextGeometry(
         `
                                I use Blender,

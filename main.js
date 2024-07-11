@@ -39,11 +39,15 @@ const pointer = new THREE.Vector2();
 const radius = 100;
 let touchStartTime = 0;
 
+console.log("init")
 init();
+console.log("init")
+
 function init() {
   // Function to handle the toggle action
+  console.log("handleToggle")
   function handleToggle() {
-    document.getElementById("mainToggleContainer").style.display = "none";
+    // document.getElementById("mainToggleContainer").style.display = "none";
     document.getElementById("loadingWater").style.display = "";
     document.getElementById("mainButtons").style.display = "";
     document.body.style.background = "";
@@ -52,31 +56,32 @@ function init() {
   }
 
   // Add event listener for click and touch events
-  const mainToggle = document.getElementById("mainToggle");
-  mainToggle.addEventListener("click", handleToggle);
-  mainToggle.addEventListener("touchstart", () => {
-    touchStartTime = new Date().getTime();
-  });
+  // const mainToggle = document.getElementById("mainToggle");
+  // mainToggle.addEventListener("click", handleToggle);
+  // mainToggle.addEventListener("touchstart", () => {
+  //   touchStartTime = new Date().getTime();
+  // });
   
-  mainToggle.addEventListener("touchend", () => {
-    let touchEndTime = new Date().getTime();
-    let touchDuration = touchEndTime - touchStartTime;
+  // mainToggle.addEventListener("touchend", () => {
+  //   let touchEndTime = new Date().getTime();
+  //   let touchDuration = touchEndTime - touchStartTime;
   
-    // If the touch duration is less than 200ms, treat it as a tap
-    if (touchDuration < 100) {
-      handleToggle();
-    }
-  });
-  
-  
-  
+  //   // If the touch duration is less than 200ms, treat it as a tap
+  //   if (touchDuration < 100) {
+  //     handleToggle();
+  //   }
+  // });
+  handleToggle()
   
   
   
   
-  if (window.location.hash === "#game") {
-    handleToggle();
-  }
+  
+  
+  
+  // if (window.location.hash === "#game") {
+  //   handleToggle();
+  // }
 }
 
 function initGame() {
@@ -190,37 +195,37 @@ function addLightsToScene() {
 function getColors() {
   return [
     {
-      img: "./img/wp2100821-1187062037.jpg", wireframe: false,
+      img: "../img/wp2100821-1187062037.jpg", wireframe: false,
       camera: { pos: [0, 0, 0], lookAt: [0, 0, 0] },
       box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] },
       color: 0xff9999,
     },
     {
-      img: "./img/grrrid.jpg", wireframe: false,
+      img: "../img/grrrid.jpg", wireframe: false,
       camera: { pos: [30, 30, 90], lookAt: [0, 0, 0] },
       box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, (3.14 / 4) * 3] },
       color: 0xff9999,
     },
     {
-      img: "./img/th-1084040338.jpg", wireframe: false,
+      img: "../img/th-1084040338.jpg", wireframe: false,
       camera: { pos: [50, 5, 55], lookAt: [0, 0, 0] },
       box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] },
       color: 0xffcc99,
     },
     {
-      img: "./img/th-813177686.jpg", wireframe: false,
+      img: "../img/th-813177686.jpg", wireframe: false,
       camera: { pos: [-20, -10, 20], lookAt: [0, 0, 0] },
       box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0.0, 0, 0] },
       color: 0xffff99,
     },
     {
-      img: "./img/grad5.jpg", wireframe: false,
+      img: "../img/grad5.jpg", wireframe: false,
       camera: { pos: [59, 7, -66], lookAt: [0, 0, 0] },
       box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] },
       color: 0xccff99,
     },
     {
-      img: "./img/grad5.jpg", wireframe: false,
+      img: "../img/grad5.jpg", wireframe: false,
       camera: { pos: [-20 ,25,5], lookAt: [0, 0, 0] },
       box: { pos: [0, 0, 0], scale: [0, 0, 0], rot: [0, 0, 0] },
       color: 0xccff99,
@@ -239,21 +244,21 @@ function getColors() {
 
                                 
     {
-      img:"./img/grad6.jpg",
+      img:"../img/grad6.jpg",
       wireframe:false,
       camera:{pos:[-40 ,5,-55],lookAt:[0,0,0]},
       box:{pos:[0,0,0],scale:[1,1,1],rot:[0,0,0],},
       color:0x99ffcc,
   },
 {
-      img:"./img/grad1.jpg",
+      img:"../img/grad1.jpg",
       wireframe:true,
       camera:{pos:[220 ,5,115],lookAt:[0,0,0]},
       box:{pos:[0,120,0],scale:[1,1,1],rot:[0,0,0],},
       color:0x99ccff,
   },
 {
-      img:"./img/grad1.jpg",
+      img:"../img/grad1.jpg",
       wireframe:false,
       camera:{pos:[-20 ,5,-15],lookAt:[0,0,0]},
       box:{pos:[0,120,0],scale:[1,1,1],rot:[0,0,0],},
