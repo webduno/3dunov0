@@ -1,0 +1,9 @@
+(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[931,21],{597:function(e,r,n){Promise.resolve().then(n.bind(n,4351))},4351:function(e,r,n){"use strict";n.r(r),n.d(r,{LogoButton:function(){return LogoButton}});var o=n(7437),t=n(4033);let LogoButton=()=>((0,t.usePathname)(),(0,o.jsx)(o.Fragment,{children:(0,o.jsx)("a",{className:"pos-fix left-0 top-0 pa-4 opaci-chov--50 z-100 ",href:"/ask",children:(0,o.jsx)("div",{className:"bord-r-100p flex-col h-50px w-50px",style:{background:"linear-gradient(45deg, #0EBA2A, #62F87D)"},children:(0,o.jsx)("img",{src:"/ask/favicon/android-icon-72x72.png",width:64,className:"pos-abs"})})})}))},622:function(e,r,n){"use strict";/**
+ * @license React
+ * react-jsx-runtime.production.min.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */var o=n(2265),t=Symbol.for("react.element"),s=Symbol.for("react.fragment"),a=Object.prototype.hasOwnProperty,c=o.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,i={key:!0,ref:!0,__self:!0,__source:!0};function q(e,r,n){var o,s={},f=null,u=null;for(o in void 0!==n&&(f=""+n),void 0!==r.key&&(f=""+r.key),void 0!==r.ref&&(u=r.ref),r)a.call(r,o)&&!i.hasOwnProperty(o)&&(s[o]=r[o]);if(e&&e.defaultProps)for(o in r=e.defaultProps)void 0===s[o]&&(s[o]=r[o]);return{$$typeof:t,type:e,key:f,ref:u,props:s,_owner:c.current}}r.Fragment=s,r.jsx=q,r.jsxs=q},7437:function(e,r,n){"use strict";e.exports=n(622)},4033:function(e,r,n){e.exports=n(94)}},function(e){e.O(0,[971,472,744],function(){return e(e.s=597)}),_N_E=e.O()}]);
