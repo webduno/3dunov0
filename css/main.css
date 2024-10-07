@@ -52,6 +52,9 @@ button {
 	z-index: 1; 
 }
 
+.pointer {
+	cursor: pointer;
+}
 a, button, input, select {
 	pointer-events: auto;
 }
@@ -92,4 +95,8 @@ a, button, input, select {
 	background-color: #f00;
 	margin-top: 20px;
 	padding: 10px;
+}
+
+.bg-w-50 {
+	background: linear-gradient(90deg, #ffffff17, #00000000);
 }
