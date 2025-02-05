@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Abraham Duno</title>
+	<meta charset="utf-8">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+
+	<style type="text/css">
+		body, html {
+			background: linear-gradient(45deg, #191919, #101010);
+		    /*font-family: 'Open Sans Condensed', sans-serif;*/
+		    font-family: 'Roboto', sans-serif;
+		    /*font-family: 'Mulish', sans-serif;*/
+		    color: white;
+			margin: 0;
+			padding: 0;
+		}		
+		.aText {
+		    font-family: 'Open Sans Condensed', sans-serif;
+		}
+		.container {
+			position: relative;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+		}
+		.header {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			width: 100vw;
+			margin-bottom: 20px;
+			position: fixed;
+			background: linear-gradient(180deg, #111111 75%, #111111cc 85%, #11111100);
+			margin: 0;
+			padding: 0;
+			z-index: 999;
+		}
+		.bold { font-weight: bold; }
+		.text-giant { font-size: 2em; }
+		.icon-orange { stroke: #FFEA00; }
+		.text-orange { color: #FFEA00; }
+		.icon-beige { stroke: #B6A19E; }
+		.text-beige { color: #B6A19E; }
+		.icon-red { stroke: #F14447; }
+		.text-red { color: #F14447; }
+		.icon-purple { stroke: #FD8FFA; }
+		.text-purple { color: #FD8FFA; }
+		.icon-blue { stroke: #6EA0FD; }
+		.text-blue { color: #6EA0FD; }
+		.icon-green { stroke: #3BFBB6; }
+		.text-green { color: #3BFBB6; }
+		.header svg {
+		  color: #111;
+		  stroke-width: 10;
+		}
+		.logo {
+		}
+		.logo:hover {
+		}
+		.logo:hover img {
+			opacity: 1;
+		}
+		.logo img {
+			width: 130px;
+			height: auto;
+			opacity: .7;
+			transition: all .3s ease-in-out;
+		}
+		.header .button {
+			color: #feda35;
+			cursor: pointer;
+    		text-decoration: none;
+    		padding: 0px 35px;
+    		border-radius: 5px;
+		}
+		.header .button:hover {
+			color: #FFEA00;
+    		box-shadow: 0 0 2px #FFEA00;
+		}
+		.about_me {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			/*background: #111111;*/
+		}
+
+		#gallery {
+			width: 100vw !important;
+		}
+
+
+	</style>
+
+	<script type='text/javascript' src='lib/unitegallery/js/jquery-11.0.min.js'></script>	
+	<script type='text/javascript' src='lib/unitegallery/js/unitegallery.min.js'></script>	
+
+	<link rel='stylesheet' href='gallery/lib/unitegallery/css/unite-gallery.css' type='text/css' />
+	
+	<script type='text/javascript' src='gallery/lib/unitegallery/themes/tiles/ug-theme-tiles.js'></script>
+
+
+	<script src="gallery/js/fontawesome-all.js"></script>
+
+	<link rel='stylesheet' href='gallery/css/spirit.css' type='text/css' />
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="header">
+			<!-- <a class="fb" href="#"><i class="fab fa-4x fa-facebook-square orange"></i></a>
+			<a class="yt" href="#"><i class="fab fa-4x fa-youtube-square beige"></i></a> -->
+			<div class="flex-wrap px-5">
+				<a class="logo nooverflow" href="#" style="border-radius: 0 0 12px 12px"><img src="gallery/images/android-chrome-192x192.png"></a>
+				<a class=" tx-reset opacity-hover-75" href="#portfolio"><h3 class="ma-0 pa-2">Portafolio</h3></a>
+				<a class=" tx-reset opacity-hover-75" href="#price"><h3 class="ma-0 pa-2">Presupuesto</h3></a>
+				<a class=" tx-reset opacity-hover-75" href="#us"><h3 class="ma-0 pa-2">Nosotros</h3></a>
+				
+			</div>
+			
+			<a href="https://www.instagram.com/tresduno/" target="_blank" class="aText button"><h1>@TRESDUNO.</h1></a>
+			<!-- <a href="" class="button"><h1>Hire me.</h1></a> -->
+
+			<!-- <a class="lk" href="#"><i class="fab fa-4x fa-linkedin purple"></i></a>
+			<a class="ml" href="#"><i class="fa fa-4x fa-envelope-square blue"></i></a> -->
+		</div>
+
+		<div style="height: 320px"></div>
+		<div id="portfolio" ></div>
+		<div class="about">
+			<!-- <h1>About me.</h1> -->
+			<div class="about_me">
+				<h1 class="tx-xl">ABRAHAM DUNO</h1>
+				<div class="opacity-50 tx-ls-2 tx-center">
+					<b>Fotos Profesionales</b> y <b>Producciones Audiovisuales</b>.
+				</div>
+			</div>
+		</div>
+		<hr class="w-50 opacity-10 mt-200 " >
+		<h1 class="tx-ls-10 opacity-50">PORTAFOLIO</h1>
+		<hr class="w-50 opacity-10  ">
+<!-- 		<div class="nooverflow w-100">
+			<h1 class="tx-center">Producciones Audiovisuales</h1>
+
+			<div class="flex-wrap my-5 w-100">  
+				<video src="gallery/images/juridicon/Juridicon01.mp4" controls  width="720" height="480">
+					<a href="images/juridicon/Juridicon01.mp4">Download song</a>
+				</video>
+				<video src="gallery/images/juridicon/Juridicon02.mp4" controls  width="720" height="480">
+					<a href="images/juridicon/Juridicon02.mp4">Download song</a>
+				</video>
+			</div>
+			<div class="flex-wrap my-5 w-100">  
+				<video src="gallery/images/elbarnuestro/Bar01.mp4" controls  width="270" height="480">
+					<a href="images/elbarnuestro/Bar01.mp4">Download song</a>
+				</video>
+				<video src="gallery/images/elbarnuestro/barnuestro general 45seg.mp4" controls width="270" height="480">
+					<a href="images/elbarnuestro/barnuestro general 45seg.mp4">Download song</a>
+				</video>
+
+				<video src="gallery/images/bookmodels/ad school.mp4" controls  width="323" height="480">
+					<a href="images/bookmodels/ad school.mp4">Download song</a>
+				</video>
+			</div>
+		</div> -->
+		<div class="nooverflow w-100">
+			<h1 class="tx-center">Producciones Audiovisuales</h1>
+
+			<div class="flex-wrap my-5 w-100" style="background: linear-gradient(-95deg, #00000000 5%, #00000077 8%, #00000000)">  
+				<iframe
+							class="ma-4"
+					width="806"
+					height="453"
+					src="https://www.youtube.com/embed/O5tZhhBaxoU"
+					title="YouTube video player"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen>
+				</iframe>
+				<div class="flex-column ma-5">
+					<iframe
+							class="ma-4"
+						width="560"
+						height="315"
+						src="https://www.youtube.com/embed/T_feozZ9oYs"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+					<iframe
+							class="ma-4"
+						width="560"
+						height="315"
+						src="https://www.youtube.com/embed/sIcCC-dAFWY"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+				</div>
+				<div class="flex-wrap my-5" >
+					<iframe
+							class="ma-4"
+						width="270"
+						height="480"
+						src="https://www.youtube.com/embed/QykqWCOUlsk"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+					<iframe
+							class="ma-4"
+						width="270"
+						height="480"
+						src="https://www.youtube.com/embed/z8eLhTyO6CU"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+
+					
+					<iframe
+							class="ma-4"
+						width="270"
+						height="480"
+						src="https://www.youtube.com/embed/wIuwXXPJKX4"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+				</div>
+				<div class="flex-wrap my-5" >
+					<div class="flex-column">
+						<iframe
+							class="ma-4"
+							width="560"
+							height="315"
+							src="https://www.youtube.com/embed/s-48A9UHn-c"
+							title="YouTube video player"
+							frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen>
+						</iframe>
+						<iframe
+							class="ma-4"
+							width="560"
+							height="315"
+							src="https://www.youtube.com/embed/M2lEsotObjY"
+							title="YouTube video player"
+							frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen>
+						</iframe>
+					</div>
+				</div>
+			</div>
+			<div class="flex-wrap my-5 w-100" >   
+				<div class="flex-wrap my-5">
+					<iframe
+						class="ma-3"
+						width="270"
+						height="480"
+						src="https://www.youtube.com/embed/6BoOBPWZ2xQ"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+					<iframe
+						class="ma-3"
+						width="270"
+						height="480"
+						src="https://www.youtube.com/embed/Izyqi27pCKE"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+				</div>
+			</div>
+			<div class="flex-column " style="background: linear-gradient(-95deg, #00000000 5%, #00000077 8%, #00000000)">
+				<div class="flex-wrap my-5">
+					<iframe
+						class="ma-3"
+						width="560"
+						height="315"
+						src="https://www.youtube.com/embed/A_4ZpTIayC4"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+					<iframe
+						class="ma-3"
+						width="560"
+						height="315"
+						src="https://www.youtube.com/embed/JAuNKqJG7uY"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+				</div>
+				<div class="flex-wrap my-5">
+					<iframe
+						class="ma-4"
+						width="560"
+						height="315"
+						src="https://www.youtube.com/embed/cDWtNt_Og8o"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+					<iframe
+						class="ma-4"
+						width="560"
+						height="315"
+						src="https://www.youtube.com/embed/nWXMZcM-2xI"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+					<iframe
+						class="ma-4"
+						width="560"
+						height="315"
+						src="https://www.youtube.com/embed/v3Z1EoxOXaU"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+				</div>
+			</div>
+		</div>
+
+		<hr class="w-50 opacity-10 mt-200 ">
+		<h1 class="tx-center">Portafolio Fotográfico</h1>
+
+		<div id="gallery" style="display:none;" class="my-5">
+
+			<img alt="Foto Grupal Ad"
+			     src="gallery/images/juridicon/grupo blanco.jpg"
+			     data-image="images/juridicon/grupo blanco.jpg"
+			     data-description="Foto Grupal Ad">
+			<img alt="Foto Perfil Profesional"
+			     src="gallery/images/juridicon/naz sit.jpg"
+			     data-image="images/juridicon/naz sit.jpg"
+			     data-description="Foto Perfil Profesional">
+			<img alt="Foto Perfil Profesional"
+			     src="gallery/images/juridicon/sir sit.jpg"
+			     data-image="images/juridicon/sir sit.jpg"
+			     data-description="Foto Perfil Profesional">
+
+			<img alt="Foto Joyeria en Modelo"
+			     src="gallery/images/angie/joyeria 1.jpg"
+			     data-image="images/angie/joyeria 1.jpg"
+			     data-description="Foto Joyeria en Modelo">
+			<img alt="Foto Trenzas en Modelo"
+			     src="gallery/images/angie/trenzas.jpg"
+			     data-image="images/angie/trenzas.jpg"
+			     data-description="Foto Trenzas en Modelo">
+			<img alt="Foto Maquillaje en Modelo"
+			     src="gallery/images/angie/maquillaje.jpg"
+			     data-image="images/angie/maquillaje.jpg"
+			     data-description="Foto Maquillaje en Modelo">
+			<img alt="Foto Maquillaje y Joyeria en Modelo"
+			     src="gallery/images/angie/joyeria maquillaje.jpg"
+			     data-image="images/angie/joyeria maquillaje.jpg"
+			     data-description="Foto Maquillaje y Joyeria en Modelo">
+			<img alt="Foto Modelo Sports"
+			     src="gallery/images/angie/gym.jpg"
+			     data-image="images/angie/gym.jpg"
+			     data-description="Foto Modelo Sports">
+			<img alt="Foto Modelo Sports"
+			     src="gallery/images/angie/gym closeup.jpg"
+			     data-image="images/angie/gym closeup.jpg"
+			     data-description="Foto Modelo Sports">
+
+
+
+			<img alt="Foto Modelo Sports"
+			     src="gallery/images/marrest.jpg"
+			     data-image="images/marrest.jpg"
+			     data-description="Foto Modelo Sports">
+			<img alt="Foto Modelo Sports"
+			     src="gallery/images/IMG_0692-1.jpg"
+			     data-image="images/IMG_0692-1.jpg"
+			     data-description="Foto Modelo Sports">
+			<img alt="Foto Modelo Sports"
+			     src="gallery/images/IMG_0677.jpg"
+			     data-image="images/IMG_0677.jpg"
+			     data-description="Foto Modelo Sports">
+			<img alt="Foto Modelo Sports"
+			     src="gallery/images/IMG_0670-1.jpg"
+			     data-image="images/IMG_0670-1.jpg"
+			     data-description="Foto Modelo Sports">
+			<img alt="Foto Modelo Sports"
+			     src="gallery/images/IMG_0634.jpg"
+			     data-image="images/IMG_0634.jpg"
+			     data-description="Foto Modelo Sports">
+			<img alt="Foto Modelo Sports"
+			     src="gallery/images/IMG_0628.jpg"
+			     data-image="images/IMG_0628.jpg"
+			     data-description="Foto Modelo Sports">
+			<img alt="Foto Modelo Sports"
+			     src="gallery/images/IMG_0604-1.jpg"
+			     data-image="images/IMG_0604-1.jpg"
+			     data-description="Foto Modelo Sports">
+			<img alt="Foto Modelo Sports"
+			     src="gallery/images/IMG_0529.jpg"
+			     data-image="images/IMG_0529.jpg"
+			     data-description="Foto Modelo Sports">			     
+			     
+			     
+			     
+
+
+
+
+
+
+		</div>
+		<div id="price" style="transform: translateY(-50px);"></div>
+		<!-- <h1>Gallery</h1>
+
+		<div class="contact">
+			
+		</div> -->
+
+	</div>
+	
+
+	<hr class="w-50 opacity-10 mt-200 " >
+	<h1 class="tx-ls-10 opacity-50 tx-center">PRESUPUESTO</h1>
+	<hr class="w-50 opacity-10  ">
+
+	<div class="flex-wrap py-6 my-3 flex-align-start" id="templateViewId" style="background: linear-gradient(95deg, #00000000 5%, #00000077 8%, #00000000)" >
+		<div class="flex-column" style="width: 480px">
+			
+			<!-- <h1><a href="https://instagram.com/tresduno" target="_blank" style="color: white">@tresduno</a></h1> -->
+			<!-- <hr style="width: 50%; opacity: .5"> -->
+			<h4 style="opacity: .5">Tabla de Precios</h4>
+
+			<div style="display: flex; width: 75%">
+				<i style="opacity: .5" class="fa fa-xl fa-camera"></i>
+				<span>1</span><h2 style="margin: 0; padding-bottom: 25px"> Foto</h2>
+				<span style="flex: 1"></span>
+				<h2 style="opacity: .5; margin: 0; padding-bottom: 25px" id="photo_type_prices_md">$</h2>
+			</div>
+
+			<div style="display: flex; width: 75%">
+				<i style="opacity: .5" class="fa fa-xl fa-video"></i>
+				<span>1</span><h2 style="margin: 0; padding-bottom: 25px"> Video <small>(15-25 seg)</small> </h2>
+				<span style="flex: 1"></span>
+				<h2 style="opacity: .5; margin: 0; padding-bottom: 25px" id="video_type_prices_sm">$</h2>
+			</div>
+
+			<div style="display: flex; width: 75%">
+				<i style="opacity: .5" class="fa fa-xl fa-video"></i>
+				<span>1</span><h2 style="margin: 0; padding-bottom: 25px"> Video <small>(30-55 seg)</small> </h2>
+				<span style="flex: 1"></span>
+				<h2 style="opacity: .5; margin: 0; padding-bottom: 25px" id="video_type_prices_md">$</h2>
+			</div>
+
+			<div style="display: flex; width: 75%">
+				<i style="opacity: .5" class="fa fa-xl fa-video"></i>
+				<span>1</span><h2 style="margin: 0; padding-bottom: 25px"> Video <small>(60-90 seg)</small> </h2>
+				<span style="flex: 1"></span>
+				<h2 style="opacity: .5; margin: 0; padding-bottom: 25px" id="video_type_prices_lg">$</h2>
+			</div>
+
+			<!-- <div style="display: flex; width: 75%">
+				<span>1</span><h2 style="margin: 0; padding-bottom: 25px">Video <small>(+1 min)</small></h2>
+				<span style="flex: 1"></span>
+				<h2 style="opacity: .5; margin: 0; padding-bottom: 25px">$7/<small>min</small></h2>
+			</div> -->
+
+			<div style="display: flex; width: 75%">
+				<i style="opacity: .5" class="fa fa-xl fa-user-clock"></i>
+				<h2 style="margin: 0; padding-bottom: 25px">Hora de Trabajo</h2>
+				<span style="flex: 1"></span>
+				<h2 style="opacity: .5; margin: 0; padding-bottom: 25px">$1-5</h2>
+			</div>
+		</div>
+		<div class="flex-column" style="width: 480px">
+			<h1>Orden</h1>
+
+			<div class="flex-column">
+				<div >
+					<h4 style="text-align: center; flex: 1; opacity: .5"><i class="fa fa-camera"></i> Foto(s)</h4>
+					<span></span>
+					<h3 style="text-align: center; flex: 1">
+						<input type="number" name="photo_amount" placeholder="0" value="" min="0"  data-watch="photo_amount_changed"  data-keyup
+						style="font-size: 35px; padding: 15px; background: rgba(0,0,0,.25); color: white; border: none; width: 50%;
+						border-bottom: 1px solid rgb(127,127,127); text-align: center;">
+					</h3>
+				</div>
+				<div class="flex-wrap">
+					<h3 style="text-align: center; flex: 1; opacity: .5" class="flex-wrap">
+						<div class="flex-column flex-align-start">
+							<label ><i class="fa fa-video"></i> 15-25s</label>
+							<input type="number" name="video_type_sm" value="0" min="0" data-watch="video_type_changed" data-keyup data-video_type_size="sm" placeholder="0" 
+							style="font-size: 35px; padding: 15px; background: rgba(0,0,0,.25); color: white; border: none; width: 100px;
+							margin-right: 20px; border-bottom: 1px solid rgb(127,127,127); text-align: center;">
+						</div>
+
+						<!-- <br> -->
+
+						<div class="flex-column flex-align-start">
+							<label><i class="fa fa-video"></i> 30-55s</label>
+							<input type="number" name="video_type_md" value="0" min="0" data-watch="video_type_changed" data-keyup data-video_type_size="md" placeholder="0" 
+							style="font-size: 35px; padding: 15px; background: rgba(0,0,0,.25); color: white; border: none; width: 100px;
+							margin-right: 20px; border-bottom: 1px solid rgb(127,127,127); text-align: center;">
+						</div>
+
+						<!-- <br> -->
+
+						<div class="flex-column flex-align-start">
+							<label ><i class="fa fa-video"></i> 60-90s</label>
+							<input type="number" name="video_type_lg" value="0" min="0" data-watch="video_type_changed" data-keyup data-video_type_size="lg" placeholder="0" 
+							style="font-size: 35px; padding: 15px; background: rgba(0,0,0,.25); color: white; border: none; width: 100px;
+							margin-right: 20px; border-bottom: 1px solid rgb(127,127,127); text-align: center;">
+						</div>
+
+					</h3>
+				</div>
+
+					<div style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+						<h4 style="text-align: center; flex: 1; opacity: .5">Info.</h4>
+						<span></span>
+						<h2 style="text-align: center;  width: 75%;">
+							<textarea name="desc" placeholder="Descripcion" value=""
+							style="font-size: 25px; padding: 5px; background: transparent; color: white; border: none;
+							border-bottom: 1px solid rgb(127,127,127); width: 100%"></textarea>
+						</h2>
+					</div>
+
+					<div class="flex-wrap">
+							<i class="fa fa-user-clock"></i>
+							<label style="margin: 0 5px 0px 20px">Hora de Trabajo</label>
+							<span style="padding-right: 10px; margin-right: 10px"> </span>
+							<input type="number" name="work_hour_amount" value="1" min="1" data-watch="work_hour_amount_changed" data-keyup placeholder="1" 
+							style="font-size: 35px; padding: 15px; background: rgba(0,0,0,.25); color: white; border: none; width: 100px;
+							margin-right: 20px; border-bottom: 1px solid rgb(127,127,127); text-align: center;">
+							<small>hrs</small>
+							<span>x</span>
+							<small>$</small>
+							<input type="number" name="work_hour_price" value="1" min="1" data-watch="work_hour_price_changed" data-keyup placeholder="1" 
+							style="font-size: 35px; padding: 15px; background: rgba(0,0,0,.25); color: white; border: none; width: 100px;
+							margin-right: 20px; border-bottom: 1px solid rgb(127,127,127); text-align: center;">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <hr class="w-50 opacity-10  "> -->
+		<div class="flex-column pa-5" style="background: linear-gradient(-95deg, #00000000 5%, #00000077 8%, #00000000)">
+			<h1 class="total_title" style="margin: 0">Total: $0</h1>
+			<h2 class="total_title_desc" style="opacity: .5"></h2>
+		</div>
+
+	</div>
+
+	<hr class="w-50 opacity-10  " >
+	<h1 class="tx-ls-10 opacity-50 tx-center">PRESUPUESTO</h1>
+	<hr class="w-50 opacity-10 mb-200 ">
+
+	
+
+	<br class="w-50 opacity-10 mt-200 " >
+	<div id="us"></div>
+	<hr class="w-50 opacity-10 mt-200 " >
+	<h1 class="tx-ls-10 opacity-50 tx-center">Quienes Somos?</h1>
+	<div class="tx-ls-2 my-5 pa-5 flex-center"  >
+		<p style="max-width: 720px">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</p>
+	</div>
+
+	<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous">
+	</script> -->
+	<!-- <script src="jquery.min.js"></script> -->
+	<h1 class="tx-ls-10 opacity-50 tx-center">Redes Sociales</h1>
+	
+			<div class="flex-column px-5 ">
+				<a class=" tx-reset opacity-hover-75" href="https://www.instagram.com/tresduno" target="_blank"><h3 class="ma-0 pa-2">Instagram</h3></a>
+				<a class=" tx-reset opacity-hover-75" href="https://www.youtube.com/channel/UC0A0qWopy-2BnqYvFoENkug" target="_blank"><h3 class="ma-0 pa-2">Youtube</h3></a>
+				<a class="logo" href="#"><img src="gallery/images/android-chrome-192x192.png"></a>
+				
+			</div>
+	<hr class="w-50 opacity-10  mb-200">
+	<script type="text/javascript">
+		class jQueryTemplateView {
+			constructor($container, options, data = null)
+			{
+				this.$container = $($container);
+
+				this.options = Object.assign({
+				}, options);
+
+				this.data = Object.assign({
+					work_hour_price: 1,
+					work_hour_amount: 1,
+					photo_amount: 0,
+					photo_type_prices: {
+						"sm": 1,
+						"md": 2,
+						"lg": 5,
+					},
+					video_type_prices: {
+						"sm": 9,
+						"md": 15,
+						"lg": 25,
+					},
+					video_type_amounts: {
+						"sm": 0,
+						"md": 0,
+						"lg": 0,
+					},
+					sizes_array: ["sm","md","lg"],
+				}, data);
+
+				let self = this;
+				
+				
+				$('#photo_type_prices_md').html("$"+self.data.photo_type_prices.md);
+
+				$('#video_type_prices_sm').html("$"+self.data.video_type_prices.sm);
+				$('#video_type_prices_md').html("$"+self.data.video_type_prices.md);
+				$('#video_type_prices_lg').html("$"+self.data.video_type_prices.lg);
+
+				this.requests =
+				{
+				};
+
+				this.updaters =
+				{
+					updateTotalAmount(event = null)
+					{
+						// console.log("updateTotalAmount")
+						// console.log(self.getTotalAmount())
+						$('.total_title').html("Total: $"+self.getTotalAmount());
+						// console.log(self.getTotalDesc())
+						$('.total_title_desc').html(self.getTotalDesc());
+						// console.log("video_type_changed")
+					},
+				};
+
+				this.watchers =
+				{
+					video_type_changed(event = null)
+					{
+						self.data.video_type_amounts[event.currentTarget.dataset.video_type_size] = event.currentTarget.value;
+						self.updaters.updateTotalAmount();
+					},
+					work_hour_amount_changed(event = null)
+					{
+						self.data.work_hour_amount = event.currentTarget.value;
+						self.updaters.updateTotalAmount();
+					},
+					work_hour_price_changed(event = null)
+					{
+						self.data.work_hour_price = event.currentTarget.value;
+						self.updaters.updateTotalAmount();
+					},
+					photo_amount_changed(event = null)
+					{
+						self.data.photo_amount = event.currentTarget.value;
+						self.updaters.updateTotalAmount();
+					},
+				};
+
+				this.clickers =
+				{
+				};
+
+				this.initWatchers();
+			}
+
+			initWatchers()
+			{
+				let self = this;
+
+				$("[data-keyup]").keyup((event) =>
+				{
+					self.watchers[$(event.currentTarget).data('watch')] && self.watchers[$(event.currentTarget).data('watch')](event);
+				});
+
+				this.$container.on('change',"[data-watch]", function(event)
+				{
+					self.watchers[$(this).data('watch')](event);
+				});
+
+				this.$container.on('click',"[data-click]", function(event)
+				{
+					self.clickers[$(this).data('click')](event);
+				});
+
+				this.updaters.updateTotalAmount()
+			}
+
+			getTotalAmount(event = null)
+			{
+				let totalAmount = 0;
+
+				for (var i = 0; i < this.data.sizes_array.length; i++)
+				{
+					// console.log(this.data.sizes_array[i], this.data.video_type_amounts, parseInt(this.data.video_type_amounts[this.data.sizes_array[i]]))
+					if (!parseInt(this.data.video_type_amounts[this.data.sizes_array[i]]))
+					{
+						continue
+					}
+					totalAmount += parseInt(this.data.video_type_amounts[this.data.sizes_array[i]]) * this.data.video_type_prices[this.data.sizes_array[i]];
+				}
+
+				let photosValue = !this.data.photo_amount ? 0 : parseInt(this.data.photo_amount) * this.data.photo_type_prices.md
+				// console.table({
+				// 	totalAmount,
+				// 	photosValue,
+				// })
+
+				return totalAmount + photosValue + (parseInt(this.data.work_hour_price) * parseInt(this.data.work_hour_amount));
+			}
+			getTotalDesc(event = null)
+			{
+				let totalDesc = "";
+
+				for (var i = 0; i < this.data.sizes_array.length; i++)
+				{
+					if (!this.data.video_type_amounts[this.data.sizes_array[i]]) continue
+					totalDesc += ""+ this.data.video_type_amounts[this.data.sizes_array[i]] +
+								" videos "+ this.data.sizes_array[i] +
+								" ($"+ this.data.video_type_prices[this.data.sizes_array[i]] +") + ";
+				}
+
+				if (this.data.photo_amount == 0)
+				{
+					// totalDesc = totalDesc.substring(0, totalDesc.length - 2)
+				} else {
+					totalDesc += parseInt(this.data.photo_amount) + ` foto${(parseInt(this.data.photo_amount) == 1 ? '' : 's')} + `
+				}
+				// totalDesc = totalDesc.substring(0, totalDesc.length - 2)
+
+				// if (this.data.work_hour_price > 0 && this.data.work_hour_amount > 0)
+				{
+					// totalDesc += " & "
+					totalDesc += `( ${parseInt(this.data.work_hour_amount)}hrs x $${parseInt(this.data.work_hour_price)} ($${this.data.work_hour_price*this.data.work_hour_amount}) )`
+				}
+
+				return totalDesc
+			}
+		}
+
+		$(document).ready(function(){
+
+			jQuery("#gallery").unitegallery({
+				gallery_min_width: 450,				
+				tiles_col_width: 450,					
+			});
+
+			let newjQueryTemplateView = new jQueryTemplateView('#templateViewId', {
+			});
+
+			$('[name="photo_amount"]').val(null);
+			$('[name="desc"]').val("");
+
+			$('[name="video_type_sm"]').val(null);
+			$('[name="video_type_md"]').val(null);
+			$('[name="video_type_lg"]').val(null);
+			$('[name="work_hour_price"]').val(null);
+			$('[name="work_hour_amount"]').val(null);
+		});
+		
+	</script>
+
+</body>
+</html>

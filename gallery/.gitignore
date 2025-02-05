@@ -1,0 +1,34 @@
+
+.cache/
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+build/
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
