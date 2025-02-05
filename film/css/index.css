@@ -131,3 +131,6 @@ background: #ddd;
 .aditional-info b {
 	color: #333;
 }
+.nowrap {
+	white-space: nowrap;
+}
