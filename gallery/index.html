@@ -14,8 +14,14 @@
 	<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&family=Roboto:wght@100&display=swap" rel="stylesheet"> 
 
 	<style type="text/css">
+		body,html{
+			background: black;
+		}
+		
 		body, html {
-			background: linear-gradient(45deg, #191919, #101010);
+			/* background: linear-gradient(90deg, red, blue); */
+			background: #000000;
+			/* background: #030507; */
 		    /*font-family: 'Open Sans Condensed', sans-serif;*/
 		    font-family: 'Roboto', sans-serif;
 		    /*font-family: 'Mulish', sans-serif;*/
@@ -39,7 +45,7 @@
 			width: 100vw;
 			margin-bottom: 20px;
 			position: fixed;
-			background: linear-gradient(180deg, #111111 75%, #111111cc 85%, #11111100);
+			/* background: linear-gradient(180deg, #111111 75%, #111111cc 85%, #11111100); */
 			margin: 0;
 			padding: 0;
 			z-index: 999;
@@ -113,23 +119,29 @@
 	<script src="gallery/js/fontawesome-all.js"></script>
 
 	<link rel='stylesheet' href='gallery/css/spirit.css' type='text/css' />
+	<link rel='stylesheet' href='gallery/css/index.css' type='text/css' />
 </head>
 <body>
 
-	<div class="container">
+	<div class="container w-100">
 
 		<div class="header">
 			<!-- <a class="fb" href="#"><i class="fab fa-4x fa-facebook-square orange"></i></a>
 			<a class="yt" href="#"><i class="fab fa-4x fa-youtube-square beige"></i></a> -->
 			<div class="flex-wrap px-5">
-				<a class="logo nooverflow" href="/gallery" style="border-radius: 0 0 12px 12px"><img src="gallery/images/android-chrome-192x192.png"></a>
-				<a class=" tx-reset opacity-hover-75" href="/gallery"><h3 class="ma-0 pa-2">Galeria</h3></a>
-				<a class=" tx-reset opacity-hover-75" href="/film"><h3 class="ma-0 pa-2">Presupuesto</h3></a>
-				<a class=" tx-reset opacity-hover-75" href="#us"><h3 class="ma-0 pa-2">Nosotros</h3></a>
+				<a class="logo nooverflow" href="/gallery" style="border-radius: 0 0 12px 12px"><img src="../3sd1.jpg"></a>
+				<!-- <a class=" tx-reset opacity-hover-75" href="/gallery"><h3 class="ma-0 pa-2">Galeria</h3></a> -->
+				<!-- <a class=" tx-reset opacity-hover-75" href="/film"><h3 class="ma-0 pa-2">Presupuesto</h3></a> -->
+				<!-- <a class=" tx-reset opacity-hover-75" href="#us"><h3 class="ma-0 pa-2">Nosotros</h3></a> -->
 				
 			</div>
 			
-			<a href="https://www.instagram.com/tresduno/" target="_blank" class="aText button"><h1>@TRESDUNO.</h1></a>
+			<a
+			style="
+			color: #ff3300;
+			text-shadow: 0 0 15px #ff550099;
+			"
+			href="https://www.instagram.com/tresduno/" target="_blank" class="aText button"><h1>@TRESDUNO</h1></a>
 			<!-- <a href="" class="button"><h1>Hire me.</h1></a> -->
 
 			<!-- <a class="lk" href="#"><i class="fab fa-4x fa-linkedin purple"></i></a>
@@ -138,7 +150,15 @@
 
 		<div style="height: 320px"></div>
 		<div id="portfolio" ></div>
-		<div class="about">
+		<div class="about " 
+		style="
+		padding: 30px;
+		background: linear-gradient(20deg, #ff550055 , #ff330000 10%, #ff330000 70%, #ff550055),
+		linear-gradient(-5deg, #ff550022 , #ff330000 10%, #ff330000 70%, #ff550022)
+		;
+		"
+
+		>
 			<!-- <h1>About me.</h1> -->
 			<div class="about_me">
 				<h1 class="tx-xl">ABRAHAM DUNO</h1>
@@ -147,9 +167,12 @@
 				</div>
 			</div>
 		</div>
-		<hr class="w-50 opacity-10 mt-200 " >
-		<h1 class="tx-ls-10 opacity-50">PORTAFOLIO</h1>
-		<hr class="w-50 opacity-10  ">
+		<!-- <hr class="w-50 opacity-10 mt-200 " > -->
+		<h1 class="tx-ls-10 opacity-50 "style="margin-top: 100px;">PORTAFOLIO</h1>
+		<!-- <hr class="w-100 opacity-10  "> -->
+		<div style="background: #33110077; padding: 1px; width: 50%;" class="pa-4 w-100 _ddg">
+			
+		</div>
 <!-- 		<div class="nooverflow w-100">
 			<h1 class="tx-center">Producciones Audiovisuales</h1>
 
@@ -174,7 +197,10 @@
 				</video>
 			</div>
 		</div> -->
-		<div class="nooverflow w-100">
+		<!-- style="background: linear-gradient(180deg, #777777 5%, #777777 8%, #777777)" -->
+
+		<div class="nooverflow w-100"
+		>
 			<h1 class="tx-center">Producciones Audiovisuales</h1>
 
 			<div class="flex-wrap my-5 w-100" style="background: linear-gradient(-95deg, #00000000 5%, #00000077 8%, #00000000)">  
