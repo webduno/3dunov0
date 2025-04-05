@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Open Pets</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="base.css">
+  <link rel="stylesheet" type="text/css" href="dunopack.css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <meta charset="utf-8">
+  <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+  <!-- <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+French+Canon+SC&display=swap" rel="stylesheet"> -->
+</head>
+<body style="overflow: hidden;">
+  <script src="./src/__main.js" type="module">
+  </script>
+  <div class="loading-container text-center" id="loading-container">
+    <img src="./_resources/media/loading/loadinggif.gif">
+  </div>
+  <div class="container" style="visibility: hidden;" id="container">
+    <div class="ui">
+      <div class="quest-journal-layout">
+        <div class="quest-journal" id="quest-journal">
+        <div class="quest-journal-title">Quest Journal</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui">
+      <div class="roulette-ui-layout">
+        <div class="roulette-ui pos-relative neu-flat" id="roulette-ui">
+          <div class="flex items-start pr-6"> 
+            <div>
+            <span class="opacity-50" >If your adddress doesn't match</span>
+            <a href="" class="roulette-text-title" target="_blank" id="roulette-text-title">Open in a New Tab</a>
+            <br>
+            <span class="opacity-50" >and connect your correct address to the Pet Roulette</span>
+            </div>
+            <div class="roulette-text opacity-75 clickable neu-flat neu-hover-flat-hard absolute-top-right pa-4 translate-top-right-20" id="roulette-dismiss">close</div>
+          </div>
+          <div class="w-100 roulette-text" id="roulette-text"></div>
+          <iframe src="" class="w-100 roulette-iframe" id="roulette-iframe"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="ui">
+      <div class="quest-ui-layout">
+        <div class="quest-ui pos-relative neu-flat" id="quest-ui">
+          <div class="flex items-start pr-6"> 
+            <div class="quest-text-title" id="quest-text-title"></div>
+            <div class="quest-text opacity-75 clickable neu-flat neu-hover-flat-hard absolute-top-right pa-4 translate-top-right-20" id="quest-dismiss">close</div>
+          </div>
+          <div class="w-100 quest-text" id="quest-text"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui">
+      <div class="icon-ui">
+        <div class="icon-bar" id="icon-bar">
+          <div class="opacity-hover-50 clickable icon-bar-item" id="icon-bar-stats" style="background-image: url('./_resources/ui/info.png');"></div>
+          <div class="opacity-hover-50 clickable icon-bar-item" id="icon-bar-inventory" style="background-image: url('./_resources/ui/backpack.png');"></div>
+          <div class="opacity-hover-50 clickable icon-bar-item" id="icon-bar-quests" style="background-image: url('./_resources/ui/quest.png');"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui">
+      <div class="stats" id="stats">
+        <div class="stats-inner">
+          <div class="stats-row opacity-50">
+            <div class="">
+              Use [A] [S] [D] [W] to move
+            </div>
+          </div>
+          <div class="stats-row mb-3 opacity-50">
+            <div class="">
+              Use [Shift] to sprint
+            </div>
+          </div>
+          <div class="stats-title">Information</div>
+          <div class="stats-row">
+            <div class="stats-tooltip">Chain
+              <div class="stats-tooltiptext">Available Chains: Matic. Next Chains to Deploy: Fantom, Binance Smart Chain</div>
+            </div>
+            <div id="stats-chain"> Matic </div>
+          </div>
+          <div class="stats-row">
+            <div class="stats-tooltip">Address
+              <div class="stats-tooltiptext">The address that is currently connected to the dapp</div>
+            </div>
+            <div id="stats-address">0x00...</div>
+          </div>
+          <div class="stats-row">
+            <div class="stats-tooltip"><b>PET</b> Count
+              <div class="stats-tooltiptext">How many <b>PET</b>s you have in your wallet <hr> <b>PET</b>s are NFTs, containing the information of your pet and its evolution progress <hr> You have the complete ownership of the NFT and can trade/sell it or allow people to use it </div>
+            </div>
+            <div id="stats-balance">0</div>
+          </div>
+          <div class="stats-row">
+            <div class="stats-tooltip"><b>TREAT</b> Balance
+              <div class="stats-tooltiptext">How many <b>TREAT</b>s you have in your wallet. <hr> <b>TREAT</b>s are tokens used for playing in the Pet Roulette to win <b>PET</b>s redeemable for <b>TREAT</b>s, the Pet Roulette's rewards is <b class="text-lg">1:30</b> meaning for every <b>100.000 TREAT</b>s you risk in one number, you can win <b>3.000.000 TREAT</b>s </div>
+            </div>
+            <div id="stats-treat_balance">0</div>
+          </div>
+          <div class="stats-row">
+            <div class="stats-tooltip"><b>FOOD</b> Balance
+              <div class="stats-tooltiptext">How many <b>FOOD</b>s you have in your wallet. <hr> <b>FOOD</b>s are tokens used for playing in the VIP Roulette to win more <b>FOOD</b>s, the VIP Roulette's rewards is <b class="text-lg">1:35</b> meaning for every <b>100.000 FOOD</b>s you risk in one number, you can win <b>3.500.000 FOOD</b>s </div>
+            </div>
+            <div id="stats-food_balance">0</div>
+          </div>
+          <div class="stats-row" style="display: none">
+            <div class="stats-tooltip">Strength
+              <div class="stats-tooltiptext">Wisdom is the guage of something to do with wisdom in the game because wisdom is important and wisdom is wise to wisdoming.</div>
+            </div>
+            <div id="stats-strength">0</div>
+          </div>
+          <div class="stats-row" style="display: none">
+            <div class="stats-tooltip">Wisdomness
+              <div class="stats-tooltiptext">Wisdom is the guage of something to do with wisdom in the game because wisdom is important and wisdom is wise to wisdoming.</div>
+            </div>
+            <div id="stats-wisdomness">0</div>
+          </div>
+          <div class="stats-row" style="display: none">
+            <div class="stats-tooltip">Benchpress
+              <div class="stats-tooltiptext">Gotta have a good bench to be a warrior or something.</div>
+            </div>
+            <div id="stats-benchpress">0</div>
+          </div>
+          <div class="stats-row" style="display: none">
+            <div class="stats-tooltip">Curl
+              <div class="stats-tooltiptext">The ultimate expression of strength, this affects literally everything in your life.</div>
+            </div>
+            <div id="stats-curl">0</div>
+          </div>
+          <div class="stats-row" style="display: none">
+            <div class="stats-tooltip">XP
+              <div class="stats-tooltiptext">How much xp you've accumulated by killing things for xp. Get enough and you'll gain a level or something.</div>
+            </div>
+            <div id="stats-experience">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui">
+      <div class="health-ui" style="visibility: hidden;">
+        <div class="health-bar" id="health-bar"></div>
+      </div>
+    </div>
+    <div class="ui">
+      <div class="inventory" id="inventory">
+        <div class="inventory-inner">
+          <div class="inventory-title">Inventory</div>
+          <div class="inventory-row">
+            <div class="inventory-row">
+              <a href="#" class="inventory-item" id="inventory-equip-1" draggable="true"></a>
+              <a href="#" class="inventory-item" id="inventory-equip-2" draggable="true"></a>
+              <a href="#" class="inventory-item" id="inventory-equip-3" draggable="true"></a>
+              <a href="#" class="inventory-item" id="inventory-equip-4" draggable="true"></a>
+            </div>
+            <div class="inventory-character"></div>
+          </div>
+          <div class="inventory-row">
+            <a href="#" class="inventory-item" id="inventory-1" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-2" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-3" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-4" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-5" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-6" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-7" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-8" draggable="true"></a>
+          </div>
+          <div class="inventory-row">
+            <a href="#" class="inventory-item" id="inventory-9" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-10" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-11" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-12" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-13" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-14" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-15" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-16" draggable="true"></a>
+          </div>
+          <div class="inventory-row">
+            <a href="#" class="inventory-item" id="inventory-17" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-18" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-19" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-20" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-21" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-22" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-23" draggable="true"></a>
+            <a href="#" class="inventory-item" id="inventory-24" draggable="true"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
