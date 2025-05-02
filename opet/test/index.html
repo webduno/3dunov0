@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Islands - Open Pet World</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="https://webduno.com/opet/css/base.css">
+  <link rel="stylesheet" type="text/css" href="https://webduno.com/opet/css/dunopack.css">
+  <link rel="stylesheet" type="text/css" href="https://webduno.com/opet/css/animate.min.css">
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <!-- <link href="http://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&family=Roboto&display=swap" rel="stylesheet"> -->
+
+  <link rel="stylesheet" type="text/css" href="https://webduno.com/opet/css/JosefinAndRoboto.css">
+
+  <!-- <link rel="stylesheet" href="http://unpkg.com/toastmejs@latest/dist/css/toastme.css">
+  <script src="http://unpkg.com/toastmejs@latest/dist/js/toastme.min.js"></script> -->
+
+  <link rel="stylesheet" href="https://webduno.com/opet/lib/cute-alert-master/style.css" />
+  <script src="https://webduno.com/opet/lib/cute-alert-master/cute-alert.js"></script>
+
+  <meta charset="utf-8">
+
+  <!-- <link rel="preconnect" href="http://fonts.gstatic.com"> -->
+  <!-- <link href="http://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css2?family=IM+Fell+French+Canon+SC&display=swap" rel="stylesheet"> -->
+  
+</head>
+<body style="overflow: hidden;">
+  <script src="https://webduno.com/opet/src/test.js" type="module">
+  </script>
+  <div class="text-white nodisplay error-container text-center" style="display: none;" id="error-container">
+    Not Owner
+  </div>
+  <div class="loading-container text-center pt-6 absolute-center" id="loading-container">
+    <div class="flex flex-column items-center">
+      <!-- test -->
+      <div id="main-button-container" class="neu-flat neu-hover-flat-hard border-r-5 clickable  pa-4 "  style="display: none"
+        data-script="button:wallet.connect@connectAndPlay()">
+        <span class="opacity-50  letterspacing-5  text-xxl" id="play-button">Play</span>
+      </div>
+      <div id="loading-content" class="flex items-center flex-column">
+        <i class="opacity-50 ">Downloading Models & Fetching the Blockchain, Please wait.</i>
+        <img class="w-max-300p" src="https://webduno.com/opet/_resources/loading/loader.gif">
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="visibility: hidden;" id="container">
+    <div class="ui">
+      <div class="quest-journal-layout pos-relative">
+        <div class="quest-journal border-r-5 animate__animated" id="quest-journal" data-script="modal:quests@.quests-icon-trigger">
+          <div class="quest-journal-title py-1">Quest Journal</div>
+          <div class="quest-entry absolute-bottom-right zpos-2">
+            <a href="https://webduno.com/opet/world.matic/" class="zpos-2 pa-2">Go Back to the Zoo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui">
+      <div class="quest-ui-layout ">
+        <div class="quest-ui pos-relative border-r-5 neu-flat" id="quest-ui">
+          <div class="flex items-start pr-6"> 
+            <div class="quest-text-title" id="quest-text-title"></div>
+            <div class="quest-text opacity-75 clickable neu-flat neu-hover-flat-hard absolute-top-right pa-4 translate-top-right-20" data-script="modal.selfclose:">close</div>
+          </div>
+          <div class="w-100 text-xl quest-text py-4" id="quest-text"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui">
+      <div class=" stats animate__animated" id="stats" data-script="modal:stats@.stats-icon-trigger">
+        <div class=" stats-inner w-min-200p">
+          <div class="flex w-100 items-center">
+
+
+            <!-- BALANCE -->
+            <!-- <div class="flex justify-between neu-flat border-r-5 pa-3 mr-3">
+              <div class="flex flex-column items-center ">
+                <b>Your Balance</b>
+                <div class="mt-2 nocursor stats-tooltip"> 💸
+                  <div class="stats-tooltiptext"><b>PET Balance</b>: How many <b>Pet Economic Token</b>s you have in your wallet</div>
+                </div>
+                <div class="mb-2" id="stats-balance">0</div>
+                <div class="nocursor stats-tooltip"> 🥫
+                  <div class="stats-tooltiptext"><b>FOOD Balance</b>: How many <b>Pet Food Token</b>s you have in your wallet</div>
+                </div>
+                <div class="" id="stats-food">0</div>
+              </div>
+            </div> -->
+
+          </div>
+          <div class="none">
+            <div class="stats-tooltip">Wisdomness
+              <div class="stats-tooltiptext">Wisdom is the guage of something to do with wisdom in the game because wisdom is important and wisdom is wise to wisdoming.</div>
+            </div>
+            <div id="stats-wisdomness">0</div>
+          </div>
+          <div class="none">
+            <div class="stats-tooltip">Curl
+              <div class="stats-tooltiptext">The ultimate expression of strength, this affects literally everything in your life.</div>
+            </div>
+            <div id="stats-curl">0</div>
+          </div>
+        </div>
+
+        <div class="border-r-5 neu-flat pa-3 stats-inner w-min-300p">
+          <div class="flex w-100 justify-between my-2">
+            <div class="stats-tooltip"><div class="stats-title">Pet Info</div>
+              <div class="stats-tooltiptext">Currently connected to the Matic Mainnet.</div>
+            </div>
+            <b><i id="stats-chain"> Matic </i></b>
+          </div>
+          <div class="flex w-100 justify-between">
+            <div class="stats-tooltip flex">
+                <div class="mr-1"> ID: </div>
+                <div id="stats-id">0</div>
+              <div class="stats-tooltiptext">ID of the NFT associated with your pet, the ID is unique and can be used to interact with the smart contracts directly</div>
+            </div>
+            <div class="stats-tooltip flex ">
+                <div> </div>
+                <div id="stats-number" class="text-lg">0</div>
+              <div class="stats-tooltiptext zpos-2 ">Number of the Pet; defines the animal that will give its properties to the NFT</div>
+            </div>
+          </div>
+          <div class="">
+            <div class="stats-tooltip flex">
+                <div class="mr-1"> Genes: </div>
+                <div id="stats-genes">0</div>
+              <div class="stats-tooltiptext">ID of the NFT associated with your pet, the ID is unique and can be used to interact with the smart contracts directly</div>
+            </div>
+          </div>
+          <div class="">
+            <div class="stats-tooltip flex">
+                <div class="mr-1"> Owner: </div>
+                <div id="stats-owner">?</div>
+              <div class="stats-tooltiptext">The Address of the Owner of the OpenPet</div>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="flex flex-column items-center mb-2  neu-flat border-r-5 mr-2">
+              <div class="stats-tooltip  pa-1 ">
+                <span class=" clickable px-2">🔎</span>
+                <div class="text-sm stats-tooltiptext">How many spots have been searched in this island</div>
+              </div>
+              <div class="px-1" id="stats-discovered">0</div>
+            </div>
+            <div class="flex flex-column items-center mb-2  neu-flat border-r-5 mr-2">
+              <div class="stats-tooltip  pa-1 ">
+                <span class="text-lg clickable px-2">🧡</span>
+                <div class="stats-tooltiptext">How much life the pet has accrued from the petters work</div>
+              </div>
+              <div class="px-1" id="stats-life2">0</div>
+            </div>
+            <div class="flex flex-column items-center mb-2  neu-flat border-r-5 mr-2">
+              <div class="stats-tooltip  pa-1 ">
+                <span class="text-lg clickable px-2">💰</span>
+                <div class="stats-tooltiptext">How much value the NFT has available to redeem, it determines the level of the pet (wireframe, solid, silver, gold, diamond)</div>
+              </div>
+              <div class="px-1" id="stats-inheritance">0</div>
+            </div>
+            <div class="flex flex-column items-center mb-2 neu-flat border-r-5 ">
+              <div class="stats-tooltip  pa-1 ">
+                <span class="text-lg clickable px-3">⏲</span>
+                <div class="stats-tooltiptext">The last time the pet was petted by anyone, (<span id="petTimeout"> </span> hrs)</div>
+              </div>
+              <small class="px-1" id="stats-pettedTimestamp">0</small>
+            </div>
+          </div>
+          <div class="flex items-center justify-between w-100">
+            <div class="neu-inset pa-1 border-r-5" style="width: 200px">
+              <div class="neu-flat border-r-5" id="stats-life-bar" style="height: 15px; width: 0px; background: linear-gradient(15deg, #F49369, #CE0041)"></div>
+            </div>
+            <div id="stats-life">0</div>
+            <div class="stats-tooltip">
+              <span class="text-lg clickable">🧡
+
+
+              <div class="stats-tooltiptext">How much life the pet has accrued from the petters work
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="ui">
+      <div class="inventory animate__animated" id="inventory" data-script="modal:inventory@.inventory-icon-trigger">
+        <div class="border-r-5  inventory-inner  " id="inventory-inner-container">
+          <div class="inventory-title py-1 text-center">Inventory</div>
+          <div class="inventory-row">
+            <div class="inventory-row">
+              <div class="zpos-2 inventory-item border-r-5" id="inventory-equip-1" draggable="true"></div>
+              <div class="zpos-2 inventory-item border-r-5" id="inventory-equip-2" draggable="true"></div>
+              <div class="zpos-2 inventory-item border-r-5" id="inventory-equip-3" draggable="true"></div>
+              <div class="zpos-2 inventory-item border-r-5" id="inventory-equip-4" draggable="true"></div>
+            </div>
+            <!-- <div class="inventory-character"></div> -->
+          </div>
+          <div class="inventory-title py-1">Pet Book</div>
+          <div class="inventory-row">
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-1"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-2"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-3"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-4"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-5"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-6"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-7"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-8"  draggable="true"></a>
+          </div>
+          <div class="inventory-row">
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-9"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-10"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-11"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-12"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-13"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-14"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-15"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-16"  draggable="true"></a>
+          </div>
+          <div class="inventory-row">
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-17"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-18"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-19"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-20"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-21"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-22"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-23"  draggable="true"></a>
+            <a class="zpos-2 inventory-item border-r-5" id="inventory-24"  draggable="true"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="absolute-top-left" data-script="modal:balances@.balances-icon-trigger">
+      <!-- STATS -->
+      <!-- <div class="flex flex-column items-center  border-r-5 pa-3 mr-3"> -->
+        <div class="pt-6"></div>
+        <div class="flex flex-column items-start ml-3 pt-6 mt-6">
+          <div class="pa-2 mr-2 neu-flat border-r-5">
+              <span class="text-lg">Balance: </span>
+          </div>
+          <div class="flex  mt-3 neu-inset border-r-25">
+            <div class="nocursor stats-tooltip">
+              <span class="clickable text-lg border-r-5 neu-flat pa-2">💸</span>
+              <div class="tooltiptext-r"><b>PET Balance</b>: How many <b>Pet Economic Token</b>s you have in your wallet</div>
+            </div>
+            <b class="text-lg px-3 py-1 opacity-50" id="stats-balance">0</b>
+          </div>
+          <div class="flex  mt-3 neu-inset border-r-25">
+            <div class="nocursor stats-tooltip">
+              <span class="clickable text-lg border-r-5 neu-flat pa-2">🥫</span>
+              <div class="tooltiptext-r"><b>FOOD Balance</b>: How many <b>Pet Food Token</b>s you have in your wallet</div>
+            </div>
+            <b class="text-lg px-3 py-1 opacity-50" id="stats-food">0</b>
+          </div>
+          <div class="flex  mt-3 neu-inset border-r-25">
+            <div class="nocursor stats-tooltip">
+              <span class="clickable text-lg border-r-5 neu-flat pa-2">⭐</span>
+              <div class="tooltiptext-r"><b>Roulette Power</b>: How much <b>Power</b> you have to play in the Pet Roulette</div>
+            </div>
+            <b class="text-lg px-3 py-1 opacity-50" id="stats-power">0</b>
+          </div>
+        </div>
+        <div class="flex flex-column items-start ml-3 pt-3 mt-6">
+          <div class="pa-2 mr-2 neu-flat border-r-5">
+              <span class="text-lg">Stats: </span>
+          </div>
+          <div class="flex  mt-3 neu-inset border-r-25">
+            <div class="nocursor stats-tooltip">
+              <span class="clickable text-lg border-r-5 neu-flat pa-2">🔍</span>
+              <div class="tooltiptext-r"><b>Accuracy</b>: How fast you can decipher life coins</div>
+            </div>
+            <b class="text-lg px-3 py-1 opacity-50" id="stats-strength">0</b>
+          </div>
+          <div class="flex  mt-3 neu-inset border-r-25">
+            <div class="nocursor stats-tooltip">
+              <span class="clickable text-lg border-r-5 neu-flat pa-2">🦿</span>
+              <div class="tooltiptext-r"><b>Speed</b>: How fast the player can walk/sprint</div>
+            </div>
+            <b class="text-lg px-3 py-1 opacity-50" id="stats-benchpress">0</b>
+          </div>
+          <div class="flex  mt-3 neu-inset border-r-25">
+            <div class="nocursor stats-tooltip">
+              <span class="clickable text-lg border-r-5 neu-flat pa-2">🧙</span>
+              <div class="tooltiptext-r"><b>Experience</b>: How much XP you've accumulated. Get enough and you'll gain stat boosts and special challenges</div>
+            </div>
+            <b class="text-lg px-3 py-1 opacity-50" id="stats-experience">0</b>
+          </div>
+        </div>
+      <!-- </div> -->
+    </div>
+    <div class="absolute-top-left">
+      <div class="health-ui" style="">
+        <div class="health-bar" id="health-bar"></div>
+      </div>
+    </div>
+    <div class="absolute-bottom-right">
+      <div class="icon-ui">
+        <div class="icon-bar" id="icon-bar">
+          <div class="opacity-hover-50 clickable icon-bar-item inventory-icon-trigger animate__animated  animate__delay-1s animate__faster"
+          data-script="inventory" id="icon-bar-inventory"
+          style="background-image: url('https://webduno.com/opet/_resources/ui/chest.png');"></div>
+          <div class="opacity-hover-50 clickable icon-bar-item stats-icon-trigger animate__animated  animate__delay-1s animate__fast"
+          data-script="stats" id="icon-bar-stats"
+          style="background-image: url('https://webduno.com/opet/_resources/ui/info.png');"></div>
+          <div class=" opacity-hover-50 clickable icon-bar-item quests-icon-trigger animate__animated animate__delay-1s " 
+          data-script="quests" id="icon-bar-quests"
+          style="background-image: url('https://webduno.com/opet/_resources/ui/quest.png');"></div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="ui "> -->
+
+      <div class="absolute-top-left">
+        <div class="flex flex-column pa-1" style="    transform: translate(4px,9px);">
+          <div class="opacity-hover-50 clickable icon-bar-item balances-icon-trigger animate__animated animate__delay-2s" data-script="balances" id="icon-bar-balances"
+          style="background-image: url('https://webduno.com/opet/_resources/ui/char.png');"></div>
+        </div>
+      </div>
+      <div class="absolute-bottom-left">
+        <div class="flex items-end">
+
+            <div class="align-self-start zpos-3 border-r-5  align-self-end animate__animated" data-script="modal:chat@.chat-icon-trigger">
+              <div id="chat-content" class="h-min-200p w-min-300p neu-flat border-r-25">
+                
+              </div>
+              <div class="flex flex-column">
+                <input type="text" name="chat-content"  class="w-min-300p neu-inset noborder ma-2 text-lg" data-script="input:chat.send@sendMessage()">
+                <div class="flex justify-between">
+                  <div>
+                    👋 <input type="text" name="chat-target"  class="w-max-100p neu-inset noborder ma-1" data-script="input:chat.friend@addContact()">
+                  </div>
+                  <div>
+                    👍 <input type="text" name="chat-target"  class="w-max-100p neu-inset noborder ma-1" data-script="input:chat.friend@acceptContactRequest()">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+      <div class=" absolute-bottom-left flex items-end">
+
+          <div class="flex flex-column items-start block">
+            <!-- <div class="opacity-hover-50 clickable icon-bar-item chat-icon-trigger zpos-3" data-script="chat" id="icon-bar-chat"
+                style="background-image: url('https://webduno.com/opet/_resources/ui/chat.png');"></div> -->
+            <div class="opacity-hover-50 clickable icon-bar-item calc-icon-trigger zpos-3 animate__animated "
+                data-script="calc" id="icon-bar-calc" style="background-image: url('https://webduno.com/opet/_resources/ui/pyramid.png');">
+            </div>
+            <div class="opacity-hover-50 clickable icon-bar-item config-icon-trigger zpos-3 animate__animated "
+                data-script="config" id="icon-bar-config" style="background-image: url('https://webduno.com/opet/_resources/ui/config.png');">
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+          <div class="flex flex-column items-start block">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="w-min-300p align-self-start zpos-3 border-r-5 align-self-end animate__animated" data-script="modal:calc@.calc-icon-trigger">
+          <div class="flex flex-column neu-inset pa-5">
+
+          <div class="">
+            <div class="flex justify-start">
+              <details class="zpos-3">
+                <summary class="opacity-hover-50 clickable pa-2" data-script="button:calculator.toggle@toggleCalculator()"
+                title="Calculator">🏧</summary>
+                <p class="stats-tooltip pa-0 ma-0 ">
+                  <div class="flex flex-column items-start">
+                    <span >Pet:  <span id="petNumber"> </span> </span>
+                    <span > <span id="petName">  </span>  </span>
+                    <input type="range" min="0" max="36" value="0" class="slider w-max-200p w-min-200p" id="petRange">
+                    <input type="text" name="apet-worth" id="apet-worth"  class="w-max-200p neu-inset noborder ma-2 text-sm" placeholder="Pet Inheritance" data-script="input:apet.worth@calculatePetReturnMoney()">
+
+                    <div class="flex justify-end items-center">
+                      <div class="flex flex-column items-center mb-2  neu-flat border-r-5 mr-2">
+                        <div class="stats-tooltip  pa-1 ">
+                          <span class="text- clickable px-2">🤞</span>
+                          <div class="stats-tooltiptext">The return per Help Petting in Pet Economic Tokens</div>
+                        </div>
+                        <span class="px-1 letterspacing-3" id="asdasdasd"> </span>
+                      </div>
+                      <div class="flex flex-column items-center mb-2  neu-flat border-r-5 mr-2">
+                        <div class="stats-tooltip  pa-1 ">
+                          <span class="text- clickable px-2">🌓</span>
+                          <div class="stats-tooltiptext">The return per Petting in Pet Economic Tokens</div>
+                        </div>
+                        <span class="px-1 letterspacing-3" id="petReturnPerPet"> </span>
+                      </div>
+                      <div class="flex flex-column items-center mb-2 neu-flat border-r-5 ">
+                        <div class="stats-tooltip  pa-1 ">
+                          <span class="text- clickable px-3">🌕</span>
+                          <div class="stats-tooltiptext">The return per Month in Pet Economic Tokens</div>
+                        </div>
+                        <span class="px-1 letterspacing-3" id="petReturn"> </span>
+                      </div>
+                    </div>
+                    <span>Worth: <span class="text-lg" id="petWorth"> </span></span>
+                    <span>ROI/mo: <span class="text-lg" id="petReturnMoney"> </span></span>
+                    <div>🌠: <span class="px-1" id="petMultiplier"> </span></div>
+
+                    <div class="opacity-hover-50 clickable pa-2" data-script="button:life.allowancewithdraw@withdrawAllowance()">Allow Withdraw</div>
+                    <div class="opacity-hover-50 clickable pa-2" data-script="button:life.Withdraw@withdrawLife()">Withdraw 💔</div>
+                  </div>
+                </p>
+              </details>
+            </span>
+            </div>
+          </div>
+            <!-- <div class="opacity-hover-50 clickable icon-bar-item  zpos-3" data-script="button:reset@reset()" 
+                style="background-image: url('https://webduno.com/opet/_resources/ui/radar.png');"></div> -->
+
+            <!-- <div class="opacity-hover-50 clickable icon-bar-item  zpos-3" data-script="button:boundary.move@moveBoundary()" 
+                style="background-image: url('https://webduno.com/opet/_resources/ui/radar.png');"></div> -->
+
+            <input type="text" name="boundary-pos"  class="w-min-200p w-max-200p neu-inset noborder ma-2 " data-script="input:boundary.move@moveBoundary()">
+          </div>
+        </div>
+
+
+        <div class="w-min-300p align-self-start zpos-3 border-r-5 align-self-end animate__animated" data-script="modal:config@.config-icon-trigger">
+          <div class="flex flex-column neu-inset pa-5">
+            <div>
+              Companion: <input type="text" name="ownpet-content" id="ownpet-content"  class="w-max-100p neu-inset noborder ma-2 pa-2 text-lg">
+            </div>
+            <div class="slidecontainer">
+              <div class="flex flex-column">
+                <div class="w-max-200p">
+                  <span  class="pa-1  border-r-5 text-lg  flex  items-center justify-start">
+                    <!-- <span data-script="button:music.stop@stopMusic()" id="music.stop" class="pa-2 clickable  neu-flat opacity-50">🔇</span> -->
+                    <b><small class="pr-3">FOV:</small></b>
+                    <input type="range" min="35" max="100" value="60" class="slider w-max-100p w-100" id="fovRange">
+                    <span class="px-2" id="fovValue"> 60 </span>
+                  </span>
+                </div>
+                
+                <div class="w-max-200p">
+                  <span  class="pa-1  border-r-5 text-lg  flex  items-center justify-between">
+                    <span data-script="button:music.stop@stopMusic()" id="music.stop" class="pa-2 clickable  neu-flat opacity-50">🔇</span>
+                    <input type="range" min="1" max="100" value="25" class="slider w-max-100p w-min-100p" id="myRange">
+                    <span id="demo"> </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="opacity-hover-50 clickable icon-bar-item  zpos-3" data-script="button:reset@reset()" 
+                style="background-image: url('https://webduno.com/opet/_resources/ui/radar.png');"></div> -->
+
+            <!-- <div class="opacity-hover-50 clickable icon-bar-item  zpos-3" data-script="button:boundary.move@moveBoundary()" 
+                style="background-image: url('https://webduno.com/opet/_resources/ui/radar.png');"></div> -->
+
+            <!-- <input type="text" name="boundary-pos"  class="w-min-200p w-max-200p neu-inset noborder ma-2 " data-script="input:boundary.move@moveBoundary()"> -->
+          </div>
+        </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+    <!-- </div> -->
+  </div>
+</body>
+</html>
