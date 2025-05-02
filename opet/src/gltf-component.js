@@ -96,7 +96,7 @@ export const gltf_component = (() => {
 
     _LoadGLB() {
       const loader = new GLTFLoader();
-      loader.setPath("https://webduno..com/opet/"+this._params.resourcePath);
+      loader.setPath("https://webduno.com/opet/"+this._params.resourcePath);
       loader.load(this._params.resourceName, (glb) => {
         this._OnLoaded(glb.scene);
       });
@@ -104,7 +104,7 @@ export const gltf_component = (() => {
 
     _LoadFBX() {
       const loader = new FBXLoader();
-      loader.setPath("https://webduno..com/opet/"+this._params.resourcePath);
+      loader.setPath("https://webduno.com/opet/"+this._params.resourcePath);
       loader.load(this._params.resourceName, (fbx) => {
         this._OnLoaded(fbx);
       });
@@ -203,7 +203,7 @@ export const gltf_component = (() => {
       };
 
       const loader = new FBXLoader();
-      loader.setPath("https://webduno..com/opet/"+this._params.resourcePath);
+      loader.setPath("https://webduno.com/opet/"+this._params.resourcePath);
       loader.load(this._params.resourceAnimation, (a) => { _OnLoad(a); });
 
       this._mixer = new THREE.AnimationMixer(this._target);
@@ -217,7 +217,7 @@ export const gltf_component = (() => {
 
     _LoadGLB() {
       const loader = new GLTFLoader();
-      loader.setPath("https://webduno..com/opet/"+this._params.resourcePath);
+      loader.setPath("https://webduno.com/opet/"+this._params.resourcePath);
       loader.load(this._params.resourceName, (glb) => {
         this._OnLoaded(glb.scene, glb.animations);
       });
@@ -225,7 +225,7 @@ export const gltf_component = (() => {
 
     _LoadFBX() {
       const loader = new FBXLoader();
-      loader.setPath("https://webduno..com/opet/"+this._params.resourcePath);
+      loader.setPath("https://webduno.com/opet/"+this._params.resourcePath);
       // console.log(this._params.resourceName)
       loader.load(this._params.resourceName, (fbx) => {
         this._OnLoaded(fbx);

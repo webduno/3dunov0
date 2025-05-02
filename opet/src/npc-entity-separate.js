@@ -87,7 +87,7 @@ export const npc_entity = (() => {
 
     _LoadModels() {
       const loader = new FBXLoader();
-      loader.setPath("https://webduno..com/opet/"+this._params.resourcePath);
+      loader.setPath("https://webduno.com/opet/"+this._params.resourcePath);
       loader.load(this._params.resourceName, (glb) => {
         console.log("loaded penguin")
         this._target = glb;
@@ -145,7 +145,7 @@ export const npc_entity = (() => {
         };
 
         const loader = new FBXLoader(this._manager);
-        loader.setPath("https://webduno..com/opet/"+this._params.resourcePath);
+        loader.setPath("https://webduno.com/opet/"+this._params.resourcePath);
         loader.load('Standing W_Briefcase Idle.fbx', (a) => { this._animations['idle'] = _FindAnim(a, "Standing W_Briefcase Idle.fbx") });
         loader.load('Walking.fbx', (a) => { this._animations['walk'] = _FindAnim(a, "Walking.fbx") });
         // loader.load('Running.fbx', (a) => console.log("asdadasdasdasdasdasdasasd*****", a); { _OnLoad('run', a); });

@@ -18,7 +18,7 @@ export const attack_controller = (() => {
       this.audioManager = {}
       this.audioManager.player = {
         
-        hit1: new Audio("https://webduno..com/opet/_resources/audio/down/coinsplash.ogg"),
+        hit1: new Audio("https://webduno.com/opet/_resources/audio/down/coinsplash.ogg"),
         current: {},
       }
       this.audioManager.player.current = this.audioManager.player["hit"+1]

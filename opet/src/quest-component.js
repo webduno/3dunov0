@@ -28,7 +28,7 @@ export const quest_component = (() => {
               <br/><a target="_blank" href="https://t.me/openpetworld">Telegram Group</a>
               <br/><a target="_blank" href="https://t.me/openpetworld">Guide</a>
               <br/>
-              <br/><a href="https://webduno..com/opet/world.matic/">Go back to the Zoo</a>
+              <br/><a href="https://webduno.com/opet/world.matic/">Go back to the Zoo</a>
               <br/><span>You read this message again in your Quest Journal (Book Icon)</span>
               <br/><br/>
               `,

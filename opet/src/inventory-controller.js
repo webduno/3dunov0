@@ -82,8 +82,8 @@ export const inventory_controller = (() => {
         // console.log(item)
         // console.log(item.RenderParams)
         // console.log(item.PetTokenId)
-        div.href = "https://webduno..com/opet/?pet="+item.PetTokenId
-        // div.href = "https://webduno..com/opet/?pet="+itemName.replace("pet-","").toLowerCase()
+        div.href = "https://webduno.com/opet/?pet="+item.PetTokenId
+        // div.href = "https://webduno.com/opet/?pet="+itemName.replace("pet-","").toLowerCase()
         div.style.backgroundImage = "url('" + path + "')";
         // div.href += "/"+item.id;
       } else {

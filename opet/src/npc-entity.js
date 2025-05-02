@@ -87,7 +87,7 @@ export const npc_entity = (() => {
 
     _LoadModels() {
       const loader = new FBXLoader();
-      loader.setPath('https://webduno..com/opet/resources/monsters/FBX/');
+      loader.setPath('https://webduno.com/opet/resources/monsters/FBX/');
       loader.load(this._params.resourceName, (glb) => {
         this._target = glb;
         this._params.scene.add(this._target);

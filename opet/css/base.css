@@ -175,7 +175,7 @@ user-select: none; /* Standard */
 }
 
 .health-ui {
-  background-image: url('https://webduno..com/opet/resources/icons/ui/new-health-bar.png');
+  background-image: url('https://webduno.com/opet/resources/icons/ui/new-health-bar.png');
   width: 300px;
   height: 100px;
   z-index: 1;
@@ -305,8 +305,8 @@ user-select: none; /* Standard */
 }
 
 .inventory-character {
-  /*background-image: url('https://webduno..com/opet/resources/icons/ui/inventory-character.png');*/
-  background-image: url('https://webduno..com/opet/_resources/media/gold pet roulette 3.png');
+  /*background-image: url('https://webduno.com/opet/resources/icons/ui/inventory-character.png');*/
+  background-image: url('https://webduno.com/opet/_resources/media/gold pet roulette 3.png');
   background-size: cover;
   width: 160px;
   height: 90px;

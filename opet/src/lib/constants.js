@@ -10,8 +10,8 @@ export const CONSTANTS = {
     defaultNetwork: "matic",
 
     defaultScanName: "Polygonscan",
-    baseURL: "https://webduno..com/opet/petroulette",
-    defaultRouletteLink: "https://webduno..com/opet/",
+    baseURL: "https://webduno.com/opet/petroulette",
+    defaultRouletteLink: "https://webduno.com/opet/",
     
     revertedList: {
         "REQUEST_EXISTS":                      "Already requested init random hash",
