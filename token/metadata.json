@@ -1,0 +1,6 @@
+{
+    "name": "Test Token",
+    "symbol": "NEWCOIN",
+    "description": "Test Coin description",
+    "image": "https://webduno.com/token/image-256x256.png"
+  }
