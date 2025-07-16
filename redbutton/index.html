@@ -14,9 +14,24 @@
         a {
             color: #08f;
         }
+        #score {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
+    <div id="score">Score: 0</div>
     <script async src="es-module-shims.js"></script>
     <script type="importmap">
         {
@@ -170,6 +185,7 @@
                 const distance = greenCube.position.distanceTo(coin.position);
                 if (distance < 3 && velocityY > 0) { // Collision when jumping
                     score += 1;
+                    document.getElementById('score').textContent = `Score: ${score}`;
                     // Find the leftmost coin to position this one to its left
                     let leftmostX = Infinity;
                     coins.forEach(c => {
@@ -179,7 +195,6 @@
                     });
                     coin.position.x = leftmostX - 10;
                     coin.position.y = coinHeight;
-                    console.log(`Score: ${score}`); // For now, log score (can add UI later)
                 }
             });
 
