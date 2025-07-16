@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+<!-- Mirrored from ipfs.io/ipfs/QmSpjb6DydYvFgYSiWywXwT5oVWNKEHXW75v4E8PNKL1Ev/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jul 2025 09:24:54 GMT -->
+<head>
+		<title>Non Fungible Button</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		
+		<!-- Open Graph / X (Twitter) Meta Tags -->
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="Non Fungible Button">
+		<meta property="og:description" content="Interactive 3D button demo with Three.js - click to interact!">
+		<meta property="description" content="Interactive 3D button demo with Three.js - click to interact!">
+		<meta property="og:url" content="https://webduno.com/redbutton">
+		<meta property="og:image" content="https://webduno.com/redbutton/preview.png">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+		<meta property="og:image:alt" content="3D Interactive Button Demo">
+		<meta property="og:image:secure_url" content="https://webduno.com/redbutton/preview.png">
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:site_name" content="WebDuno">
+		<meta property="og:locale" content="en_US">
+		<meta property="og:video" content="https://webduno.com/redbutton/demo.webm">
+		<meta property="og:video:type" content="video/webm">
+		<meta property="og:video:width" content="640">
+		<meta property="og:video:height" content="360">
+		<meta property="og:video:duration" content="10">
+		<meta property="og:video:tag" content="3D">
+		<meta property="og:video:tag" content="Interactive">
+		<meta property="og:video:tag" content="Three.js">
+		
+		<!-- Twitter Card Meta Tags -->
+		<!-- Note: Player cards require Twitter whitelisting. If not approved, change to "summary_large_image" -->
+		<!-- <meta name="twitter:card" content="summary_large_image"> -->
+		<meta name="twitter:card" content="player">
+		<meta name="twitter:site" content="@webduno">
+		<meta name="twitter:title" content="Non Fungible Button">
+		<meta name="twitter:description" content="Interactive 3D button demo with Three.js - click to interact!">
+		<meta name="twitter:url" content="https://webduno.com/redbutton">
+		<meta name="twitter:image" content="https://webduno.com/redbutton/preview.png">
+		<meta name="twitter:image:width" content="1200">
+		<meta name="twitter:image:height" content="630">
+		<meta name="twitter:image:alt" content="3D Interactive Button Demo">
+		<meta name="twitter:player" content="https://webduno.com/redbutton">
+		<meta name="twitter:player:width" content="480">
+		<meta name="twitter:player:height" content="480">
+		<meta name="twitter:app:name:iphone" content="WebDuno">
+		<meta name="twitter:app:name:ipad" content="WebDuno">
+		<meta name="twitter:app:name:googleplay" content="WebDuno">
+		
+		<meta name="twitter:creator" content="@webduno">
+		
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			body {
+				background-color: #f0f0f0;
+				color: #444;
+			}
+			a {
+				color: #08f;
+			}
+		</style>
+	</head>
+	<body>
+		<script async src="es-module-shims.js"></script>
+		<!-- "three": "./three.module.js" -->
+		<!-- "three": "https://unpkg.com/three@0.160.0/build/three.module.js" -->
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "./three.module.js"
+				}
+			}
+		</script>
+
+		<script type="module">
+
+			import * as THREE from 'three';
+
+
+			let container;
+			let camera, scene, raycaster, renderer;
+
+			let INTERSECTED;
+			let theta = 0;
+
+			const pointer = new THREE.Vector2();
+			const radius = 100;
+
+			init();
+			animate();
+
+			function init() {
+
+				document.addEventListener("click", (e) => {
+					if (INTERSECTED && Math.floor(INTERSECTED.position.y) == 0)
+					{
+						INTERSECTED.position.y = -2
+					}
+				})
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.y = 20
+				camera.position.z = 50
+
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 0xf0f0f0 );
+
+				const light = new THREE.DirectionalLight( 0xffffff, 1 );
+				light.position.set( 1, 1, 1 ).normalize();
+				scene.add( light );
+
+				const geometry = new THREE.BoxGeometry( 30, 10, 20 );
+
+				for ( let i = 0; i < 1; i ++ ) {
+
+					const object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: 0xff4444 } ) );
+
+					object.position.x = (-40*i);
+					object.rotation.y = Math.random() * 0.4 * Math.PI + 0.1;
+					object.scale.y = (i * 0.2) + 1;
+
+					scene.add( object );
+
+				}
+
+				raycaster = new THREE.Raycaster();
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				document.addEventListener( 'mousemove', onPointerMove );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function onPointerMove( event ) {
+
+				pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+			}
+
+			function render() {
+
+				theta += 0.05;
+
+				camera.position.x = radius * Math.sin( THREE.MathUtils.degToRad( theta ) );
+				camera.lookAt( scene.position );
+
+				camera.updateMatrixWorld();
+
+				// find intersections
+
+				if (INTERSECTED && INTERSECTED.position.y < 0)
+				{
+					INTERSECTED.position.y = INTERSECTED.position.y < 0 ? INTERSECTED.position.y + 0.2  : 0
+				}
+
+				raycaster.setFromCamera( pointer, camera );
+
+				const intersects = raycaster.intersectObjects( scene.children, false );
+
+				if ( intersects.length > 0 ) {
+
+					if ( INTERSECTED != intersects[ 0 ].object ) {
+
+						if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+
+						INTERSECTED = intersects[ 0 ].object;
+						INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+						INTERSECTED.material.emissive.setHex( 0x550000 );
+
+					}
+
+				} else {
+
+					if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+
+					INTERSECTED = null;
+
+				}
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+
+	</body>
+
+<!-- Mirrored from ipfs.io/ipfs/QmSpjb6DydYvFgYSiWywXwT5oVWNKEHXW75v4E8PNKL1Ev/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jul 2025 09:24:54 GMT -->
+</html>

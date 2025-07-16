@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Non Fungible Button</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!-- Existing meta tags unchanged -->
+    <link type="text/css" rel="stylesheet" href="main.css">
+    <style>
+        body {
+            background-color: #f0f0f0;
+            color: #444;
+        }
+        a {
+            color: #08f;
+        }
+    </style>
+</head>
+<body>
+    <script async src="es-module-shims.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "./three.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        let container;
+        let camera, scene, raycaster, renderer;
+        let INTERSECTED;
+        let theta = 0;
+        let greenCube;
+        let velocityY = 0;
+        const gravity = -0.5;
+        const jumpForce = 10;
+        const floorY = 5;
+        let score = 0;
+
+        const pointer = new THREE.Vector2();
+        const radius = 100;
+
+        // Coin array and parameters
+        const coins = [];
+        const maxCoins = 7;
+        const coinSpeed = 0.1;
+        const coinHeight = 20; // Starting height above red cube
+        const coinRadius = 1;
+
+        init();
+        animate();
+
+        function init() {
+            document.addEventListener("click", (e) => {
+                if (INTERSECTED) {
+                    INTERSECTED.position.y = -2;
+                    velocityY = jumpForce;
+                }
+            });
+
+            container = document.createElement('div');
+            document.body.appendChild(container);
+
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
+            camera.position.y = 20;
+            camera.position.z = 50;
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf0f0f0);
+
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(1, 1, 1).normalize();
+            scene.add(light);
+
+            // Red cube
+            const redGeometry = new THREE.BoxGeometry(30, 10, 20);
+            const redCube = new THREE.Mesh(redGeometry, new THREE.MeshLambertMaterial({ color: 0xff4444 }));
+            redCube.position.set(0, 0, 0);
+            redCube.rotation.y = 0.3;
+            scene.add(redCube);
+
+            // Green sphere (same volume as 5x5x5 cube)
+            const cubeVolume = 5 * 5 * 5; // 125 cubic units
+            const sphereRadius = Math.pow((3 * cubeVolume) / (4 * Math.PI), 1/3); // ~3.1 units
+            const greenGeometry = new THREE.SphereGeometry(sphereRadius, 32, 32);
+            greenCube = new THREE.Mesh(greenGeometry, new THREE.MeshLambertMaterial({ color: 0x00ff00 }));
+            greenCube.position.set(0, floorY + sphereRadius, 0);
+            scene.add(greenCube);
+
+            // Initialize coins
+            for (let i = 0; i < maxCoins; i++) {
+                const coinGeometry = new THREE.CylinderGeometry(coinRadius, coinRadius, 2, 32);
+                const coin = new THREE.Mesh(coinGeometry, new THREE.MeshLambertMaterial({ color: 0xffa500 }));
+                coin.position.set(-40 + i * 10, coinHeight, 0); // Spread coins horizontally
+                coin.userData = { originalX: coin.position.x };
+                scene.add(coin);
+                coins.push(coin);
+            }
+
+            raycaster = new THREE.Raycaster();
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            document.addEventListener('mousemove', onPointerMove);
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onPointerMove(event) {
+            pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+            pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            render();
+        }
+
+        function render() {
+            theta += 0.05;
+            camera.position.x = radius * Math.sin(THREE.MathUtils.degToRad(theta));
+            camera.lookAt(scene.position);
+            camera.updateMatrixWorld();
+
+            // Apply gravity and update green sphere position
+            velocityY += gravity;
+            greenCube.position.y += velocityY * 0.1;
+
+            const sphereRadius = Math.pow((3 * 125) / (4 * Math.PI), 1/3); // Same calculation as above
+            if (greenCube.position.y < floorY + sphereRadius) {
+                greenCube.position.y = floorY + sphereRadius;
+                velocityY = 0;
+            }
+
+            // Handle red cube interaction
+            if (INTERSECTED && INTERSECTED.position.y < 0) {
+                INTERSECTED.position.y += 0.2;
+                if (Math.abs(INTERSECTED.position.y) < 0.01) {
+                    INTERSECTED.position.y = 0;
+                }
+            }
+
+            // Update and move coins
+            coins.forEach((coin, index) => {
+                coin.position.x += coinSpeed;
+                if (coin.position.x > 40) { // Reset coin to start when it goes off-screen
+                    // Find the leftmost coin to position this one to its left
+                    let leftmostX = Infinity;
+                    coins.forEach(c => {
+                        if (c.position.x < leftmostX) {
+                            leftmostX = c.position.x;
+                        }
+                    });
+                    coin.position.x = leftmostX - 10;
+                    coin.position.y = coinHeight;
+                }
+
+                // Check collision with green cube
+                const distance = greenCube.position.distanceTo(coin.position);
+                if (distance < 3 && velocityY > 0) { // Collision when jumping
+                    score += 1;
+                    // Find the leftmost coin to position this one to its left
+                    let leftmostX = Infinity;
+                    coins.forEach(c => {
+                        if (c.position.x < leftmostX) {
+                            leftmostX = c.position.x;
+                        }
+                    });
+                    coin.position.x = leftmostX - 10;
+                    coin.position.y = coinHeight;
+                    console.log(`Score: ${score}`); // For now, log score (can add UI later)
+                }
+            });
+
+            raycaster.setFromCamera(pointer, camera);
+            const intersects = raycaster.intersectObjects([scene.children[1]], false);
+
+            if (intersects.length > 0) {
+                if (INTERSECTED != intersects[0].object) {
+                    if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+                    INTERSECTED = intersects[0].object;
+                    INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                    INTERSECTED.material.emissive.setHex(0x550000);
+                }
+            } else {
+                if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+                INTERSECTED = null;
+            }
+
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>
