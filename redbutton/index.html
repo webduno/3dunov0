@@ -287,19 +287,22 @@
                 const newPositions = [];
                 const newIndices = [];
                 
-                for (let i = 0; i < indices.count; i += 3) {
-                    const a = indices.getX(i);
-                    const b = indices.getX(i + 1);
-                    const c = indices.getX(i + 2);
-                    
-                    const va = new THREE.Vector3().fromBufferAttribute(positions, a);
-                    const vb = new THREE.Vector3().fromBufferAttribute(positions, b);
-                    const vc = new THREE.Vector3().fromBufferAttribute(positions, c);
-                    
-                    // Only keep triangles that are mostly below the plane
-                    if (va.y <= 0.1 && vb.y <= 0.1 && vc.y <= 0.1) {
-                        newPositions.push(va.x, va.y, va.z, vb.x, vb.y, vb.z, vc.x, vc.y, vc.z);
-                        newIndices.push(newIndices.length, newIndices.length + 1, newIndices.length + 2);
+                // Safety check for indices
+                if (indices && indices.count > 0) {
+                    for (let i = 0; i < indices.count; i += 3) {
+                        const a = indices.getX(i);
+                        const b = indices.getX(i + 1);
+                        const c = indices.getX(i + 2);
+                        
+                        const va = new THREE.Vector3().fromBufferAttribute(positions, a);
+                        const vb = new THREE.Vector3().fromBufferAttribute(positions, b);
+                        const vc = new THREE.Vector3().fromBufferAttribute(positions, c);
+                        
+                        // Only keep triangles that are mostly below the plane
+                        if (va.y <= 0.1 && vb.y <= 0.1 && vc.y <= 0.1) {
+                            newPositions.push(va.x, va.y, va.z, vb.x, vb.y, vb.z, vc.x, vc.y, vc.z);
+                            newIndices.push(newIndices.length, newIndices.length + 1, newIndices.length + 2);
+                        }
                     }
                 }
                 
@@ -315,21 +318,25 @@
                     emissiveIntensity: 0.3,
                     side: THREE.DoubleSide
                 }));
-                coin.castShadow = true;
-                coin.receiveShadow = true;
                 
-                // Random height between 15 and 25
-                const randomHeight = coinHeight + (Math.random() - 0.5) * 10;
-                coin.position.set(-40 + i * 10, randomHeight, 0); // Spread coins horizontally
-                
-                // Random rotations around all axes
-                coin.rotation.x = Math.random() * Math.PI * 2;
-                coin.rotation.y = Math.random() * Math.PI * 2;
-                coin.rotation.z = Math.random() * Math.PI * 2;
-                
-                coin.userData = { originalX: coin.position.x };
-                scene.add(coin);
-                coins.push(coin);
+                // Safety check to ensure coin was created properly
+                if (coin && coin.position) {
+                    coin.castShadow = true;
+                    coin.receiveShadow = true;
+                    
+                    // Random height between 15 and 25
+                    const randomHeight = coinHeight + (Math.random() - 0.5) * 10;
+                    coin.position.set(-40 + i * 10, randomHeight, 0); // Spread coins horizontally
+                    
+                    // Random rotations around all axes
+                    coin.rotation.x = Math.random() * Math.PI * 2;
+                    coin.rotation.y = Math.random() * Math.PI * 2;
+                    coin.rotation.z = Math.random() * Math.PI * 2;
+                    
+                    coin.userData = { originalX: coin.position.x };
+                    scene.add(coin);
+                    coins.push(coin);
+                }
             }
 
             raycaster = new THREE.Raycaster();
@@ -391,11 +398,13 @@
             }
 
             // Make bird look at arrow
-            const arrowPosition = new THREE.Vector3(-30, 15, 0);
-            const birdPosition = birdGroup.position.clone();
-            const direction = arrowPosition.clone().sub(birdPosition);
-            const angle = Math.atan2(direction.x, direction.z);
-            birdGroup.rotation.y = angle;
+            if (birdGroup && birdGroup.position) {
+                const arrowPosition = new THREE.Vector3(-30, 15, 0);
+                const birdPosition = birdGroup.position.clone();
+                const direction = arrowPosition.clone().sub(birdPosition);
+                const angle = Math.atan2(direction.x, direction.z);
+                birdGroup.rotation.y = angle;
+            }
 
             // Handle red cube interaction
             if (INTERSECTED && INTERSECTED.position && INTERSECTED.position.y < 0) {
@@ -458,7 +467,10 @@
             });
 
             raycaster.setFromCamera(pointer, camera);
-            const intersects = raycaster.intersectObjects([birdGroup, redCube], false);
+            const objectsToIntersect = [];
+            if (birdGroup) objectsToIntersect.push(birdGroup);
+            if (redCube) objectsToIntersect.push(redCube);
+            const intersects = raycaster.intersectObjects(objectsToIntersect, false);
 
             if (intersects.length > 0) {
                 if (INTERSECTED != intersects[0].object) {
