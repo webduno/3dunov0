@@ -1,37 +1,37 @@
-import { ethers, Contract }     from "./lib/ethers.js";
-import {BigNumber}              from "./lib/bignumber.js";
+import { ethers, Contract }     from "https://webduno.com/bob/src/lib/ethers.js";
+import {BigNumber}              from "https://webduno.com/bob/src/lib/bignumber.js";
 
 // import Token                 from './abi/Token.json';
-import {Roulette}               from './abi/Roulette.js';
-import {Pet}                    from './abi/Pet.js';
-import {Token}                  from './abi/Token.js';
-import {Token2}                 from './abi/Token2.js';
-import {ZooIslands}             from './abi/ZooIslands.js';
-import {CONSTANTS}              from './lib/constants.js';
-import {HELPERS}                from './lib/helpers.js';
+import {Roulette}               from 'https://webduno.com/bob/src/abi/Roulette.js';
+import {Pet}                    from 'https://webduno.com/bob/src/abi/Pet.js';
+import {Token}                  from 'https://webduno.com/bob/src/abi/Token.js';
+import {Token2}                 from 'https://webduno.com/bob/src/abi/Token2.js';
+import {ZooIslands}             from 'https://webduno.com/bob/src/abi/ZooIslands.js';
+import {CONSTANTS}              from 'https://webduno.com/bob/src/lib/constants.js';
+import {HELPERS}                from 'https://webduno.com/bob/src/lib/helpers.js';
 
-import * as THREE               from './lib/three.js';
+import * as THREE               from 'https://webduno.com/bob/src/lib/three.js';
 // import * as THREE            from 'https://cdn.jsdelivr.net/npm/three@0.118.1/build/three.module.js';
-import {gltf_component}         from './gltf-component.js';
+import {gltf_component}         from 'https://webduno.com/bob/src/gltf-component.js';
 
-import {third_person_camera}    from './third-person-camera.js';
-import {entity_manager}         from './entity-manager.js';
-import {player_entity}          from './player-entity.js'
-import {entity}                 from './entity.js';
-import {health_component}       from './entity_classes/health-component.js';
-import {health_bar}             from './entity_classes/health-bar.js';
-import {inventory_controller}   from './entity_classes/inventory-controller.js';
+import {third_person_camera}    from 'https://webduno.com/bob/src/third-person-camera.js';
+import {entity_manager}         from 'https://webduno.com/bob/src/entity-manager.js';
+import {player_entity}          from 'https://webduno.com/bob/src/player-entity.js'
+import {entity}                 from 'https://webduno.com/bob/src/entity.js';
+import {health_component}       from 'https://webduno.com/bob/src/entity_classes/health-component.js';
+import {health_bar}             from 'https://webduno.com/bob/src/entity_classes/health-bar.js';
+import {inventory_controller}   from 'https://webduno.com/bob/src/entity_classes/inventory-controller.js';
 
-import {player_input}           from './player-input.js';
-import {npc_entity}             from './npc-entity.js';
-import {math}                   from './math.js';
-import {spatial_hash_grid}      from './spatial-hash-grid.js';
-import {ui_controller}          from './ui-controller.js';
-import {level_up_component}     from './level-up-component.js';
-import {quest_component}        from './quest-component.js';
-import {spatial_grid_controller}from './spatial-grid-controller.js';
-import {equip_weapon_component} from './equip-weapon-component.js';
-import {attack_controller}      from './attacker-controller.js';
+import {player_input}           from 'https://webduno.com/bob/src/player-input.js';
+import {npc_entity}             from 'https://webduno.com/bob/src/npc-entity.js';
+import {math}                   from 'https://webduno.com/bob/src/math.js';
+import {spatial_hash_grid}      from 'https://webduno.com/bob/src/spatial-hash-grid.js';
+import {ui_controller}          from 'https://webduno.com/bob/src/ui-controller.js';
+import {level_up_component}     from 'https://webduno.com/bob/src/level-up-component.js';
+import {quest_component}        from 'https://webduno.com/bob/src/quest-component.js';
+import {spatial_grid_controller}from 'https://webduno.com/bob/src/spatial-grid-controller.js';
+import {equip_weapon_component} from 'https://webduno.com/bob/src/equip-weapon-component.js';
+import {attack_controller}      from 'https://webduno.com/bob/src/attacker-controller.js';
 
 const _VS = `
 varying vec3 vWorldPosition;
@@ -206,7 +206,7 @@ class HackNSlashDemo {
       const e = new entity.Entity();
       e.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './resources/nature2/GLTF/',
+        resourcePath: 'https://webduno.com/bob/resources/nature2/GLTF/',
         resourceName: 'Cloud' + index + '.glb',
         position: pos,
         scale: Math.random() * 5 + 10,
@@ -237,7 +237,7 @@ class HackNSlashDemo {
       const e = new entity.Entity();
       e.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './resources/nature/FBX/',
+        resourcePath: 'https://webduno.com/bob/resources/nature/FBX/',
         resourceName: name + '_' + index + '.fbx',
         scale: 0.25,
         emissive: new THREE.Color(0x000000),
@@ -325,7 +325,7 @@ class HackNSlashDemo {
     let detail = new entity.Entity();
     detail.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'zoo foliage.fbx',
         // resourceAnimation: 'Standing Idle.fbx',
         scale: 1,
@@ -339,7 +339,7 @@ class HackNSlashDemo {
 
     env.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'zoo build.v0.1.fbx',
         scale: 1,
         receiveShadow: true,
@@ -355,7 +355,7 @@ class HackNSlashDemo {
     const mountains = new entity.Entity();
     mountains.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'zoo landscape.fbx',
         scale: 1,
         receiveShadow: true,
@@ -411,7 +411,7 @@ class HackNSlashDemo {
     const terrain = new entity.Entity();
     terrain.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'zoo plaza.fbx',
         scale: 1,
         receiveShadow: true,
@@ -425,7 +425,7 @@ class HackNSlashDemo {
     let detail = new entity.Entity();
     detail.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'zoo build.fbx',
         // resourceAnimation: 'Standing Idle.fbx',
         scale: 1,
@@ -440,7 +440,7 @@ class HackNSlashDemo {
     const signal = new entity.Entity();
     signal.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'zoo enableWallet.fbx',
         // resourceAnimation: 'Standing Idle.fbx',
         scale: 1,
@@ -456,7 +456,7 @@ class HackNSlashDemo {
     const bonsai = new entity.Entity();
     bonsai.AddComponent(new gltf_component.AnimatedModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'zoo tree.fbx',
         scale: 1,
         receiveShadow: true,
@@ -483,7 +483,7 @@ class HackNSlashDemo {
     const logoElement = new entity.Entity();
     logoElement.AddComponent(new gltf_component.AnimatedModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'zoo pet roulette.fbx',
         // resourceAnimation: 'Standing Idle.fbx',
         scale: 1,
@@ -521,7 +521,7 @@ class HackNSlashDemo {
     const logoElementBuild = new entity.Entity();
     logoElementBuild.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'zoo pet roulette build.fbx',
         // resourceAnimation: 'Standing Idle.fbx',
         scale: 1,
@@ -719,7 +719,7 @@ class HackNSlashDemo {
     const allPets = new entity.Entity();
     allPets.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'all.fbx',
         scale: 1,
         receiveShadow: true,
@@ -733,7 +733,7 @@ class HackNSlashDemo {
     const zooPets = new entity.Entity();
     zooPets.AddComponent(new gltf_component.StaticModelComponent({
         scene: this._scene,
-        resourcePath: './_resources/terrain/',
+        resourcePath: 'https://webduno.com/bob/_resources/terrain/',
         resourceName: 'zoo pets center.fbx',
         scale: 1,
         receiveShadow: true,
