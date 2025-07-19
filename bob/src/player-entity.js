@@ -125,7 +125,7 @@ export const player_entity = (() => {
     }
     _LoadCustomModels() {
       const loader = new FBXLoader();
-      loader.setPath('./_resources/pets/boy/');
+      loader.setPath('https://webduno.com/bob/_resources/pets/boy/');
       loader.load('aj.fbx', (fbx) => {
         this._target = fbx;
         this._target.scale.setScalar(0.056);
@@ -176,7 +176,7 @@ export const player_entity = (() => {
         // loader.load('Sword And Shield Slash.fbx', (a) => { _OnLoad('attack', a); });
         // loader.load('Sword And Shield Death.fbx', (a) => { _OnLoad('death', a); });
 
-        loader.setPath('./_resources/pets/boy/');
+        loader.setPath('https://webduno.com/bob/_resources/pets/boy/');
         // loader.load('Sword And Shield Idle.fbx', (a) => { _OnLoad('idle', a); });
         loader.load('Standard Idle.fbx', (a) => { _OnLoad('idle', a); });
         loader.load('Walking.fbx', (a) => { _OnLoad('walk', a); });
@@ -187,7 +187,7 @@ export const player_entity = (() => {
     }
     _LoadMinecraftModels() {
       const loader = new FBXLoader();
-      loader.setPath('./_resources/pets/stebb/');
+      loader.setPath('https://webduno.com/bob/_resources/pets/stebb/');
       loader.load('stebb2.fbx', (fbx) => {
         this._target = fbx;
         // this._target.scale.setScalar(1);
@@ -239,7 +239,7 @@ export const player_entity = (() => {
         // loader.load('Sword And Shield Slash.fbx', (a) => { _OnLoad('attack', a); });
         // loader.load('Sword And Shield Death.fbx', (a) => { _OnLoad('death', a); });
 
-        loader.setPath('./_resources/pets/stebb/');
+        loader.setPath('https://webduno.com/bob/_resources/pets/stebb/');
         // loader.load('Sword And Shield Idle.fbx', (a) => { _OnLoad('idle', a); });
         loader.load('Standing W_Briefcase Idle.fbx', (a) => { _OnLoad('idle', a); });
         loader.load('Walking.fbx', (a) => { _OnLoad('walk', a); });
