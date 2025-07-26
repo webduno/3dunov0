@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duck Hunt - Retro Gaming</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Pixelated trees background -->
+        <div class="background-trees">
+            <div class="tree tree-1">
+                <div class="tree-crown"></div>
+                <div class="tree-trunk"></div>
+            </div>
+            <div class="tree tree-2">
+                <div class="tree-crown"></div>
+                <div class="tree-trunk"></div>
+            </div>
+        </div>
+
+        <!-- Retro Header -->
+        <header class="game-header">
+            <div class="header-content">
+                <div class="title-section">
+                    <h1 class="game-title">DUCK HUNT</h1>
+                    <p class="game-subtitle">TURN HEAD TO AIM • VOICE ACTIVATED</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-main">
+            <!-- Start/Stop Button -->
+            <div class="control-panel">
+                <button id="gameButton" class="game-button start-button" data-testid="button-start-game">
+                    START DUCK HUNT
+                </button>
+            </div>
+
+            <!-- Game Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-label">SCORE</div>
+                    <div id="scoreDisplay" class="stat-value score-value">000000</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">TIME</div>
+                    <div id="timeDisplay" class="stat-value time-value">30</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">STATUS</div>
+                    <div id="statusDisplay" class="stat-value status-value status-searching">SEARCHING</div>
+                    <div id="voiceIndicator" class="voice-indicator">♪ VOICE ACTIVE</div>
+                </div>
+            </div>
+
+            <!-- Game Area -->
+            <div class="game-area">
+                <div class="game-viewport">
+                    <!-- Video Stream -->
+                    <video id="videoStream" autoplay playsinline muted class="video-feed"></video>
+                    
+                    <!-- Face Tracking Overlay -->
+                    <canvas id="faceCanvas" class="face-overlay" width="640" height="480"></canvas>
+                    
+                    <!-- Game Canvas -->
+                    <canvas id="gameCanvas" class="game-canvas" width="640" height="480"></canvas>
+                    
+                    <!-- Eye Trackers -->
+                    <div id="leftEyeTracker" class="eye-tracker left-eye"></div>
+                    <div id="rightEyeTracker" class="eye-tracker right-eye"></div>
+                    
+                    <!-- Crosshair -->
+                    <div id="crosshair" class="crosshair">
+                        <div class="crosshair-top"></div>
+                        <div class="crosshair-bottom"></div>
+                        <div class="crosshair-left"></div>
+                        <div class="crosshair-right"></div>
+                        <div class="crosshair-center"></div>
+                    </div>
+                    
+                    <!-- Game Over Overlay -->
+                    <div id="gameOverOverlay" class="game-over-overlay">
+                        <div class="game-over-content">
+                            <h2 class="game-over-title">GAME OVER</h2>
+                            <p id="finalScore" class="final-score">FINAL SCORE: 000000</p>
+                            <button id="playAgainButton" class="game-button play-again-button" data-testid="button-play-again">
+                                PLAY AGAIN
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions-panel">
+                <h4 class="instructions-title">► HOW TO PLAY</h4>
+                <div class="instructions-list">
+                    <div class="instruction">• SAY "START" OR CLICK BUTTON TO BEGIN</div>
+                    <div class="instruction">• SHOW YOUR FACE TO THE CAMERA</div>
+                    <div class="instruction">• TURN HEAD TO AIM CROSSHAIR AT DUCKS</div>
+                    <div class="instruction">• HIT DUCKS BEFORE TIME RUNS OUT</div>
+                    <div class="instruction">• EACH DUCK = 10 POINTS</div>
+                    <div class="instruction">• VOICE CONTROL: SAY "START" TO RESTART</div>
+                </div>
+            </div>
+
+            <!-- Error Display -->
+            <div id="errorPanel" class="error-panel" data-testid="alert-error">
+                <strong class="error-label">ERROR:</strong>
+                <span id="errorMessage"></span>
+            </div>
+        </main>
+    </div>
+
+    <!-- MediaPipe Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+
+    <!-- Game Script -->
+    <script src="game.js"></script>
+</body>
+</html>

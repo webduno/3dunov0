@@ -1,0 +1,475 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    overflow-x: hidden;
+}
+
+/* Game Container */
+.game-container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, 
+        #87CEEB 0%, 
+        #87CEEB 65%, 
+        #90EE90 65%, 
+        #228B22 85%, 
+        #8B4513 85%, 
+        #000000 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Trees */
+.background-trees {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.tree {
+    position: absolute;
+    bottom: 160px;
+}
+
+.tree-1 {
+    left: 32px;
+}
+
+.tree-2 {
+    right: 64px;
+}
+
+.tree-crown {
+    width: 64px;
+    height: 128px;
+    background-color: #228B22;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    margin-bottom: -16px;
+}
+
+.tree-2 .tree-crown {
+    width: 80px;
+    height: 112px;
+    background-color: #006400;
+}
+
+.tree-trunk {
+    width: 16px;
+    height: 64px;
+    background-color: #D2691E;
+    margin: 0 auto;
+}
+
+.tree-2 .tree-trunk {
+    height: 48px;
+}
+
+/* Header Styles */
+.game-header {
+    background-color: #000000;
+    color: #00FF00;
+    border-bottom: 4px solid #FFA500;
+    position: relative;
+    z-index: 10;
+}
+
+.header-content {
+    max-width: 1152px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.game-title {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    text-shadow: 2px 2px 0px #000000;
+    color: #00FF00;
+}
+
+.game-subtitle {
+    color: #FFA500;
+    margin-top: 4px;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+}
+
+/* Main Game Area */
+.game-main {
+    max-width: 1152px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Control Panel */
+.control-panel {
+    background-color: #000000;
+    border: 4px solid #FFA500;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.game-button {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    padding: 12px 32px;
+    font-size: 1.125rem;
+    border: 2px solid;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.start-button {
+    background-color: #FFA500;
+    color: #000000;
+    border-color: #FFB84D;
+}
+
+.start-button:hover {
+    background-color: #FF8C00;
+}
+
+.stop-button {
+    background-color: #DC143C;
+    color: #FFFFFF;
+    border-color: #FF6B6B;
+}
+
+.stop-button:hover {
+    background-color: #B22222;
+}
+
+.play-again-button {
+    background-color: #FFA500;
+    color: #000000;
+    border-color: #FFB84D;
+    padding: 8px 24px;
+    font-size: 1rem;
+}
+
+.play-again-button:hover {
+    background-color: #FF8C00;
+}
+
+/* Stats Bar */
+.stats-bar {
+    background-color: #000000;
+    border: 4px solid #FFA500;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    text-align: center;
+}
+
+.stat-label {
+    color: #FFA500;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    font-family: 'Courier New', monospace;
+}
+
+.score-value {
+    color: #00FF00;
+}
+
+.time-value {
+    color: #FFFF00;
+}
+
+.status-value {
+    font-size: 0.875rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+.status-locked {
+    color: #00FF00;
+}
+
+.status-searching {
+    color: #FF0000;
+}
+
+.voice-indicator {
+    font-size: 0.75rem;
+    color: #00FFFF;
+    margin-top: 4px;
+    letter-spacing: 0.1em;
+    display: none;
+    animation: pulse 1s infinite;
+}
+
+.voice-indicator.active {
+    display: block;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Game Area */
+.game-area {
+    border: 4px solid #000000;
+    background: linear-gradient(to bottom, #00FFFF, #008B8B);
+    border-radius: 0;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.game-viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Video and Canvas Styles */
+.video-feed {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    transform: scaleX(-1);
+    filter: contrast(1.2) saturate(0.8);
+    image-rendering: pixelated;
+}
+
+.face-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(-1);
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+.game-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+/* Eye Trackers */
+.eye-tracker {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #FF0000;
+    border: 1px solid #FFFFFF;
+    transform: translate(-50%, -50%);
+    image-rendering: pixelated;
+    box-shadow: 0 0 4px #FF0000;
+    display: none;
+    animation: pulse 1s infinite;
+}
+
+.eye-tracker.visible {
+    display: block;
+}
+
+/* Crosshair */
+.crosshair {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    transform: translate(-50%, -50%);
+    image-rendering: pixelated;
+    display: none;
+    z-index: 10;
+}
+
+.crosshair.visible {
+    display: block;
+}
+
+.crosshair-top {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 8px;
+    background-color: #FFFFFF;
+    transform: translateX(-50%);
+}
+
+.crosshair-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    height: 8px;
+    background-color: #FFFFFF;
+    transform: translateX(-50%);
+}
+
+.crosshair-left {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 8px;
+    height: 2px;
+    background-color: #FFFFFF;
+    transform: translateY(-50%);
+}
+
+.crosshair-right {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 8px;
+    height: 2px;
+    background-color: #FFFFFF;
+    transform: translateY(-50%);
+}
+
+.crosshair-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background-color: #FF0000;
+    transform: translate(-50%, -50%);
+}
+
+/* Game Over Overlay */
+.game-over-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.game-over-overlay.visible {
+    display: flex;
+}
+
+.game-over-content {
+    text-align: center;
+    background-color: #000000;
+    border: 4px solid #FFA500;
+    padding: 32px;
+}
+
+.game-over-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #FFA500;
+    letter-spacing: 0.1em;
+}
+
+.final-score {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+    color: #00FF00;
+    letter-spacing: 0.05em;
+}
+
+/* Instructions Panel */
+.instructions-panel {
+    background-color: #000000;
+    border: 4px solid #00FF00;
+    padding: 24px;
+}
+
+.instructions-title {
+    font-size: 1.125rem;
+    font-weight: bold;
+    color: #00FF00;
+    margin-bottom: 16px;
+    letter-spacing: 0.1em;
+}
+
+.instructions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.instruction {
+    color: #FFA500;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+}
+
+/* Error Panel */
+.error-panel {
+    background-color: #000000;
+    border: 4px solid #DC143C;
+    padding: 16px;
+    color: #FF6B6B;
+    letter-spacing: 0.05em;
+    margin-top: 16px;
+    display: none;
+}
+
+.error-panel.visible {
+    display: block;
+}
+
+.error-label {
+    color: #DC143C;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-main {
+        padding: 8px 16px;
+    }
+    
+    .stats-bar {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .game-title {
+        font-size: 1.5rem;
+    }
+    
+    .game-subtitle {
+        font-size: 0.75rem;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
