@@ -15,6 +15,9 @@ class DuckHuntGame {
         this.error = null;
         this.fallbackMode = false;
 
+        // Initialize confetti
+        this.confetti = new JSConfetti();
+
         // References
         this.gameLoopId = null;
         this.gameTimerId = null;
@@ -294,6 +297,9 @@ class DuckHuntGame {
                 duck.hitTime = Date.now();
                 this.score += 10;
                 this.updateScore();
+                
+                // Trigger confetti effect for hitting a duck
+                this.triggerDuckHitConfetti();
             }
         });
     }
@@ -477,6 +483,9 @@ class DuckHuntGame {
         // Start game loop
         this.gameLoop();
 
+        // Trigger start game confetti
+        this.triggerStartGameConfetti();
+
         // Auto-stop after 30 seconds
         setTimeout(() => {
             if (this.spawnTimerId) {
@@ -632,6 +641,9 @@ class DuckHuntGame {
     showGameOver() {
         this.finalScore.textContent = `FINAL SCORE: ${this.score.toString().padStart(6, '0')}`;
         this.gameOverOverlay.classList.add('visible');
+        
+        // Trigger game over confetti celebration
+        this.triggerGameOverConfetti();
     }
 
     hideGameOver() {
@@ -647,6 +659,59 @@ class DuckHuntGame {
     hideError() {
         this.error = null;
         this.errorPanel.classList.remove('visible');
+    }
+
+    triggerStartGameConfetti() {
+        // Quick burst to signal game start
+        this.confetti.addConfetti({
+            confettiColors: [
+                '#FFA500', // Orange (game theme)
+                '#00FF00', // Green
+                '#FFFF00'  // Yellow
+            ],
+            confettiRadius: 4,
+            confettiNumber: 30,
+        });
+    }
+
+    triggerDuckHitConfetti() {
+        // Create a burst of confetti with duck hunt themed colors
+        this.confetti.addConfetti({
+            confettiColors: [
+                '#FFA500', // Orange (game theme)
+                '#00FF00', // Green (score color)
+                '#FFFF00', // Yellow (time color)
+                '#8B4513', // Brown (duck color)
+                '#228B22', // Forest green
+                '#FFD700'  // Gold
+            ],
+            confettiRadius: 6,
+            confettiNumber: 50,
+        });
+    }
+
+    triggerGameOverConfetti() {
+        // Special confetti burst for game completion
+        if (this.score >= 100) {
+            // Big celebration for high scores
+            this.confetti.addConfetti({
+                emojis: ['🦆', '🎯', '🏆', '⭐'],
+                emojiSize: 50,
+                confettiNumber: 30,
+            });
+        } else {
+            // Standard completion confetti
+            this.confetti.addConfetti({
+                confettiColors: [
+                    '#FFA500', // Orange
+                    '#00FF00', // Green
+                    '#FFFF00', // Yellow
+                    '#FFD700'  // Gold
+                ],
+                confettiRadius: 8,
+                confettiNumber: 75,
+            });
+        }
     }
 }
 
