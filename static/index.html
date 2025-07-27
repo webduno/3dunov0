@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Duck Hunt - Retro Gaming</title>
-    
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LaserEyes - 3D Face Tracking Game</title>
+
     
 		<!-- Open Graph / X (Twitter) Meta Tags -->
 		<meta property="og:type" content="website">
@@ -39,125 +39,2953 @@
 		<meta name="twitter:app:name:googleplay" content="Webduno">
 		
 		<meta name="twitter:creator" content="@webduno">
+        <!-- CSS Styles -->
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
-    <link rel="stylesheet" href="https://webduno.com/static/style.css">
-</head>
-<body>
-    <div class="game-container">
-        <!-- Pixelated trees background -->
-        <div class="background-trees">
-            <div class="tree tree-1">
-                <div class="tree-crown"></div>
-                <div class="tree-trunk"></div>
+            body {
+                font-family: "Arial", sans-serif;
+                background: linear-gradient(135deg, #1e3c72, #2a5298);
+                overflow: hidden;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #gameContainer {
+                position: relative;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            #gameCanvas {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            #ui {
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                color: #00ffff;
+                font-size: 14px;
+                font-weight: 500;
+                z-index: 100;
+                font-family: "Courier New", monospace;
+                background:
+                    radial-gradient(
+                        circle at 10% 10%,
+                        rgba(0, 255, 255, 0.15) 0%,
+                        transparent 50%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 0.95) 0%,
+                        rgba(0, 15, 30, 0.95) 100%
+                    );
+                padding: 20px 25px;
+                border: 1px solid rgba(0, 255, 255, 0.6);
+                box-shadow:
+                    0 0 20px rgba(0, 255, 255, 0.3),
+                    inset 0 0 15px rgba(0, 255, 255, 0.1),
+                    0 8px 32px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(15px);
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 15px) 0,
+                    100% 15px,
+                    100% 100%,
+                    15px 100%,
+                    0 calc(100% - 15px)
+                );
+                position: relative;
+            }
+
+            #ui::before {
+                content: "";
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(
+                    45deg,
+                    transparent 30%,
+                    rgba(0, 255, 255, 0.4) 50%,
+                    transparent 70%
+                );
+                z-index: -1;
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 15px) 0,
+                    100% 15px,
+                    100% 100%,
+                    15px 100%,
+                    0 calc(100% - 15px)
+                );
+                animation: border-pulse 3s ease-in-out infinite;
+            }
+
+            @keyframes border-pulse {
+                0%,
+                100% {
+                    opacity: 0.5;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            #ui .stat-line {
+                margin: 8px 0;
+                padding: 6px 12px;
+                background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(0, 255, 255, 0.1) 50%,
+                    transparent 100%
+                );
+                border-left: 3px solid rgba(0, 255, 255, 0.8);
+                position: relative;
+                letter-spacing: 1px;
+            }
+
+            #ui .stat-line::before {
+                content: "";
+                position: absolute;
+                left: -1px;
+                top: 50%;
+                width: 6px;
+                height: 6px;
+                background: #00ffff;
+                transform: translateY(-50%);
+                box-shadow: 0 0 8px #00ffff;
+            }
+
+            #ui .stat-value {
+                color: #00ff9f;
+                font-weight: bold;
+                text-shadow: 0 0 8px rgba(0, 255, 159, 0.5);
+                font-size: 16px;
+            }
+
+            #ui .stat-label {
+                color: #8ecfff;
+                margin-right: 8px;
+            }
+
+            /* Mission Panel Styles */
+            .mission-panel {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                min-width: 280px;
+                background:
+                    radial-gradient(
+                        circle at 90% 10%,
+                        rgba(0, 255, 255, 0.15) 0%,
+                        transparent 50%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 0.95) 0%,
+                        rgba(0, 15, 30, 0.95) 100%
+                    );
+                border: 1px solid rgba(0, 255, 255, 0.6);
+                box-shadow:
+                    0 0 20px rgba(0, 255, 255, 0.3),
+                    inset 0 0 15px rgba(0, 255, 255, 0.1),
+                    0 8px 32px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(15px);
+                clip-path: polygon(
+                    15px 0,
+                    100% 0,
+                    100% calc(100% - 15px),
+                    calc(100% - 15px) 100%,
+                    0 100%,
+                    0 15px
+                );
+                padding: 20px;
+                color: #00ffff;
+                font-family: "Courier New", monospace;
+                z-index: 100;
+            }
+
+            .mission-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            }
+
+            .mission-icon {
+                width: 12px;
+                height: 12px;
+                background: #00ffff;
+                margin-right: 10px;
+                clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+                box-shadow: 0 0 10px #00ffff;
+                animation: pulse-icon 2s ease-in-out infinite;
+            }
+
+            @keyframes pulse-icon {
+                0%,
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                50% {
+                    transform: scale(1.2);
+                    opacity: 0.7;
+                }
+            }
+
+            .mission-title {
+                font-size: 12px;
+                font-weight: bold;
+                letter-spacing: 2px;
+                color: #8ecfff;
+            }
+
+            .mission-name {
+                font-size: 14px;
+                color: #00ff9f;
+                margin-bottom: 15px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                text-shadow: 0 0 8px rgba(0, 255, 159, 0.5);
+            }
+
+            .mission-progress-container {
+                position: relative;
+                margin-bottom: 12px;
+            }
+
+            .progress-track {
+                height: 6px;
+                background: rgba(0, 255, 255, 0.2);
+                border: 1px solid rgba(0, 255, 255, 0.4);
+                margin-bottom: 8px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .progress-fill {
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    #00ffff 0%,
+                    #00ff9f 50%,
+                    #00ffff 100%
+                );
+                width: 0%;
+                transition: width 0.5s ease;
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+                animation: progress-glow 2s ease-in-out infinite;
+            }
+
+            @keyframes progress-glow {
+                0%,
+                100% {
+                    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+                }
+                50% {
+                    box-shadow: 0 0 20px rgba(0, 255, 255, 1);
+                }
+            }
+
+            .progress-segments {
+                display: flex;
+                justify-content: space-between;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 6px;
+            }
+
+            .segment {
+                width: 1px;
+                height: 100%;
+                background: rgba(0, 255, 255, 0.8);
+                box-shadow: 0 0 3px #00ffff;
+            }
+
+            .mission-progress-text {
+                font-size: 11px;
+                color: #8ecfff;
+                text-align: center;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+
+            #instructions {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #00ffff;
+                text-align: center;
+                font-size: 14px;
+                background:
+                    radial-gradient(
+                        circle at 50% 50%,
+                        rgba(0, 255, 255, 0.15) 0%,
+                        transparent 70%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 0.98) 0%,
+                        rgba(0, 15, 30, 0.98) 100%
+                    );
+                padding: 40px;
+                border: 2px solid rgba(0, 255, 255, 0.6);
+                box-shadow:
+                    0 0 30px rgba(0, 255, 255, 0.4),
+                    0 0 60px rgba(0, 255, 255, 0.2),
+                    inset 0 0 20px rgba(0, 255, 255, 0.1),
+                    0 12px 48px rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(20px);
+                z-index: 200;
+                max-width: 650px;
+                width: 90vw;
+                font-family: "Courier New", monospace;
+                clip-path: polygon(
+                    20px 0,
+                    100% 0,
+                    100% calc(100% - 20px),
+                    calc(100% - 20px) 100%,
+                    0 100%,
+                    0 20px
+                );
+                position: relative;
+            }
+
+            #instructions::before {
+                content: "";
+                position: absolute;
+                top: -3px;
+                left: -3px;
+                right: -3px;
+                bottom: -3px;
+                background: linear-gradient(
+                    45deg,
+                    transparent 20%,
+                    rgba(0, 255, 255, 0.6) 40%,
+                    rgba(0, 255, 159, 0.6) 60%,
+                    transparent 80%
+                );
+                z-index: -1;
+                clip-path: polygon(
+                    20px 0,
+                    100% 0,
+                    100% calc(100% - 20px),
+                    calc(100% - 20px) 100%,
+                    0 100%,
+                    0 20px
+                );
+                animation: instruction-border 4s ease-in-out infinite;
+            }
+
+            @keyframes instruction-border {
+                0%,
+                100% {
+                    opacity: 0.4;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            #instructions h2 {
+                font-size: 32px;
+                margin-bottom: 25px;
+                color: #00ffff;
+                text-shadow:
+                    0 0 10px rgba(0, 255, 255, 0.8),
+                    0 0 20px rgba(0, 255, 255, 0.6),
+                    0 0 30px rgba(0, 255, 255, 0.4);
+                font-weight: 700;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                font-family: "Courier New", monospace;
+                position: relative;
+            }
+
+            #instructions h2::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                height: 2px;
+                background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    #00ffff 50%,
+                    transparent 100%
+                );
+                box-shadow: 0 0 10px #00ffff;
+            }
+
+            #instructions details {
+                margin: 12px 0;
+                background: rgba(64, 150, 255, 0.08);
+                border: 1px solid rgba(64, 150, 255, 0.2);
+                border-radius: 8px;
+                padding: 8px;
+            }
+
+            #instructions summary {
+                cursor: pointer;
+                font-weight: 600;
+                font-size: 16px;
+                color: #80c7ff;
+                padding: 8px 12px;
+                border-radius: 6px;
+                transition: all 0.2s ease;
+                outline: none;
+            }
+
+            #instructions summary:hover {
+                background: rgba(64, 150, 255, 0.15);
+                color: #ffffff;
+            }
+
+            #instructions details[open] summary {
+                border-bottom: 1px solid rgba(64, 150, 255, 0.25);
+                margin-bottom: 8px;
+            }
+
+            #instructions .detail-content {
+                padding: 8px 12px;
+                line-height: 1.5;
+                color: #c0d0e0;
+            }
+
+            #instructions .detail-content p {
+                margin: 6px 0;
+            }
+
+            #instructions .voice-commands {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 6px;
+                margin: 8px 0;
+            }
+
+            #instructions .voice-command {
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 255, 255, 0.15) 0%,
+                        rgba(0, 255, 159, 0.15) 100%
+                    ),
+                    rgba(0, 30, 60, 0.8);
+                border: 1px solid rgba(0, 255, 255, 0.6);
+                clip-path: polygon(
+                    5px 0,
+                    100% 0,
+                    100% calc(100% - 5px),
+                    calc(100% - 5px) 100%,
+                    0 100%,
+                    0 5px
+                );
+                padding: 6px 12px;
+                font-size: 12px;
+                text-align: center;
+                color: #00ffff;
+                font-family: "Courier New", monospace;
+                font-weight: bold;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                box-shadow:
+                    0 0 10px rgba(0, 255, 255, 0.3),
+                    inset 0 0 5px rgba(0, 255, 255, 0.1);
+                transition: all 0.2s ease;
+            }
+
+            #instructions .voice-command:hover {
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 255, 255, 0.25) 0%,
+                        rgba(0, 255, 159, 0.25) 100%
+                    ),
+                    rgba(0, 30, 60, 1);
+                box-shadow:
+                    0 0 15px rgba(0, 255, 255, 0.5),
+                    inset 0 0 8px rgba(0, 255, 255, 0.2);
+                text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+            }
+
+            #startButton {
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 255, 255, 0.2) 0%,
+                        rgba(0, 255, 159, 0.2) 100%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 0.9) 0%,
+                        rgba(0, 15, 30, 0.9) 100%
+                    );
+                color: #00ffff;
+                border: 2px solid rgba(0, 255, 255, 0.8);
+                padding: 15px 40px;
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+                margin-top: 30px;
+                transition: all 0.3s ease;
+                font-family: "Courier New", monospace;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                position: relative;
+                clip-path: polygon(
+                    10px 0,
+                    100% 0,
+                    100% calc(100% - 10px),
+                    calc(100% - 10px) 100%,
+                    0 100%,
+                    0 10px
+                );
+                box-shadow:
+                    0 0 20px rgba(0, 255, 255, 0.4),
+                    inset 0 0 15px rgba(0, 255, 255, 0.1),
+                    0 8px 32px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(10px);
+            }
+
+            #startButton::before {
+                content: "";
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(
+                    45deg,
+                    transparent 30%,
+                    rgba(0, 255, 255, 0.6) 50%,
+                    transparent 70%
+                );
+                z-index: -1;
+                clip-path: polygon(
+                    10px 0,
+                    100% 0,
+                    100% calc(100% - 10px),
+                    calc(100% - 10px) 100%,
+                    0 100%,
+                    0 10px
+                );
+                animation: button-glow 2s ease-in-out infinite;
+            }
+
+            @keyframes button-glow {
+                0%,
+                100% {
+                    opacity: 0.5;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            #startButton:hover {
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 255, 255, 0.4) 0%,
+                        rgba(0, 255, 159, 0.4) 100%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 1) 0%,
+                        rgba(0, 15, 30, 1) 100%
+                    );
+                transform: translateY(-2px);
+                box-shadow:
+                    0 0 30px rgba(0, 255, 255, 0.6),
+                    inset 0 0 20px rgba(0, 255, 255, 0.2),
+                    0 12px 48px rgba(0, 0, 0, 0.7);
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            }
+
+            #webcam {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+                z-index: 50;
+                opacity: 0.3;
+                display: none;
+                transform: scaleX(-1);
+            }
+
+            #faceOverlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 60;
+                pointer-events: none;
+                display: none;
+            }
+
+            .laser-beam {
+                position: absolute;
+                height: 4px;
+                background: linear-gradient(
+                    90deg,
+                    var(--laser-color, #ff0000) 0%,
+                    var(--laser-color-light, #ff2222) 20%,
+                    var(--laser-color-lighter, #ff4444) 40%,
+                    var(--laser-color-lightest, #ff6666) 60%,
+                    transparent 100%
+                );
+                box-shadow:
+                    0 0 5px var(--laser-color, #ff0000),
+                    0 0 10px var(--laser-color, #ff0000),
+                    0 0 20px var(--laser-color, #ff0000),
+                    0 0 30px var(--laser-color, #ff0000);
+                transform-origin: left center;
+                pointer-events: none;
+                z-index: 55;
+                opacity: 0.9;
+                animation: laser-pulse 0.1s ease-in-out infinite alternate;
+            }
+
+            @keyframes laser-pulse {
+                0% {
+                    opacity: 0.8;
+                    height: 3px;
+                }
+                100% {
+                    opacity: 1;
+                    height: 5px;
+                }
+            }
+
+            .eye-tracker {
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    var(--laser-color, #ff0000) 20%,
+                    var(--laser-color-lighter, #ff4444) 40%,
+                    transparent 70%
+                );
+                box-shadow:
+                    0 0 20px var(--laser-color, #ff0000),
+                    0 0 40px var(--laser-color, #ff0000),
+                    0 0 60px var(--laser-color, #ff0000);
+                animation: pulse-laser 1s ease-in-out infinite alternate;
+                transform: translate(-50%, -50%);
+            }
+
+            .nose-tracker {
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    #ffff00 30%,
+                    #ffaa00 60%,
+                    transparent 80%
+                );
+                box-shadow:
+                    0 0 15px #ffff00,
+                    0 0 30px #ffff00;
+                animation: pulse-nose 1.5s ease-in-out infinite alternate;
+                transform: translate(-50%, -50%);
+            }
+
+            @keyframes pulse-laser {
+                0% {
+                    transform: translate(-50%, -50%) scale(0.8);
+                    box-shadow:
+                        0 0 15px var(--laser-color, #ff0000),
+                        0 0 30px var(--laser-color, #ff0000),
+                        0 0 45px var(--laser-color, #ff0000);
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(1.2);
+                    box-shadow:
+                        0 0 25px var(--laser-color, #ff0000),
+                        0 0 50px var(--laser-color, #ff0000),
+                        0 0 75px var(--laser-color, #ff0000);
+                }
+            }
+
+            @keyframes pulse-nose {
+                0% {
+                    transform: translate(-50%, -50%) scale(0.9);
+                    box-shadow:
+                        0 0 10px #ffff00,
+                        0 0 20px #ffff00;
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(1.1);
+                    box-shadow:
+                        0 0 20px #ffff00,
+                        0 0 40px #ffff00;
+                }
+            }
+
+            #status {
+                position: absolute;
+                bottom: 20px;
+                left: 20px;
+                color: #00ffff;
+                background:
+                    radial-gradient(
+                        circle at 10% 90%,
+                        rgba(0, 255, 255, 0.15) 0%,
+                        transparent 50%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 0.95) 0%,
+                        rgba(0, 15, 30, 0.95) 100%
+                    );
+                padding: 15px 20px;
+                border: 1px solid rgba(0, 255, 255, 0.6);
+                box-shadow:
+                    0 0 20px rgba(0, 255, 255, 0.3),
+                    inset 0 0 15px rgba(0, 255, 255, 0.1),
+                    0 8px 32px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(15px);
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 15px) 0,
+                    100% 15px,
+                    100% 100%,
+                    15px 100%,
+                    0 calc(100% - 15px)
+                );
+                z-index: 100;
+                font-family: "Courier New", monospace;
+                font-size: 12px;
+                min-width: 200px;
+            }
+
+            #status .status-line {
+                margin: 6px 0;
+                padding: 4px 8px;
+                background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(0, 255, 255, 0.1) 50%,
+                    transparent 100%
+                );
+                border-left: 2px solid rgba(0, 255, 255, 0.6);
+                letter-spacing: 1px;
+                position: relative;
+            }
+
+            #status .status-line::before {
+                content: "";
+                position: absolute;
+                left: -1px;
+                top: 50%;
+                width: 4px;
+                height: 4px;
+                background: #00ffff;
+                transform: translateY(-50%);
+                box-shadow: 0 0 6px #00ffff;
+            }
+
+            #status .status-indicator {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                margin-right: 8px;
+                animation: status-pulse 1.5s ease-in-out infinite;
+            }
+
+            #status .status-active {
+                background: #00ff9f;
+                box-shadow: 0 0 10px #00ff9f;
+            }
+
+            #status .status-inactive {
+                background: #ff6b6b;
+                box-shadow: 0 0 10px #ff6b6b;
+            }
+
+            @keyframes status-pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 0.6;
+                    transform: scale(1.2);
+                }
+            }
+
+            /* Central HUD Circle */
+            .hud-circle {
+                position: absolute;
+                top: 50%;
+                right: 50px;
+                transform: translateY(-50%);
+                width: 120px;
+                height: 120px;
+                border: 2px solid rgba(0, 255, 255, 0.6);
+                border-radius: 50%;
+                background:
+                    radial-gradient(
+                        circle,
+                        rgba(0, 255, 255, 0.1) 0%,
+                        transparent 70%
+                    ),
+                    conic-gradient(
+                        from 0deg,
+                        transparent 0deg,
+                        rgba(0, 255, 255, 0.3) 90deg,
+                        transparent 180deg,
+                        rgba(0, 255, 255, 0.3) 270deg,
+                        transparent 360deg
+                    );
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 90;
+                animation: rotate-hud 10s linear infinite;
+            }
+
+            .hud-circle::before {
+                content: "";
+                position: absolute;
+                width: 80px;
+                height: 80px;
+                border: 1px solid rgba(0, 255, 255, 0.4);
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(0, 255, 255, 0.05) 0%,
+                    transparent 100%
+                );
+            }
+
+            .hud-circle::after {
+                content: "";
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                border: 1px solid rgba(0, 255, 255, 0.8);
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(0, 255, 255, 0.2) 0%,
+                    transparent 100%
+                );
+                box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            }
+
+            @keyframes rotate-hud {
+                0% {
+                    transform: translateY(-50%) rotate(0deg);
+                }
+                100% {
+                    transform: translateY(-50%) rotate(360deg);
+                }
+            }
+
+            /* Geometric corner elements */
+            .corner-element {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                border: 1px solid rgba(0, 255, 255, 0.4);
+                clip-path: polygon(0 0, 100% 0, 100% 30%, 70% 100%, 0 100%);
+                background: linear-gradient(
+                    45deg,
+                    rgba(0, 255, 255, 0.1) 0%,
+                    transparent 100%
+                );
+            }
+
+            .corner-tl {
+                top: 10px;
+                left: 10px;
+            }
+
+            .corner-tr {
+                top: 10px;
+                right: 10px;
+                transform: rotate(90deg);
+            }
+
+            .corner-bl {
+                bottom: 10px;
+                left: 10px;
+                transform: rotate(-90deg);
+            }
+
+            .corner-br {
+                bottom: 10px;
+                right: 10px;
+                transform: rotate(180deg);
+            }
+
+            .hidden {
+                display: none !important;
+            }
+
+            #gameOver {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #e0e8f0;
+                text-align: center;
+                font-size: 16px;
+                background: rgba(15, 25, 40, 0.92);
+                padding: 30px;
+                border-radius: 15px;
+                border: 1px solid rgba(64, 150, 255, 0.4);
+                box-shadow:
+                    0 8px 32px rgba(0, 0, 0, 0.6),
+                    0 0 20px rgba(64, 150, 255, 0.1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(15px);
+                z-index: 200;
+                max-width: 500px;
+                width: 85vw;
+                font-family: "Segoe UI", system-ui, sans-serif;
+            }
+
+            #gameOver h2 {
+                color: #4196ff;
+                font-size: 28px;
+                margin-bottom: 20px;
+                text-shadow: 0 0 8px rgba(65, 150, 255, 0.5);
+                font-weight: 700;
+                letter-spacing: 1px;
+            }
+
+            #gameOver p {
+                margin: 12px 0;
+                color: #c0d0e0;
+                font-size: 16px;
+            }
+
+            #gameOver #finalScore {
+                color: #ffd700;
+                font-weight: bold;
+                font-size: 20px;
+                text-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+            }
+
+            #gameOver details {
+                margin: 12px 0;
+                background: rgba(64, 150, 255, 0.08);
+                border: 1px solid rgba(64, 150, 255, 0.2);
+                border-radius: 8px;
+                padding: 8px;
+                text-align: left;
+            }
+
+            #gameOver summary {
+                cursor: pointer;
+                font-weight: 600;
+                font-size: 16px;
+                color: #80c7ff;
+                padding: 8px 12px;
+                border-radius: 6px;
+                transition: all 0.2s ease;
+                outline: none;
+            }
+
+            #gameOver summary:hover {
+                background: rgba(64, 150, 255, 0.15);
+                color: #ffffff;
+            }
+
+            #gameOver .detail-content {
+                padding: 8px 12px;
+                line-height: 1.5;
+                color: #c0d0e0;
+                text-align: center;
+            }
+
+            #restartButton {
+                background: linear-gradient(135deg, #4196ff, #0066cc);
+                color: #ffffff;
+                border: 1px solid rgba(64, 150, 255, 0.5);
+                padding: 12px 32px;
+                font-size: 16px;
+                font-weight: 600;
+                border-radius: 8px;
+                cursor: pointer;
+                margin-top: 20px;
+                transition: all 0.2s ease;
+                box-shadow:
+                    0 4px 12px rgba(64, 150, 255, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            }
+
+            #restartButton:hover {
+                background: linear-gradient(135deg, #5aa7ff, #0077dd);
+                transform: translateY(-1px);
+                box-shadow:
+                    0 6px 20px rgba(64, 150, 255, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="gameContainer">
+            <!-- Game Canvas -->
+            <canvas id="gameCanvas"></canvas>
+
+            <!-- Webcam Feed -->
+            <video id="webcam" autoplay muted></video>
+
+            <!-- Face Tracking Overlay -->
+            <div id="faceOverlay">
+                <div id="leftEye" class="eye-tracker"></div>
+                <div id="rightEye" class="eye-tracker"></div>
+                <div id="noseTip" class="nose-tracker"></div>
+                <div id="leftLaser" class="laser-beam"></div>
+                <div id="rightLaser" class="laser-beam"></div>
             </div>
-            <div class="tree tree-2">
-                <div class="tree-crown"></div>
-                <div class="tree-trunk"></div>
-            </div>
-        </div>
 
-        <!-- Retro Header -->
-        <header class="game-header">
-            <div class="header-content">
-                <div class="title-section">
-                    <h1 class="game-title">DUCK HUNT</h1>
-                    <p class="game-subtitle">TURN HEAD TO AIM • VOICE ACTIVATED</p>
+            <!-- HUD Elements -->
+            <div class="hud-circle"></div>
+            <div class="corner-element corner-tl"></div>
+            <div class="corner-element corner-tr"></div>
+            <div class="corner-element corner-bl"></div>
+            <div class="corner-element corner-br"></div>
+
+            <!-- UI Elements -->
+            <div id="ui">
+                <div class="stat-line">
+                    <span class="stat-label">SCORE</span>
+                    <span class="stat-value" id="score">0</span>
+                </div>
+                <div class="stat-line">
+                    <span class="stat-label">LIVES</span>
+                    <span class="stat-value" id="lives">3</span>
+                </div>
+                <div
+                    class="stat-line"
+                    id="streak-display"
+                    style="display: none"
+                >
+                    <span class="stat-label">STREAK</span>
+                    <span class="stat-value" id="streak">0</span>
+                </div>
+                <div class="stat-line">
+                    <span class="stat-label">LVL</span>
+                    <span class="stat-value" id="level">1</span>
+                    <span class="stat-label" style="margin-left: 15px">XP</span>
+                    <span class="stat-value" id="xp">0</span>
                 </div>
             </div>
-        </header>
 
-        <!-- Full Screen Game Area -->
-        <div class="game-area">
-            <div class="game-viewport">
-                <!-- Video Stream -->
-                <video id="videoStream" autoplay playsinline muted class="video-feed"></video>
-                
-                <!-- Face Tracking Overlay -->
-                <canvas id="faceCanvas" class="face-overlay" width="640" height="480"></canvas>
-                
-                <!-- Game Canvas -->
-                <canvas id="gameCanvas" class="game-canvas" width="640" height="480"></canvas>
-                
-                <!-- Eye Trackers -->
-                <div id="leftEyeTracker" class="eye-tracker left-eye"></div>
-                <div id="rightEyeTracker" class="eye-tracker right-eye"></div>
-                
-                <!-- Crosshair -->
-                <div id="crosshair" class="crosshair">
-                    <div class="crosshair-top"></div>
-                    <div class="crosshair-bottom"></div>
-                    <div class="crosshair-left"></div>
-                    <div class="crosshair-right"></div>
-                    <div class="crosshair-center"></div>
+            <!-- Mission Progress Panel -->
+            <div id="mission-ui" class="mission-panel">
+                <div class="mission-header">
+                    <div class="mission-icon"></div>
+                    <span class="mission-title">MISSION STATUS</span>
                 </div>
-
-                <!-- Overlay UI Elements -->
-                <!-- Start/Stop Button (Top Center) -->
-                <div class="control-panel-overlay">
-                    <button id="gameButton" class="game-button start-button" data-testid="button-start-game">
-                        START DUCK HUNT
-                    </button>
+                <div id="mission-name" class="mission-name">
+                    SAY START TO PLAY...
                 </div>
-
-                <!-- Game Stats HUD (Bottom) -->
-                <div class="stats-hud">
-                    <div class="stat-group">
-                        <span class="stat-label">SCORE</span>
-                        <span id="scoreDisplay" class="stat-value score-value">000000</span>
+                <div class="mission-progress-container">
+                    <div class="progress-track">
+                        <div id="mission-bar" class="progress-fill"></div>
                     </div>
-                    <div class="stat-group">
-                        <span class="stat-label">TIME</span>
-                        <span id="timeDisplay" class="stat-value time-value">30</span>
-                    </div>
-                    <div class="stat-group">
-                        <span class="stat-label">STATUS</span>
-                        <span id="statusDisplay" class="stat-value status-value status-searching">SEARCHING</span>
-                        <div id="voiceIndicator" class="voice-indicator">♪ VOICE ACTIVE</div>
+                    <div class="progress-segments">
+                        <div class="segment"></div>
+                        <div class="segment"></div>
+                        <div class="segment"></div>
+                        <div class="segment"></div>
+                        <div class="segment"></div>
                     </div>
                 </div>
+                <div id="mission-progress" class="mission-progress-text">
+                    STANDBY
+                </div>
+            </div>
 
-                <!-- Instructions Toggle (Top Right) -->
-                <details class="instructions-toggle">
-                    <summary class="instructions-button">HOW TO PLAY</summary>
-                    <div class="instructions-content">
-                        <div class="instruction">• SAY "START" OR CLICK BUTTON TO BEGIN</div>
-                        <div class="instruction">• SHOW YOUR FACE TO THE CAMERA</div>
-                        <div class="instruction">• TURN HEAD TO AIM CROSSHAIR AT DUCKS</div>
-                        <div class="instruction">• HIT DUCKS BEFORE TIME RUNS OUT</div>
-                        <div class="instruction">• EACH DUCK = 10 POINTS</div>
-                        <div class="instruction">• VOICE CONTROL: SAY "START" TO RESTART</div>
+            <!-- Instructions Screen -->
+            <div id="instructions">
+                <h2>🎯 LaserEyes</h2>
+                <div class="detail-content">
+                    <p>
+                        Use your <strong>face direction</strong> to control the
+                        laser pointer!
+                    </p>
+                    <p>
+                        Turn your head to move the pointer and catch falling
+                        coins
+                    </p>
+                    <p>
+                        Say <strong>"START"</strong> to begin or click the
+                        button below
+                    </p>
+                </div>
+
+                <details>
+                    <summary>🎨 Laser Color Commands</summary>
+                    <div class="detail-content">
+                        <p>Change your laser color with voice commands:</p>
+                        <div class="voice-commands">
+                            <div class="voice-command">"Red"</div>
+                            <div class="voice-command">"Green"</div>
+                            <div class="voice-command">"Blue"</div>
+                            <div class="voice-command">"Yellow"</div>
+                            <div class="voice-command">"Purple"</div>
+                            <div class="voice-command">"Orange"</div>
+                            <div class="voice-command">"White"</div>
+                            <div class="voice-command">"Pink"</div>
+                        </div>
                     </div>
                 </details>
 
-                <!-- Game Over Overlay -->
-                <div id="gameOverOverlay" class="game-over-overlay">
-                    <div class="game-over-content">
-                        <h2 class="game-over-title">GAME OVER</h2>
-                        <p id="finalScore" class="final-score">FINAL SCORE: 000000</p>
-                        <button id="playAgainButton" class="game-button play-again-button" data-testid="button-play-again">
-                            PLAY AGAIN
-                        </button>
+                <details>
+                    <summary>💥 Special Commands</summary>
+                    <div class="detail-content">
+                        <p>Destroy torus knots with bomb explosions:</p>
+                        <div class="voice-commands">
+                            <div class="voice-command">"BOOM"</div>
+                        </div>
+                        <p>
+                            <em
+                                >Torus knots can't be destroyed by lasers - only
+                                the BOOM command!</em
+                            >
+                        </p>
                     </div>
+                </details>
+
+                <details>
+                    <summary>⚙️ System Requirements</summary>
+                    <div class="detail-content">
+                        <p>Allow camera and microphone access when prompted</p>
+                        <p>
+                            <em
+                                >If camera unavailable, mouse movement will
+                                control the laser eyes</em
+                            >
+                        </p>
+                    </div>
+                </details>
+
+                <button id="startButton">Start Game</button>
+            </div>
+
+            <!-- Game Over Screen -->
+            <div id="gameOver" class="hidden">
+                <h2>⚡ Mission Complete</h2>
+                <div class="detail-content">
+                    <p>FINAL SCORE: <span id="finalScore">0</span></p>
                 </div>
 
-                <!-- Error Display (Top Left) -->
-                <div id="errorPanel" class="error-panel-overlay" data-testid="alert-error">
-                    <strong class="error-label">ERROR:</strong>
-                    <span id="errorMessage"></span>
+                <details>
+                    <summary>📊 Performance Stats</summary>
+                    <div class="detail-content" id="performance-stats">
+                        <p>Loading comprehensive statistics...</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>🎯 Next Mission</summary>
+                    <div class="detail-content">
+                        <p>
+                            Ready for another round of laser-guided coin
+                            collection?
+                        </p>
+                        <p>Your skills are needed once again, Agent!</p>
+                    </div>
+                </details>
+
+                <button id="restartButton">Deploy Again</button>
+            </div>
+
+            <!-- Status Display -->
+            <div id="status">
+                <div class="status-line">
+                    <span
+                        class="status-indicator status-inactive"
+                        id="faceIndicator"
+                    ></span>
+                    <span id="faceStatus">FACE: SCANNING</span>
+                </div>
+                <div class="status-line">
+                    <span
+                        class="status-indicator status-active"
+                        id="voiceIndicator"
+                    ></span>
+                    <span id="voiceStatus">VOICE: ACTIVE</span>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- MediaPipe Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+        <!-- Load Libraries via CDN -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 
-    <!-- Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+        <script>
+            // Game variables
+            let scene,
+                camera,
+                renderer,
+                pointer,
+                coins = [],
+                torusKnots = [];
+            let gameState = "menu"; // 'menu', 'playing', 'gameOver'
+            let score = 0;
+            let lives = 3;
+            let faceMesh, webcamVideo;
+            let faceDetected = false;
+            let pointerPosition = { x: 0, y: 0, z: 0 };
+            let recognition;
+            let jsConfetti;
 
-    <!-- Game Script -->
-    <script src="https://webduno.com/static/game.js"></script>
-</body>
+            // Face tracking variables
+            let faceRotation = { x: 0, y: 0, z: 0 };
+
+            // Enhanced gameplay variables
+            let currentStreak = 0;
+            let streakMultiplier = 1;
+            let totalPerfectMatches = 0;
+            let gameStartTime = 0;
+            let currentMission = null;
+            let missionProgress = 0;
+            let playerLevel = 1;
+            let playerXP = 0;
+
+            // Comprehensive game statistics
+            let gameStats = {
+                totalCoinsCollected: 0,
+                totalTorusKnotsDestroyed: 0,
+                coinsByColor: {
+                    golden: 0,
+                    red: 0,
+                    blue: 0,
+                    green: 0,
+                    purple: 0,
+                    orange: 0,
+                    white: 0,
+                    pink: 0,
+                },
+                perfectMatches: 0,
+                highestStreak: 0,
+                totalPointsFromBonuses: 0,
+                totalPointsFromPerfectMatches: 0,
+                colorsUsed: new Set(),
+                voiceCommandsUsed: 0,
+                boomCommandsUsed: 0,
+                gameTimeInSeconds: 0,
+                coinsPerMinute: 0,
+                averagePointsPerCoin: 0,
+                highestMultiplier: 1,
+            };
+
+            // Laser color system
+            let currentLaserColor = "#ff0000"; // Default red
+            let currentLaserColorName = "red";
+            const laserColors = {
+                red: { hex: "#ff0000", name: "Red" },
+                green: { hex: "#00ff00", name: "Green" },
+                blue: { hex: "#0000ff", name: "Blue" },
+                yellow: { hex: "#ffff00", name: "Yellow" },
+                purple: { hex: "#ff00ff", name: "Purple" },
+                orange: { hex: "#ff8800", name: "Orange" },
+                white: { hex: "#ffffff", name: "White" },
+                pink: { hex: "#ff69b4", name: "Pink" },
+            };
+
+            // Coin types with colors, points, and behaviors
+            const coinTypes = {
+                golden: {
+                    color: 0xffd700,
+                    points: 10,
+                    spawnRate: 0.4,
+                    name: "Golden",
+                },
+                red: {
+                    color: 0xff0000,
+                    points: 25,
+                    spawnRate: 0.15,
+                    name: "Red",
+                },
+                blue: {
+                    color: 0x0066ff,
+                    points: 15,
+                    spawnRate: 0.2,
+                    name: "Blue",
+                },
+                green: {
+                    color: 0x00ff00,
+                    points: 20,
+                    spawnRate: 0.15,
+                    name: "Green",
+                },
+                purple: {
+                    color: 0xff00ff,
+                    points: 35,
+                    spawnRate: 0.05,
+                    name: "Purple",
+                },
+                orange: {
+                    color: 0xff8800,
+                    points: 30,
+                    spawnRate: 0.03,
+                    name: "Orange",
+                },
+                white: {
+                    color: 0xffffff,
+                    points: 50,
+                    spawnRate: 0.015,
+                    name: "White",
+                },
+                pink: {
+                    color: 0xff69b4,
+                    points: 40,
+                    spawnRate: 0.025,
+                    name: "Pink",
+                },
+            };
+
+            // Mission system
+            const missions = [
+                {
+                    id: "color_specialist",
+                    name: "Color Specialist",
+                    description: "Collect 20 coins using only RED laser",
+                    target: 20,
+                    type: "color_specific",
+                    color: "red",
+                    reward: 100,
+                },
+                {
+                    id: "perfect_precision",
+                    name: "Perfect Precision",
+                    description: "Achieve 15 perfect color matches",
+                    target: 15,
+                    type: "perfect_matches",
+                    reward: 150,
+                },
+                {
+                    id: "speed_runner",
+                    name: "Speed Runner",
+                    description: "Score 300 points in under 90 seconds",
+                    target: 300,
+                    type: "speed_score",
+                    timeLimit: 90,
+                    reward: 200,
+                },
+                {
+                    id: "multi_color",
+                    name: "Rainbow Master",
+                    description: "Use 5 different laser colors in one game",
+                    target: 5,
+                    type: "color_variety",
+                    reward: 120,
+                },
+            ];
+
+            let usedColors = new Set();
+            let missionColorCount = 0;
+
+            // Game settings
+            const COIN_SPAWN_RATE = 0.025;
+            const TORUS_KNOT_SPAWN_RATE = 0.008;
+            const COIN_FALL_SPEED = 0.02;
+            const TORUS_KNOT_FALL_SPEED = 0.015;
+            const POINTER_SENSITIVITY = 3;
+            const GAME_BOUNDS = { x: 10, y: 8, z: 10 };
+
+            // Initialize the game
+            $(document).ready(function () {
+                initThreeJS();
+                initWebcam();
+                initVoiceRecognition();
+                initEventListeners();
+                initConfetti();
+                animate();
+            });
+
+            function initThreeJS() {
+                // Create scene
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x000033);
+
+                // Create camera - fixed position, no movement
+                camera = new THREE.PerspectiveCamera(
+                    75,
+                    window.innerWidth / window.innerHeight,
+                    0.1,
+                    1000,
+                );
+                camera.position.set(0, 0, 10);
+                camera.lookAt(0, 0, 0);
+
+                // Create renderer
+                const canvas = document.getElementById("gameCanvas");
+                renderer = new THREE.WebGLRenderer({
+                    canvas: canvas,
+                    antialias: true,
+                });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.shadowMap.enabled = true;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+                // Add lighting
+                const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+                scene.add(ambientLight);
+
+                const directionalLight = new THREE.DirectionalLight(
+                    0xffffff,
+                    0.8,
+                );
+                directionalLight.position.set(-10, 10, 5);
+                directionalLight.castShadow = true;
+                directionalLight.shadow.mapSize.width = 1024;
+                directionalLight.shadow.mapSize.height = 1024;
+                scene.add(directionalLight);
+
+                // Create laser pointer (removed - was the red triangle)
+                // createPointer();
+
+                // Add stars background
+                createStars();
+
+                console.log("Three.js initialized");
+            }
+
+            function createPointer() {
+                const geometry = new THREE.ConeGeometry(0.2, 1, 8);
+                const material = new THREE.MeshLambertMaterial({
+                    color: 0xff0000,
+                    emissive: 0x440000,
+                });
+                pointer = new THREE.Mesh(geometry, material);
+                pointer.position.set(0, 0, 5);
+                pointer.castShadow = true;
+                scene.add(pointer);
+
+                // Add laser beam effect
+                const beamGeometry = new THREE.CylinderGeometry(0.05, 0.05, 20);
+                const beamMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xff0000,
+                    transparent: true,
+                    opacity: 0.3,
+                });
+                const beam = new THREE.Mesh(beamGeometry, beamMaterial);
+                beam.position.set(0, 0, -5);
+                beam.rotation.x = Math.PI / 2;
+                pointer.add(beam);
+            }
+
+            function createStars() {
+                const starGeometry = new THREE.BufferGeometry();
+                const starMaterial = new THREE.PointsMaterial({
+                    color: 0xffffff,
+                    size: 0.1,
+                });
+
+                const starVertices = [];
+                for (let i = 0; i < 1000; i++) {
+                    const x = (Math.random() - 0.5) * 200;
+                    const y = (Math.random() - 0.5) * 200;
+                    const z = (Math.random() - 0.5) * 200;
+                    starVertices.push(x, y, z);
+                }
+
+                starGeometry.setAttribute(
+                    "position",
+                    new THREE.Float32BufferAttribute(starVertices, 3),
+                );
+                const stars = new THREE.Points(starGeometry, starMaterial);
+                scene.add(stars);
+            }
+
+            function createCoin() {
+                // Determine coin type based on spawn rates
+                const random = Math.random();
+                let cumulativeRate = 0;
+                let selectedType = "golden";
+
+                for (const [type, config] of Object.entries(coinTypes)) {
+                    cumulativeRate += config.spawnRate;
+                    if (random <= cumulativeRate) {
+                        selectedType = type;
+                        break;
+                    }
+                }
+
+                const coinConfig = coinTypes[selectedType];
+                const geometry = new THREE.CylinderGeometry(0.5, 0.5, 0.2, 16);
+                const material = new THREE.MeshLambertMaterial({
+                    color: coinConfig.color,
+                    emissive: coinConfig.color,
+                    emissiveIntensity: 0.2,
+                });
+                const coin = new THREE.Mesh(geometry, material);
+
+                // Spawn in 2D plane only (X and Y coordinates, fixed Z at 0)
+                coin.position.set(
+                    (Math.random() - 0.5) * GAME_BOUNDS.x * 2, // Random X position
+                    GAME_BOUNDS.y + 2, // Start from top
+                    0, // Fixed Z position (2D plane)
+                );
+
+                coin.rotation.y = Math.random() * Math.PI * 2;
+                coin.castShadow = true;
+                coin.userData = {
+                    fallSpeed: COIN_FALL_SPEED + Math.random() * 0.02,
+                    rotationSpeed: (Math.random() - 0.5) * 0.1,
+                    type: selectedType,
+                    points: coinConfig.points,
+                    name: coinConfig.name,
+                };
+
+                scene.add(coin);
+                coins.push(coin);
+            }
+
+            function createTorusKnot() {
+                const geometry = new THREE.TorusKnotGeometry(
+                    0.4,
+                    0.15,
+                    100,
+                    16,
+                );
+                const material = new THREE.MeshLambertMaterial({
+                    color: 0x8b0000, // Dark red color
+                    emissive: 0x8b0000,
+                    emissiveIntensity: 0.3,
+                });
+                const torusKnot = new THREE.Mesh(geometry, material);
+
+                // Spawn in 2D plane only (X and Y coordinates, fixed Z at 0)
+                torusKnot.position.set(
+                    (Math.random() - 0.5) * GAME_BOUNDS.x * 2, // Random X position
+                    GAME_BOUNDS.y + 2, // Start from top
+                    0, // Fixed Z position (2D plane)
+                );
+
+                torusKnot.rotation.x = Math.random() * Math.PI * 2;
+                torusKnot.rotation.y = Math.random() * Math.PI * 2;
+                torusKnot.castShadow = true;
+                torusKnot.userData = {
+                    fallSpeed: TORUS_KNOT_FALL_SPEED + Math.random() * 0.01,
+                    rotationSpeedX: (Math.random() - 0.5) * 0.1,
+                    rotationSpeedY: (Math.random() - 0.5) * 0.1,
+                    rotationSpeedZ: (Math.random() - 0.5) * 0.1,
+                    type: "torusKnot",
+                    points: 100, // High value reward for boom command
+                    name: "Torus Knot",
+                };
+
+                scene.add(torusKnot);
+                torusKnots.push(torusKnot);
+            }
+
+            function createExplosionEffect(position) {
+                // Create explosion particles
+                const particleGeometry = new THREE.SphereGeometry(0.1, 8, 8);
+                const particleMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xff4500,
+                    transparent: true,
+                    opacity: 1.0,
+                });
+
+                // Create multiple particles for explosion
+                for (let i = 0; i < 8; i++) {
+                    const particle = new THREE.Mesh(
+                        particleGeometry,
+                        particleMaterial.clone(),
+                    );
+                    particle.position.copy(position);
+                    scene.add(particle);
+
+                    // Random explosion direction
+                    const velocity = {
+                        x: (Math.random() - 0.5) * 0.2,
+                        y: (Math.random() - 0.5) * 0.2,
+                        z: (Math.random() - 0.5) * 0.2,
+                    };
+
+                    // Animate particle
+                    let life = 1.0;
+                    const animateParticle = () => {
+                        particle.position.x += velocity.x;
+                        particle.position.y += velocity.y;
+                        particle.position.z += velocity.z;
+
+                        life -= 0.05;
+                        particle.material.opacity = life;
+                        particle.scale.setScalar(life);
+
+                        if (life > 0) {
+                            requestAnimationFrame(animateParticle);
+                        } else {
+                            scene.remove(particle);
+                        }
+                    };
+                    animateParticle();
+                }
+            }
+
+            function initWebcam() {
+                webcamVideo = document.getElementById("webcam");
+
+                navigator.mediaDevices
+                    .getUserMedia({
+                        video: {
+                            width: 640,
+                            height: 480,
+                            facingMode: "user",
+                        },
+                    })
+                    .then((stream) => {
+                        webcamVideo.srcObject = stream;
+                        webcamVideo.onloadedmetadata = () => {
+                            initFaceMesh();
+                            $("#webcam").show();
+                            $("#faceOverlay").show();
+                        };
+                    })
+                    .catch((err) => {
+                        console.error("Error accessing webcam:", err);
+                        $("#faceStatus").text("Face: Using mouse control");
+                        // Enable fallback mode with mouse control
+                        initMouseControl();
+                    });
+            }
+
+            function initMouseControl() {
+                // Show the face overlay and trackers for demo
+                $("#faceOverlay").show();
+
+                // Simulate face tracking with mouse movement
+                $(document).mousemove(function (e) {
+                    const mouseX = e.clientX / window.innerWidth;
+                    const mouseY = e.clientY / window.innerHeight;
+
+                    // Simulate face landmarks based on mouse position (mirrored for display)
+                    const fakeLeftEye = {
+                        x: 1 - mouseX - 0.05,
+                        y: mouseY - 0.05,
+                    };
+                    const fakeRightEye = {
+                        x: 1 - mouseX + 0.05,
+                        y: mouseY - 0.05,
+                    };
+                    const fakeNose = { x: 1 - mouseX, y: mouseY };
+
+                    updateTrackerPositions(fakeLeftEye, fakeRightEye, fakeNose);
+
+                    // Map mouse position directly to face rotation for laser targeting
+                    faceRotation.y = (mouseX - 0.5) * 2; // Direct mapping to screen position
+                    faceRotation.x = (mouseY - 0.5) * 2; // Direct mapping to screen position
+                    faceDetected = true;
+
+                    if (gameState === "playing") {
+                        updatePointerFromFace();
+                    }
+                });
+
+                console.log("Mouse control enabled as webcam fallback");
+            }
+
+            function initFaceMesh() {
+                faceMesh = new FaceMesh({
+                    locateFile: (file) => {
+                        return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+                    },
+                });
+
+                faceMesh.setOptions({
+                    maxNumFaces: 1,
+                    refineLandmarks: true,
+                    minDetectionConfidence: 0.5,
+                    minTrackingConfidence: 0.5,
+                });
+
+                faceMesh.onResults(onFaceMeshResults);
+
+                const camera_utils = new Camera(webcamVideo, {
+                    onFrame: async () => {
+                        await faceMesh.send({ image: webcamVideo });
+                    },
+                    width: 640,
+                    height: 480,
+                });
+                camera_utils.start();
+
+                console.log("Face mesh initialized");
+            }
+
+            function onFaceMeshResults(results) {
+                if (
+                    results.multiFaceLandmarks &&
+                    results.multiFaceLandmarks.length > 0
+                ) {
+                    faceDetected = true;
+                    $("#faceStatus").text("Face: Detected ✓");
+
+                    const landmarks = results.multiFaceLandmarks[0];
+
+                    // Get key landmarks for tracking
+                    const noseTip = landmarks[1]; // Nose tip
+                    const leftEye = landmarks[33]; // Left eye outer corner
+                    const rightEye = landmarks[362]; // Right eye outer corner
+                    const leftEar = landmarks[234]; // Left ear
+                    const rightEar = landmarks[454]; // Right ear
+                    const forehead = landmarks[10]; // Forehead center
+                    const chin = landmarks[175]; // Chin
+
+                    // Update tracker positions on screen
+                    updateTrackerPositions(leftEye, rightEye, noseTip);
+
+                    // Calculate head rotation with improved directional mapping
+                    // Yaw (left/right turn) - using nose position relative to eye center
+                    const eyeCenterX = (leftEye.x + rightEye.x) / 2;
+                    const eyeCenterY = (leftEye.y + rightEye.y) / 2;
+
+                    // Face turning left/right based on nose position relative to eye center
+                    faceRotation.y =
+                        (noseTip.x - eyeCenterX) * POINTER_SENSITIVITY * 2;
+
+                    // Pitch (up/down nod) - using nose position relative to eye center
+                    faceRotation.x =
+                        (noseTip.y - eyeCenterY) * POINTER_SENSITIVITY * 2;
+
+                    // Update pointer position based on face rotation
+                    if (gameState === "playing") {
+                        updatePointerFromFace();
+                    }
+                } else {
+                    faceDetected = false;
+                    $("#faceStatus").text("Face: Not detected");
+                    // Hide trackers and lasers when no face detected
+                    $(
+                        "#leftEye, #rightEye, #noseTip, #leftLaser, #rightLaser",
+                    ).hide();
+                }
+            }
+
+            function updateTrackerPositions(leftEye, rightEye, noseTip) {
+                // Convert normalized coordinates to screen coordinates
+                const screenWidth = window.innerWidth;
+                const screenHeight = window.innerHeight;
+
+                // Position left eye tracker (mirrored horizontally)
+                const leftX = (1 - leftEye.x) * screenWidth;
+                const leftY = leftEye.y * screenHeight;
+                $("#leftEye").css({
+                    left: leftX + "px",
+                    top: leftY + "px",
+                    display: "block",
+                });
+
+                // Position right eye tracker (mirrored horizontally)
+                const rightX = (1 - rightEye.x) * screenWidth;
+                const rightY = rightEye.y * screenHeight;
+                $("#rightEye").css({
+                    left: rightX + "px",
+                    top: rightY + "px",
+                    display: "block",
+                });
+
+                // Position nose tracker (mirrored horizontally)
+                const noseX = (1 - noseTip.x) * screenWidth;
+                const noseY = noseTip.y * screenHeight;
+                $("#noseTip").css({
+                    left: noseX + "px",
+                    top: noseY + "px",
+                    display: "block",
+                });
+
+                // Draw laser beams from eyes during gameplay
+                if (gameState === "playing") {
+                    drawLaserBeams(leftX, leftY, rightX, rightY);
+                } else {
+                    $("#leftLaser, #rightLaser").hide();
+                }
+            }
+
+            function drawLaserBeams(leftEyeX, leftEyeY, rightEyeX, rightEyeY) {
+                // Calculate target position on screen based on face rotation
+                const screenWidth = window.innerWidth;
+                const screenHeight = window.innerHeight;
+
+                // Calculate screen center
+                const screenCenterX = screenWidth / 2;
+                const screenCenterY = screenHeight / 2;
+
+                // Apply face rotation as offset from screen center (mirrored for display consistency)
+                // Increase sensitivity for better reach to screen edges
+                const targetX = screenCenterX - faceRotation.y * 400; // Mirrored horizontal movement
+                const targetY = screenCenterY + (faceRotation.x - 0.3) * 400; // Normal vertical movement
+
+                // Calculate eye center to determine a common direction
+                const eyeCenterX = (leftEyeX + rightEyeX) / 2;
+                const eyeCenterY = (leftEyeY + rightEyeY) / 2;
+
+                // Calculate SINGLE direction vector from eye center to target
+                const centerDx = targetX - eyeCenterX;
+                const centerDy = targetY - eyeCenterY;
+                const centerLength = Math.sqrt(
+                    centerDx * centerDx + centerDy * centerDy,
+                );
+
+                // Normalize direction vector (both lasers use this SAME direction)
+                const dirX = centerDx / centerLength;
+                const dirY = centerDy / centerLength;
+
+                // Calculate intersection with screen edges for left laser (using same direction)
+                const leftEndPoint = calculateScreenEdgeIntersection(
+                    leftEyeX,
+                    leftEyeY,
+                    dirX,
+                    dirY,
+                    screenWidth,
+                    screenHeight,
+                );
+                const leftDistance = Math.sqrt(
+                    Math.pow(leftEndPoint.x - leftEyeX, 2) +
+                        Math.pow(leftEndPoint.y - leftEyeY, 2),
+                );
+                const leftAngle =
+                    (Math.atan2(
+                        leftEndPoint.y - leftEyeY,
+                        leftEndPoint.x - leftEyeX,
+                    ) *
+                        180) /
+                    Math.PI;
+
+                $("#leftLaser").css({
+                    left: leftEyeX + "px",
+                    top: leftEyeY + "px",
+                    width: leftDistance + "px",
+                    transform: `rotate(${leftAngle}deg)`,
+                    display: "block",
+                });
+
+                // Calculate intersection with screen edges for right laser (using same direction)
+                const rightEndPoint = calculateScreenEdgeIntersection(
+                    rightEyeX,
+                    rightEyeY,
+                    dirX,
+                    dirY,
+                    screenWidth,
+                    screenHeight,
+                );
+                const rightDistance = Math.sqrt(
+                    Math.pow(rightEndPoint.x - rightEyeX, 2) +
+                        Math.pow(rightEndPoint.y - rightEyeY, 2),
+                );
+                const rightAngle =
+                    (Math.atan2(
+                        rightEndPoint.y - rightEyeY,
+                        rightEndPoint.x - rightEyeX,
+                    ) *
+                        180) /
+                    Math.PI;
+
+                $("#rightLaser").css({
+                    left: rightEyeX + "px",
+                    top: rightEyeY + "px",
+                    width: rightDistance + "px",
+                    transform: `rotate(${rightAngle}deg)`,
+                    display: "block",
+                });
+            }
+
+            function calculateScreenEdgeIntersection(
+                startX,
+                startY,
+                dirX,
+                dirY,
+                screenWidth,
+                screenHeight,
+            ) {
+                // Calculate intersections with all four screen edges
+                let intersections = [];
+
+                // Left edge (x = 0)
+                if (dirX != 0) {
+                    const t = -startX / dirX;
+                    if (t > 0) {
+                        const y = startY + t * dirY;
+                        if (y >= 0 && y <= screenHeight) {
+                            intersections.push({ x: 0, y: y, distance: t });
+                        }
+                    }
+                }
+
+                // Right edge (x = screenWidth)
+                if (dirX != 0) {
+                    const t = (screenWidth - startX) / dirX;
+                    if (t > 0) {
+                        const y = startY + t * dirY;
+                        if (y >= 0 && y <= screenHeight) {
+                            intersections.push({
+                                x: screenWidth,
+                                y: y,
+                                distance: t,
+                            });
+                        }
+                    }
+                }
+
+                // Top edge (y = 0)
+                if (dirY != 0) {
+                    const t = -startY / dirY;
+                    if (t > 0) {
+                        const x = startX + t * dirX;
+                        if (x >= 0 && x <= screenWidth) {
+                            intersections.push({ x: x, y: 0, distance: t });
+                        }
+                    }
+                }
+
+                // Bottom edge (y = screenHeight)
+                if (dirY != 0) {
+                    const t = (screenHeight - startY) / dirY;
+                    if (t > 0) {
+                        const x = startX + t * dirX;
+                        if (x >= 0 && x <= screenWidth) {
+                            intersections.push({
+                                x: x,
+                                y: screenHeight,
+                                distance: t,
+                            });
+                        }
+                    }
+                }
+
+                // Return the closest intersection
+                if (intersections.length > 0) {
+                    intersections.sort((a, b) => a.distance - b.distance);
+                    return { x: intersections[0].x, y: intersections[0].y };
+                }
+
+                // Fallback: extend in direction to a large distance
+                const fallbackDistance =
+                    Math.max(screenWidth, screenHeight) * 2;
+                return {
+                    x: startX + dirX * fallbackDistance,
+                    y: startY + dirY * fallbackDistance,
+                };
+            }
+
+            function updatePointerFromFace() {
+                // Keep 3D pointer completely static - laser targeting handles aiming
+                // No movement or rotation of the pointer
+            }
+
+            function initConfetti() {
+                jsConfetti = new JSConfetti();
+                console.log("Confetti system initialized");
+            }
+
+            function changeLaserColor(color) {
+                if (laserColors[color]) {
+                    currentLaserColor = laserColors[color].hex;
+                    currentLaserColorName = color;
+
+                    // Track color usage for missions and statistics
+                    usedColors.add(color);
+                    gameStats.colorsUsed.add(color);
+
+                    // Create lighter shades for gradient effect
+                    const colorLight = adjustBrightness(currentLaserColor, 20);
+                    const colorLighter = adjustBrightness(
+                        currentLaserColor,
+                        40,
+                    );
+                    const colorLightest = adjustBrightness(
+                        currentLaserColor,
+                        60,
+                    );
+
+                    // Update CSS variables
+                    document.documentElement.style.setProperty(
+                        "--laser-color",
+                        currentLaserColor,
+                    );
+                    document.documentElement.style.setProperty(
+                        "--laser-color-light",
+                        colorLight,
+                    );
+                    document.documentElement.style.setProperty(
+                        "--laser-color-lighter",
+                        colorLighter,
+                    );
+                    document.documentElement.style.setProperty(
+                        "--laser-color-lightest",
+                        colorLightest,
+                    );
+
+                    console.log(
+                        `Laser color changed to: ${color} (${currentLaserColor})`,
+                    );
+
+                    // Visual feedback - brief flash effect
+                    flashColorChange(laserColors[color].name);
+                }
+            }
+
+            function getColorMatchMultiplier(laserColor, coinType) {
+                // Perfect match
+                if (laserColor === coinType) {
+                    return 3;
+                }
+
+                // Compatible matches
+                const compatibleMatches = {
+                    red: ["orange"],
+                    orange: ["red"],
+                    blue: ["white"],
+                    white: ["blue"],
+                    green: ["yellow"],
+                    yellow: ["green"],
+                    purple: ["pink"],
+                    pink: ["purple"],
+                };
+
+                if (
+                    compatibleMatches[laserColor] &&
+                    compatibleMatches[laserColor].includes(coinType)
+                ) {
+                    return 2;
+                }
+
+                // Standard collection
+                return 1;
+            }
+
+            function adjustBrightness(hexColor, amount) {
+                // Convert hex to RGB
+                const r = parseInt(hexColor.substr(1, 2), 16);
+                const g = parseInt(hexColor.substr(3, 2), 16);
+                const b = parseInt(hexColor.substr(5, 2), 16);
+
+                // Increase brightness
+                const newR = Math.min(255, r + amount);
+                const newG = Math.min(255, g + amount);
+                const newB = Math.min(255, b + amount);
+
+                // Convert back to hex
+                return `#${newR.toString(16).padStart(2, "0")}${newG.toString(16).padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
+            }
+
+            function flashColorChange(colorName) {
+                // Create temporary notification
+                const notification = $(
+                    `<div style="position: fixed; top: 100px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 20px; z-index: 300; font-size: 18px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Laser: ${colorName.toUpperCase()}</div>`,
+                );
+
+                $("body").append(notification);
+
+                setTimeout(() => {
+                    notification.fadeOut(500, () => notification.remove());
+                }, 1500);
+            }
+
+            function triggerConfetti() {
+                if (jsConfetti) {
+                    jsConfetti.addConfetti({
+                        emojis: ["🎉", "✨", "💥", "🌟"],
+                        emojiSize: 50,
+                        confettiNumber: 50,
+                        confettiColors: [
+                            currentLaserColor,
+                            "#ffffff",
+                            "#ffd700",
+                            "#ff69b4",
+                        ],
+                    });
+                    console.log("Confetti triggered!");
+                }
+            }
+
+            function triggerCoinConfetti() {
+                if (jsConfetti) {
+                    jsConfetti.addConfetti({
+                        emojis: ["💰", "✨"],
+                        emojiSize: 30,
+                        confettiNumber: 2,
+                        confettiColors: [
+                            currentLaserColor,
+                            "#ffffff",
+                            "#ffd700",
+                        ],
+                    });
+                    console.log("Coin confetti triggered!");
+                }
+            }
+
+            function triggerPerfectMatchConfetti() {
+                if (jsConfetti) {
+                    jsConfetti.addConfetti({
+                        emojis: ["🎯", "⭐", "🌟", "💫"],
+                        emojiSize: 40,
+                        confettiNumber: 8,
+                        confettiColors: [
+                            currentLaserColor,
+                            "#ffffff",
+                            "#ffd700",
+                        ],
+                    });
+                    console.log("Perfect match confetti!");
+                }
+            }
+
+            function triggerBombConfetti() {
+                if (jsConfetti) {
+                    jsConfetti.addConfetti({
+                        emojis: ["💣", "💥", "🔥", "💨"],
+                        emojiSize: 60,
+                        confettiNumber: 15,
+                        confettiColors: [
+                            "#ff4500",
+                            "#ff0000",
+                            "#ffa500",
+                            "#ffff00",
+                        ],
+                    });
+                    console.log("Boom confetti triggered!");
+                }
+            }
+
+            function handleBoomCommand() {
+                let destroyed = 0;
+
+                // Destroy all torus knots on screen
+                for (let i = torusKnots.length - 1; i >= 0; i--) {
+                    const torusKnot = torusKnots[i];
+
+                    // Remove from scene and array
+                    scene.remove(torusKnot);
+                    torusKnots.splice(i, 1);
+
+                    // Add points
+                    score += torusKnot.userData.points;
+                    destroyed++;
+
+                    // Update statistics
+                    gameStats.totalTorusKnotsDestroyed++;
+
+                    // Create explosion effect at torus knot position
+                    createExplosionEffect(torusKnot.position);
+                }
+
+                if (destroyed > 0) {
+                    triggerBombConfetti();
+                    updateUI();
+                    console.log(
+                        `BOOM! Destroyed ${destroyed} torus knots for ${destroyed * 100} points!`,
+                    );
+                } else {
+                    console.log("No torus knots to destroy!");
+                }
+            }
+
+            function updateMissionProgress(coinType, isPerfectMatch) {
+                if (!currentMission) return;
+
+                switch (currentMission.type) {
+                    case "color_specific":
+                        if (currentLaserColorName === currentMission.color) {
+                            missionProgress++;
+                        }
+                        break;
+                    case "perfect_matches":
+                        if (isPerfectMatch) {
+                            missionProgress++;
+                        }
+                        break;
+                    case "speed_score":
+                        // Progress is the current score
+                        missionProgress = score;
+                        break;
+                    case "color_variety":
+                        missionProgress = usedColors.size;
+                        break;
+                }
+
+                // Check if mission is complete
+                if (missionProgress >= currentMission.target) {
+                    completeMission();
+                }
+            }
+
+            function completeMission() {
+                if (!currentMission) return;
+
+                // Award XP and show completion effect
+                playerXP += currentMission.reward;
+                score += Math.floor(currentMission.reward / 2); // Bonus points
+
+                // Show mission complete notification
+                showMissionComplete();
+
+                // Assign new mission
+                assignRandomMission();
+            }
+
+            function showMissionComplete() {
+                const notification = $(`
+                <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                     background: linear-gradient(135deg, #4CAF50, #45a049); color: white; 
+                     padding: 20px 30px; border-radius: 15px; z-index: 400; 
+                     font-size: 22px; font-weight: bold; text-align: center;
+                     box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+                    🎉 MISSION COMPLETE! 🎉<br>
+                    <span style="font-size: 16px;">${currentMission.name}</span><br>
+                    <span style="font-size: 14px;">+${currentMission.reward} XP</span>
+                </div>
+            `);
+
+                $("body").append(notification);
+
+                setTimeout(() => {
+                    notification.fadeOut(800, () => notification.remove());
+                }, 3000);
+            }
+
+            function assignRandomMission() {
+                const availableMissions = missions.filter(
+                    (m) => m.id !== (currentMission ? currentMission.id : null),
+                );
+                currentMission =
+                    availableMissions[
+                        Math.floor(Math.random() * availableMissions.length)
+                    ];
+                missionProgress = 0;
+
+                // Show new mission notification
+                showNewMission();
+            }
+
+            function showNewMission() {
+                const notification = $(`
+                <div style="position: fixed; top: 150px; left: 50%; transform: translateX(-50%); 
+                     background: rgba(33, 150, 243, 0.95); color: white; 
+                     padding: 15px 25px; border-radius: 12px; z-index: 350; 
+                     font-size: 16px; font-weight: bold; text-align: center;
+                     box-shadow: 0 4px 16px rgba(0,0,0,0.4);">
+                    📋 NEW MISSION<br>
+                    <span style="font-size: 14px; font-weight: normal;">${currentMission.description}</span><br>
+                    <span style="font-size: 12px; color: #FFD700;">Reward: ${currentMission.reward} XP</span>
+                </div>
+            `);
+
+                $("body").append(notification);
+
+                setTimeout(() => {
+                    notification.fadeOut(600, () => notification.remove());
+                }, 4000);
+            }
+
+            function initVoiceRecognition() {
+                if ("webkitSpeechRecognition" in window) {
+                    recognition = new webkitSpeechRecognition();
+                    recognition.continuous = true;
+                    recognition.interimResults = false;
+                    recognition.lang = "en-US";
+
+                    recognition.onstart = function () {
+                        $("#voiceStatus").text("Voice: Listening...");
+                    };
+
+                    recognition.onresult = function (event) {
+                        const last = event.results.length - 1;
+                        const command = event.results[last][0].transcript
+                            .toLowerCase()
+                            .trim();
+
+                        console.log("Voice command:", command);
+
+                        if (command.includes("start") && gameState === "menu") {
+                            startGame();
+                        } else if (gameState === "playing") {
+                            // Track voice command usage
+                            gameStats.voiceCommandsUsed++;
+
+                            // Check for color commands
+                            for (const color in laserColors) {
+                                if (command.includes(color)) {
+                                    changeLaserColor(color);
+                                    break;
+                                }
+                            }
+
+                            // Check for boom command
+                            if (command.includes("boom")) {
+                                gameStats.boomCommandsUsed++;
+                                handleBoomCommand();
+                            }
+                        }
+                    };
+
+                    recognition.onerror = function (event) {
+                        console.error("Speech recognition error:", event.error);
+                        $("#voiceStatus").text("Voice: Error - " + event.error);
+                    };
+
+                    recognition.onend = function () {
+                        if (gameState !== "gameOver") {
+                            recognition.start(); // Restart recognition
+                        }
+                    };
+
+                    recognition.start();
+                } else {
+                    $("#voiceStatus").text("Voice: Not supported");
+                    console.log("Speech recognition not supported");
+                }
+            }
+
+            function initEventListeners() {
+                $("#startButton").click(startGame);
+                $("#restartButton").click(restartGame);
+
+                // Handle window resize
+                $(window).resize(function () {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+                // Keyboard fallback controls (removed - pointer object no longer exists)
+                // The game now uses only face tracking and laser targeting for interaction
+            }
+
+            function startGame() {
+                gameState = "playing";
+                score = 0;
+                lives = 3;
+                coins = [];
+                torusKnots = [];
+
+                // Reset enhanced gameplay variables
+                currentStreak = 0;
+                streakMultiplier = 1;
+                gameStartTime = Date.now();
+                usedColors.clear();
+                usedColors.add("red"); // Default color
+
+                // Reset comprehensive game statistics
+                gameStats = {
+                    totalCoinsCollected: 0,
+                    totalTorusKnotsDestroyed: 0,
+                    coinsByColor: {
+                        golden: 0,
+                        red: 0,
+                        blue: 0,
+                        green: 0,
+                        purple: 0,
+                        orange: 0,
+                        white: 0,
+                        pink: 0,
+                    },
+                    perfectMatches: 0,
+                    highestStreak: 0,
+                    totalPointsFromBonuses: 0,
+                    totalPointsFromPerfectMatches: 0,
+                    colorsUsed: new Set(),
+                    voiceCommandsUsed: 0,
+                    boomCommandsUsed: 0,
+                    gameTimeInSeconds: 0,
+                    coinsPerMinute: 0,
+                    averagePointsPerCoin: 0,
+                    highestMultiplier: 1,
+                };
+
+                // Assign initial mission
+                assignRandomMission();
+
+                // Clear existing coins and torus knots
+                scene.children = scene.children.filter((child) => {
+                    if (
+                        child.userData &&
+                        child.userData.fallSpeed !== undefined
+                    ) {
+                        scene.remove(child);
+                        return false;
+                    }
+                    return true;
+                });
+
+                updateUI();
+                $("#instructions").addClass("hidden");
+                $("#gameOver").addClass("hidden");
+
+                console.log("Game started!");
+            }
+
+            function restartGame() {
+                startGame();
+            }
+
+            function endGame() {
+                gameState = "gameOver";
+
+                // Calculate final statistics
+                gameStats.gameTimeInSeconds = Math.floor(
+                    (Date.now() - gameStartTime) / 1000,
+                );
+                gameStats.coinsPerMinute =
+                    gameStats.gameTimeInSeconds > 0
+                        ? Math.round(
+                              (gameStats.totalCoinsCollected /
+                                  gameStats.gameTimeInSeconds) *
+                                  60 *
+                                  10,
+                          ) / 10
+                        : 0;
+                gameStats.averagePointsPerCoin =
+                    gameStats.totalCoinsCollected > 0
+                        ? Math.round(
+                              (score / gameStats.totalCoinsCollected) * 10,
+                          ) / 10
+                        : 0;
+
+                $("#finalScore").text(score);
+                updatePerformanceStats();
+                $("#gameOver").removeClass("hidden");
+
+                // Stop voice recognition
+                if (recognition) {
+                    recognition.stop();
+                }
+
+                console.log("Game ended. Final score:", score);
+            }
+
+            function updatePerformanceStats() {
+                const formatTime = (seconds) => {
+                    const mins = Math.floor(seconds / 60);
+                    const secs = seconds % 60;
+                    return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+                };
+
+                const mostCollectedCoin = Object.entries(
+                    gameStats.coinsByColor,
+                ).reduce(
+                    (max, [color, count]) =>
+                        count > max.count ? { color, count } : max,
+                    { color: "none", count: 0 },
+                );
+
+                const totalColoredCoins =
+                    gameStats.totalCoinsCollected -
+                    gameStats.coinsByColor.golden;
+                const perfectMatchRate =
+                    gameStats.totalCoinsCollected > 0
+                        ? Math.round(
+                              (gameStats.perfectMatches /
+                                  gameStats.totalCoinsCollected) *
+                                  100,
+                          )
+                        : 0;
+
+                const statsHTML = `
+                <div style="text-align: left; line-height: 1.6;">
+                    <!-- Key performance summary at top -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; padding: 12px; background: rgba(65,150,255,0.15); border-radius: 8px;">
+                        <div style="text-align: center;">
+                            <strong style="color: #4196ff;">🎯 Perfect Match Rate:</strong><br>
+                            <span style="color: #ffd700; font-size: 1.2em;">${perfectMatchRate}%</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <strong style="color: #4196ff;">🔥 Highest Streak:</strong><br>
+                            <span style="color: #ffd700; font-size: 1.2em;">${gameStats.highestStreak}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Collapsible detailed stats -->
+                    <details style="margin-bottom: 12px;">
+                        <summary style="cursor: pointer; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 8px; font-weight: bold; color: #4196ff;">
+                            🎯 Game Performance Details
+                        </summary>
+                        <div style="padding: 8px; margin-left: 12px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 12px;">
+                                <div>
+                                    <strong>⏱️ Game Duration:</strong><br>
+                                    <span style="color: #ffd700;">${formatTime(gameStats.gameTimeInSeconds)}</span>
+                                </div>
+                                <div>
+                                    <strong>💰 Coins Per Minute:</strong><br>
+                                    <span style="color: #ffd700;">${gameStats.coinsPerMinute}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    
+                    <details style="margin-bottom: 12px;">
+                        <summary style="cursor: pointer; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 8px; font-weight: bold; color: #4196ff;">
+                            📈 Collection Stats
+                        </summary>
+                        <div style="padding: 8px; margin-left: 12px;">
+                            <div style="margin-bottom: 12px;">
+                                <strong>Total Coins Collected:</strong> <span style="color: #ffd700;">${gameStats.totalCoinsCollected}</span><br>
+                                <strong>Average Points/Coin:</strong> <span style="color: #ffd700;">${gameStats.averagePointsPerCoin}</span><br>
+                                <strong>Perfect Matches:</strong> <span style="color: #ffd700;">${gameStats.perfectMatches}</span><br>
+                                <strong>Highest Multiplier:</strong> <span style="color: #ffd700;">${gameStats.highestMultiplier}x</span>
+                            </div>
+                            
+                            <div style="background: rgba(255,255,255,0.1); padding: 8px; border-radius: 6px;">
+                                <strong>💎 Coins by Color:</strong><br>
+                                ${Object.entries(gameStats.coinsByColor)
+                                    .filter(([color, count]) => count > 0)
+                                    .map(
+                                        ([color, count]) =>
+                                            `<span style="color: #${color === "golden" ? "ffd700" : color === "red" ? "ff4444" : color === "blue" ? "4488ff" : color === "green" ? "44ff44" : color === "purple" ? "ff44ff" : color === "orange" ? "ff8844" : color === "white" ? "ffffff" : "ff69b4"};">${color.charAt(0).toUpperCase() + color.slice(1)}: ${count}</span>`,
+                                    )
+                                    .join("<br>")}
+                            </div>
+                        </div>
+                    </details>
+                    
+                    <details style="margin-bottom: 12px;">
+                        <summary style="cursor: pointer; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 8px; font-weight: bold; color: #4196ff;">
+                            🎮 Interaction Stats
+                        </summary>
+                        <div style="padding: 8px; margin-left: 12px;">
+                            <div>
+                                <strong>🎤 Voice Commands Used:</strong> <span style="color: #ffd700;">${gameStats.voiceCommandsUsed}</span><br>
+                                <strong>💣 BOOM Commands:</strong> <span style="color: #ffd700;">${gameStats.boomCommandsUsed}</span><br>
+                                <strong>🌪️ Torus Knots Destroyed:</strong> <span style="color: #ffd700;">${gameStats.totalTorusKnotsDestroyed}</span><br>
+                                <strong>🎨 Colors Used:</strong> <span style="color: #ffd700;">${gameStats.colorsUsed.size}/8</span>
+                            </div>
+                            
+                            ${
+                                gameStats.totalPointsFromBonuses > 0
+                                    ? `
+                            <div style="background: rgba(255,215,0,0.1); padding: 8px; border-radius: 6px; margin-top: 12px;">
+                                <strong>⭐ Bonus Points Earned:</strong> <span style="color: #ffd700;">${gameStats.totalPointsFromBonuses}</span><br>
+                                <strong>🎯 Perfect Match Points:</strong> <span style="color: #ffd700;">${gameStats.totalPointsFromPerfectMatches}</span>
+                            </div>
+                            `
+                                    : ""
+                            }
+                        </div>
+                    </details>
+                    
+                    <div style="text-align: center; margin-top: 15px; padding: 8px; background: rgba(65,150,255,0.1); border-radius: 6px;">
+                        <strong style="color: #4196ff;">🚀 Master Level Performance!</strong><br>
+                        <small>You demonstrated excellent laser precision skills with facial tracking technology.</small>
+                    </div>
+                </div>
+            `;
+
+                $("#performance-stats").html(statsHTML);
+            }
+
+            function updateUI() {
+                $("#score").text(score);
+                $("#lives").text(lives);
+
+                // Update streak display
+                if (currentStreak > 0) {
+                    $("#streak").text(
+                        `${currentStreak} (${streakMultiplier.toFixed(1)}x)`,
+                    );
+                    $("#streak-display").show();
+                } else {
+                    $("#streak-display").hide();
+                }
+
+                // Update mission progress
+                if (currentMission) {
+                    const progressPercent = Math.min(
+                        100,
+                        (missionProgress / currentMission.target) * 100,
+                    );
+                    $("#mission-name").text(currentMission.name);
+                    $("#mission-progress").text(
+                        `${missionProgress}/${currentMission.target}`,
+                    );
+                    $("#mission-bar").css("width", progressPercent + "%");
+                }
+
+                // Update level and XP
+                $("#level").text(playerLevel);
+                $("#xp").text(playerXP);
+            }
+
+            function checkCollisions() {
+                // Get current eye positions from the DOM (if available)
+                const leftEyeEl = $("#leftEye");
+                const rightEyeEl = $("#rightEye");
+
+                const screenWidth = window.innerWidth;
+                const screenHeight = window.innerHeight;
+
+                if (!leftEyeEl.is(":visible") || !rightEyeEl.is(":visible")) {
+                    return; // No face detected, skip collision check
+                }
+
+                const leftEyeX = parseFloat(leftEyeEl.css("left"));
+                const leftEyeY = parseFloat(leftEyeEl.css("top"));
+                const rightEyeX = parseFloat(rightEyeEl.css("left"));
+                const rightEyeY = parseFloat(rightEyeEl.css("top"));
+
+                // Calculate laser direction vectors using same logic as drawLaserBeams
+                const screenCenterX = screenWidth / 2;
+                const screenCenterY = screenHeight / 2;
+
+                const targetX = screenCenterX - faceRotation.y * 400; // Mirrored horizontal movement (same as drawLaserBeams)
+                const targetY = screenCenterY + (faceRotation.x - 0.3) * 400;
+
+                // Calculate eye center to determine a common direction
+                const eyeCenterX = (leftEyeX + rightEyeX) / 2;
+                const eyeCenterY = (leftEyeY + rightEyeY) / 2;
+
+                // Calculate SINGLE direction vector from eye center to target
+                const centerDx = targetX - eyeCenterX;
+                const centerDy = targetY - eyeCenterY;
+                const centerLength = Math.sqrt(
+                    centerDx * centerDx + centerDy * centerDy,
+                );
+
+                // Normalize direction vector (both lasers use this SAME direction)
+                const dirX = centerDx / centerLength;
+                const dirY = centerDy / centerLength;
+
+                for (let i = coins.length - 1; i >= 0; i--) {
+                    const coin = coins[i];
+
+                    // Project 3D coin position to 2D screen coordinates
+                    const coinVector = coin.position.clone();
+                    coinVector.project(camera);
+
+                    // Convert normalized device coordinates to screen coordinates
+                    const coinScreenX =
+                        (coinVector.x * 0.5 + 0.5) * screenWidth;
+                    const coinScreenY =
+                        (-coinVector.y * 0.5 + 0.5) * screenHeight;
+
+                    // Check if coin intersects with either laser line (both use same direction)
+                    const leftHit = isPointNearLaserLine(
+                        leftEyeX,
+                        leftEyeY,
+                        dirX,
+                        dirY,
+                        coinScreenX,
+                        coinScreenY,
+                        30,
+                    );
+                    const rightHit = isPointNearLaserLine(
+                        rightEyeX,
+                        rightEyeY,
+                        dirX,
+                        dirY,
+                        coinScreenX,
+                        coinScreenY,
+                        30,
+                    );
+
+                    if (leftHit || rightHit) {
+                        // Calculate color match multiplier
+                        const multiplier = getColorMatchMultiplier(
+                            currentLaserColorName,
+                            coin.userData.type,
+                        );
+                        const basePoints = coin.userData.points;
+                        const bonusPoints = Math.floor(basePoints * multiplier);
+
+                        // Update streak system
+                        if (multiplier === 3) {
+                            currentStreak++;
+                            totalPerfectMatches++;
+                            streakMultiplier = Math.min(
+                                3,
+                                1 + Math.floor(currentStreak / 5) * 0.5,
+                            );
+
+                            // Track statistics for perfect matches
+                            gameStats.perfectMatches++;
+                            gameStats.totalPointsFromPerfectMatches +=
+                                bonusPoints;
+                        } else {
+                            currentStreak = 0;
+                            streakMultiplier = 1;
+                        }
+
+                        // Update statistics tracking
+                        gameStats.totalCoinsCollected++;
+                        gameStats.coinsByColor[coin.userData.type]++;
+                        gameStats.highestStreak = Math.max(
+                            gameStats.highestStreak,
+                            currentStreak,
+                        );
+                        gameStats.highestMultiplier = Math.max(
+                            gameStats.highestMultiplier,
+                            streakMultiplier,
+                        );
+
+                        // Track bonus points
+                        if (multiplier > 1) {
+                            gameStats.totalPointsFromBonuses +=
+                                bonusPoints - basePoints;
+                        }
+
+                        // Calculate final points with streak multiplier
+                        const finalPoints = Math.floor(
+                            bonusPoints * streakMultiplier,
+                        );
+
+                        // Remove coin
+                        scene.remove(coin);
+                        coins.splice(i, 1);
+
+                        // Update score
+                        score += finalPoints;
+
+                        // Update mission progress
+                        updateMissionProgress(
+                            coin.userData.type,
+                            multiplier === 3,
+                        );
+
+                        // Add XP
+                        playerXP += multiplier === 3 ? 5 : 1;
+
+                        updateUI();
+
+                        // Add visual effect with color information
+                        createCollectionEffect(
+                            coin.position,
+                            multiplier,
+                            finalPoints,
+                        );
+
+                        // Different confetti for perfect matches
+                        if (multiplier === 3) {
+                            triggerPerfectMatchConfetti();
+                        } else {
+                            triggerCoinConfetti();
+                        }
+
+                        console.log(
+                            `${coin.userData.name} coin collected! Points: ${finalPoints} (${multiplier}x multiplier, ${streakMultiplier}x streak)`,
+                        );
+                    }
+                }
+            }
+
+            function isPointNearLaserLine(
+                startX,
+                startY,
+                dirX,
+                dirY,
+                pointX,
+                pointY,
+                threshold,
+            ) {
+                // Calculate the closest point on the laser line to the coin
+                const toPointX = pointX - startX;
+                const toPointY = pointY - startY;
+
+                // Project the vector from start to point onto the direction vector
+                const projectionLength = toPointX * dirX + toPointY * dirY;
+
+                // Only consider points in front of the laser (positive projection)
+                if (projectionLength < 0) {
+                    return false;
+                }
+
+                // Calculate the closest point on the line
+                const closestX = startX + projectionLength * dirX;
+                const closestY = startY + projectionLength * dirY;
+
+                // Calculate distance from point to closest point on line
+                const distance = Math.sqrt(
+                    Math.pow(pointX - closestX, 2) +
+                        Math.pow(pointY - closestY, 2),
+                );
+
+                return distance <= threshold;
+            }
+
+            function createCollectionEffect(position, multiplier, points) {
+                // Main ring effect
+                const geometry = new THREE.RingGeometry(0.3, 0.8, 8);
+                const color =
+                    multiplier === 3
+                        ? 0x00ff00
+                        : multiplier === 2
+                          ? 0xffaa00
+                          : 0xffd700;
+                const material = new THREE.MeshBasicMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.8,
+                });
+                const effect = new THREE.Mesh(geometry, material);
+                effect.position.copy(position);
+                effect.lookAt(camera.position);
+
+                scene.add(effect);
+
+                // Points text effect
+                const canvas = document.createElement("canvas");
+                const context = canvas.getContext("2d");
+                canvas.width = 256;
+                canvas.height = 128;
+                context.font = "Bold 48px Arial";
+                context.fillStyle =
+                    multiplier === 3
+                        ? "#00ff00"
+                        : multiplier === 2
+                          ? "#ffaa00"
+                          : "#ffd700";
+                context.textAlign = "center";
+                context.fillText(`+${points}`, 128, 64);
+
+                const texture = new THREE.CanvasTexture(canvas);
+                const textMaterial = new THREE.MeshBasicMaterial({
+                    map: texture,
+                    transparent: true,
+                    opacity: 1.0,
+                });
+                const textGeometry = new THREE.PlaneGeometry(2, 1);
+                const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+                textMesh.position.copy(position);
+                textMesh.position.y += 1;
+                textMesh.lookAt(camera.position);
+
+                scene.add(textMesh);
+
+                // Animate and remove effects
+                let scale = 1;
+                let textY = textMesh.position.y;
+                const animate = () => {
+                    scale += 0.1;
+                    effect.scale.set(scale, scale, scale);
+                    effect.material.opacity -= 0.05;
+
+                    textY += 0.05;
+                    textMesh.position.y = textY;
+                    textMaterial.opacity -= 0.03;
+
+                    if (effect.material.opacity > 0) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        scene.remove(effect);
+                        scene.remove(textMesh);
+                    }
+                };
+                animate();
+            }
+
+            function updateGame() {
+                if (gameState !== "playing") return;
+
+                // Spawn coins
+                if (Math.random() < COIN_SPAWN_RATE) {
+                    createCoin();
+                }
+
+                // Spawn torus knots (less frequent)
+                if (Math.random() < TORUS_KNOT_SPAWN_RATE) {
+                    createTorusKnot();
+                }
+
+                // Update coins
+                for (let i = coins.length - 1; i >= 0; i--) {
+                    const coin = coins[i];
+
+                    // Move coin down
+                    coin.position.y -= coin.userData.fallSpeed;
+                    coin.rotation.y += coin.userData.rotationSpeed;
+
+                    // Remove coins that fell off screen
+                    if (coin.position.y < -GAME_BOUNDS.y - 2) {
+                        scene.remove(coin);
+                        coins.splice(i, 1);
+
+                        // Lose a life
+                        lives--;
+                        updateUI();
+
+                        if (lives <= 0) {
+                            endGame();
+                        }
+                    }
+                }
+
+                // Update torus knots
+                for (let i = torusKnots.length - 1; i >= 0; i--) {
+                    const torusKnot = torusKnots[i];
+
+                    // Move torus knot down
+                    torusKnot.position.y -= torusKnot.userData.fallSpeed;
+                    torusKnot.rotation.x += torusKnot.userData.rotationSpeedX;
+                    torusKnot.rotation.y += torusKnot.userData.rotationSpeedY;
+                    torusKnot.rotation.z += torusKnot.userData.rotationSpeedZ;
+
+                    // Remove torus knots that fell off screen (but don't lose lives)
+                    if (torusKnot.position.y < -GAME_BOUNDS.y - 2) {
+                        scene.remove(torusKnot);
+                        torusKnots.splice(i, 1);
+                    }
+                }
+
+                // Check collisions
+                checkCollisions();
+
+                // Pointer removed - game now uses direct laser targeting without 3D pointer object
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                updateGame();
+
+                // CAMERA IS COMPLETELY STATIC - NO MOVEMENT AT ALL
+
+                renderer.render(scene, camera);
+            }
+
+            // Handle page visibility changes
+            document.addEventListener("visibilitychange", function () {
+                if (document.hidden) {
+                    if (recognition) recognition.stop();
+                } else {
+                    if (recognition && gameState !== "gameOver") {
+                        recognition.start();
+                    }
+                }
+            });
+        </script>
+    </body>
 </html>

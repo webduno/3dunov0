@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duck Hunt - Retro Gaming</title>
+    
+    
+		<!-- Open Graph / X (Twitter) Meta Tags -->
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="Duck Hunt - Retro Gaming">
+		<meta property="og:description" content="Duck Hunt - Retro Gaming">
+		<meta property="description" content="Duck Hunt - Retro Gaming">
+		<meta property="og:url" content="https://webduno.com/static">
+		<meta property="og:image" content="https://webduno.com/static/previ.png">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+		<meta property="og:image:alt" content="Duck Hunt - Retro Gaming">
+		<meta property="og:image:secure_url" content="https://webduno.com/static/previ.png">
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:site_name" content="Webduno">
+		<meta property="og:locale" content="en_US">
+		
+		<!-- Twitter Card Meta Tags -->
+		<meta name="twitter:card" content="player">
+		<meta name="twitter:site" content="@webduno">
+		<meta name="twitter:title" content="Duck Hunt - Retro Gaming">
+		<meta name="twitter:description" content="Duck Hunt - Retro Gaming">
+		<meta name="twitter:url" content="https://webduno.com/static">
+		<meta name="twitter:image" content="https://webduno.com/static/previ.png">
+		<meta name="twitter:image:width" content="1200">
+		<meta name="twitter:image:height" content="630">
+		<meta name="twitter:image:alt" content="Duck Hunt - Retro Gaming">
+		<meta name="twitter:player" content="https://webduno.com/static">
+		<meta name="twitter:player:width" content="480">
+		<meta name="twitter:player:height" content="480">
+		<meta name="twitter:app:name:iphone" content="Webduno">
+		<meta name="twitter:app:name:ipad" content="Webduno">
+		<meta name="twitter:app:name:googleplay" content="Webduno">
+		
+		<meta name="twitter:creator" content="@webduno">
+
+    <link rel="stylesheet" href="https://webduno.com/static/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Pixelated trees background -->
+        <div class="background-trees">
+            <div class="tree tree-1">
+                <div class="tree-crown"></div>
+                <div class="tree-trunk"></div>
+            </div>
+            <div class="tree tree-2">
+                <div class="tree-crown"></div>
+                <div class="tree-trunk"></div>
+            </div>
+        </div>
+
+        <!-- Retro Header -->
+        <header class="game-header">
+            <div class="header-content">
+                <div class="title-section">
+                    <h1 class="game-title">DUCK HUNT</h1>
+                    <p class="game-subtitle">TURN HEAD TO AIM • VOICE ACTIVATED</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Full Screen Game Area -->
+        <div class="game-area">
+            <div class="game-viewport">
+                <!-- Video Stream -->
+                <video id="videoStream" autoplay playsinline muted class="video-feed"></video>
+                
+                <!-- Face Tracking Overlay -->
+                <canvas id="faceCanvas" class="face-overlay" width="640" height="480"></canvas>
+                
+                <!-- Game Canvas -->
+                <canvas id="gameCanvas" class="game-canvas" width="640" height="480"></canvas>
+                
+                <!-- Eye Trackers -->
+                <div id="leftEyeTracker" class="eye-tracker left-eye"></div>
+                <div id="rightEyeTracker" class="eye-tracker right-eye"></div>
+                
+                <!-- Crosshair -->
+                <div id="crosshair" class="crosshair">
+                    <div class="crosshair-top"></div>
+                    <div class="crosshair-bottom"></div>
+                    <div class="crosshair-left"></div>
+                    <div class="crosshair-right"></div>
+                    <div class="crosshair-center"></div>
+                </div>
+
+                <!-- Overlay UI Elements -->
+                <!-- Start/Stop Button (Top Center) -->
+                <div class="control-panel-overlay">
+                    <button id="gameButton" class="game-button start-button" data-testid="button-start-game">
+                        START DUCK HUNT
+                    </button>
+                </div>
+
+                <!-- Game Stats HUD (Bottom) -->
+                <div class="stats-hud">
+                    <div class="stat-group">
+                        <span class="stat-label">SCORE</span>
+                        <span id="scoreDisplay" class="stat-value score-value">000000</span>
+                    </div>
+                    <div class="stat-group">
+                        <span class="stat-label">TIME</span>
+                        <span id="timeDisplay" class="stat-value time-value">30</span>
+                    </div>
+                    <div class="stat-group">
+                        <span class="stat-label">STATUS</span>
+                        <span id="statusDisplay" class="stat-value status-value status-searching">SEARCHING</span>
+                        <div id="voiceIndicator" class="voice-indicator">♪ VOICE ACTIVE</div>
+                    </div>
+                </div>
+
+                <!-- Instructions Toggle (Top Right) -->
+                <details class="instructions-toggle">
+                    <summary class="instructions-button">HOW TO PLAY</summary>
+                    <div class="instructions-content">
+                        <div class="instruction">• SAY "START" OR CLICK BUTTON TO BEGIN</div>
+                        <div class="instruction">• SHOW YOUR FACE TO THE CAMERA</div>
+                        <div class="instruction">• TURN HEAD TO AIM CROSSHAIR AT DUCKS</div>
+                        <div class="instruction">• HIT DUCKS BEFORE TIME RUNS OUT</div>
+                        <div class="instruction">• EACH DUCK = 10 POINTS</div>
+                        <div class="instruction">• VOICE CONTROL: SAY "START" TO RESTART</div>
+                    </div>
+                </details>
+
+                <!-- Game Over Overlay -->
+                <div id="gameOverOverlay" class="game-over-overlay">
+                    <div class="game-over-content">
+                        <h2 class="game-over-title">GAME OVER</h2>
+                        <p id="finalScore" class="final-score">FINAL SCORE: 000000</p>
+                        <button id="playAgainButton" class="game-button play-again-button" data-testid="button-play-again">
+                            PLAY AGAIN
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Error Display (Top Left) -->
+                <div id="errorPanel" class="error-panel-overlay" data-testid="alert-error">
+                    <strong class="error-label">ERROR:</strong>
+                    <span id="errorMessage"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MediaPipe Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
+    <!-- Game Script -->
+    <script src="https://webduno.com/static/game.js"></script>
+</body>
+</html>
