@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Civilization God - 3D Face Tracking Game</title>
+
+        <!-- Open Graph / X (Twitter) Meta Tags -->
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Civilization God - 3D Face Tracking Game">
+        <meta property="og:description" content="Control your civilization with voice commands and face tracking">
+        <meta property="description" content="Control your civilization with voice commands and face tracking">
+        <meta property="og:url" content="https://webduno.com/civilization">
+        <meta property="og:image" content="https://webduno.com/civilization/prev.gif">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:image:alt" content="Civilization God - 3D Face Tracking Game">
+        <meta property="og:image:secure_url" content="https://webduno.com/civilization/prev.gif">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:site_name" content="Webduno">
+        <meta property="og:locale" content="en_US">
+        
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@webduno">
+        <meta name="twitter:title" content="Civilization God - 3D Face Tracking Game">
+        <meta name="twitter:description" content="Control your civilization with voice commands and face tracking">
+        <meta name="twitter:url" content="https://webduno.com/civilization">
+        <meta name="twitter:image" content="https://webduno.com/civilization/prev.gif">
+        <meta name="twitter:image:width" content="1200">
+        <meta name="twitter:image:height" content="630">
+        <meta name="twitter:image:alt" content="Civilization God - 3D Face Tracking Game">
+        <meta name="twitter:creator" content="@webduno">
+        
+        <meta name="twitter:creator" content="@webduno">
+
+        <!-- Three.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        
+        <!-- MediaPipe Face Mesh -->
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+        
+        <!-- Confetti -->
+        <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
+        <!-- CSS Styles -->
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="game-container">
+            <!-- Background Trees -->
+            <div class="background-trees">
+                <div class="tree tree-1">
+                    <div class="tree-crown"></div>
+                    <div class="tree-trunk"></div>
+                </div>
+                <div class="tree tree-2">
+                    <div class="tree-crown"></div>
+                    <div class="tree-trunk"></div>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <header class="game-header">
+                <div class="header-content">
+                    <div>
+                        <h1 class="game-title">Civilization God</h1>
+                        <p class="game-subtitle">Voice Control & Face Tracking</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Control Panel -->
+            <div class="control-panel-overlay">
+                <button id="gameButton" class="game-button start-button">Start Civilization</button>
+                
+                <div class="stats-hud">
+                    <div class="stat-group">
+                        <div class="stat-label">Population</div>
+                        <div id="populationDisplay" class="stat-value">0</div>
+                    </div>
+                    <div class="stat-group">
+                        <div class="stat-label">Resources</div>
+                        <div id="resourcesDisplay" class="stat-value">0</div>
+                    </div>
+                    <div class="stat-group">
+                        <div class="stat-label">Buildings</div>
+                        <div id="buildingsDisplay" class="stat-value">0</div>
+                    </div>
+                    <div class="stat-group">
+                        <div class="stat-label">Status</div>
+                        <div id="statusDisplay" class="stat-value status-searching">Searching...</div>
+                    </div>
+                </div>
+
+                <div id="voiceIndicator" class="voice-indicator">Voice: Listening...</div>
+            </div>
+
+            <!-- Game Area -->
+            <div class="game-area">
+                <div class="game-viewport">
+                    <!-- Video Feed -->
+                    <video id="videoStream" class="video-feed" autoplay muted playsinline></video>
+                    
+                    <!-- Face Overlay Canvas -->
+                    <canvas id="faceCanvas" class="face-overlay"></canvas>
+                    
+                    <!-- 3D Game Canvas -->
+                    <canvas id="gameCanvas" class="game-canvas"></canvas>
+                    
+                    <!-- Eye Trackers -->
+                    <div id="leftEyeTracker" class="eye-tracker"></div>
+                    <div id="rightEyeTracker" class="eye-tracker"></div>
+                    
+                    <!-- Crosshair -->
+                    <div id="crosshair" class="crosshair">
+                        <div class="crosshair-top"></div>
+                        <div class="crosshair-bottom"></div>
+                        <div class="crosshair-left"></div>
+                        <div class="crosshair-right"></div>
+                        <div class="crosshair-center"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions Toggle -->
+            <details class="instructions-toggle">
+                <summary class="instructions-button">Instructions</summary>
+                <div class="instructions-content">
+                    <div class="instruction">• Say "build house" to place a house where you're looking</div>
+                    <div class="instruction">• Say "build farm" to place a farm</div>
+                    <div class="instruction">• Say "build tower" to place a watchtower</div>
+                    <div class="instruction">• Say "build city" to place a city center</div>
+                    <div class="instruction">• Say "clear" to remove buildings</div>
+                    <div class="instruction">• Look around to aim your building placement</div>
+                    <div class="instruction">• Your face position controls the 3D camera view</div>
+                </div>
+            </details>
+
+            <!-- Error Panel -->
+            <div id="errorPanel" class="error-panel-overlay">
+                <div class="error-label" id="errorMessage"></div>
+            </div>
+        </div>
+
+        <!-- Game Script -->
+        <script src="game.js"></script>
+    </body>
+</html> 

@@ -1,0 +1,2793 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Civilization AR - 3D Face Tracking Game</title>
+
+    
+		<!-- Open Graph / X (Twitter) Meta Tags -->
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="Civilization AR - 3D Face Tracking Game">
+		<meta property="og:description" content="Civilization AR - 3D Face Tracking Game">
+		<meta property="description" content="Civilization AR - 3D Face Tracking Game">
+		<meta property="og:url" content="https://webduno.com/civ">
+		<meta property="og:image" content="https://webduno.com/civ/prev.gif">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+		<meta property="og:image:alt" content="Civilization AR - 3D Face Tracking Game">
+		<meta property="og:image:secure_url" content="https://webduno.com/civ/prev.gif">
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:site_name" content="Webduno">
+		<meta property="og:locale" content="en_US">
+		
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@webduno">
+		<meta name="twitter:title" content="Civilization AR - 3D Face Tracking Game">
+		<meta name="twitter:description" content="Civilization AR - 3D Face Tracking Game">
+		<meta name="twitter:url" content="https://webduno.com/civ">
+		<meta name="twitter:image" content="https://webduno.com/civ/prev.gif">
+		<meta name="twitter:image:width" content="1200">
+		<meta name="twitter:image:height" content="630">
+		<meta name="twitter:image:alt" content="Civilization AR - 3D Face Tracking Game">
+		<meta name="twitter:creator" content="@webduno">
+		
+		<meta name="twitter:creator" content="@webduno">
+        <!-- CSS Styles -->
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Arial", sans-serif;
+                background: linear-gradient(135deg, #1e3c72, #2a5298);
+                overflow: hidden;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #gameContainer {
+                position: relative;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            #gameCanvas {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            #ui {
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                color: #00ffff;
+                font-size: 14px;
+                font-weight: 500;
+                z-index: 100;
+                font-family: "Courier New", monospace;
+                background:
+                    radial-gradient(
+                        circle at 10% 10%,
+                        rgba(0, 255, 255, 0.15) 0%,
+                        transparent 50%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 0.95) 0%,
+                        rgba(0, 15, 30, 0.95) 100%
+                    );
+                padding: 20px 25px;
+                border: 1px solid rgba(0, 255, 255, 0.6);
+                box-shadow:
+                    0 0 20px rgba(0, 255, 255, 0.3),
+                    inset 0 0 15px rgba(0, 255, 255, 0.1),
+                    0 8px 32px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(15px);
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 15px) 0,
+                    100% 15px,
+                    100% 100%,
+                    15px 100%,
+                    0 calc(100% - 15px)
+                );
+                position: relative;
+            }
+
+            #ui::before {
+                content: "";
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(
+                    45deg,
+                    transparent 30%,
+                    rgba(0, 255, 255, 0.4) 50%,
+                    transparent 70%
+                );
+                z-index: -1;
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 15px) 0,
+                    100% 15px,
+                    100% 100%,
+                    15px 100%,
+                    0 calc(100% - 15px)
+                );
+                animation: border-pulse 3s ease-in-out infinite;
+            }
+
+            @keyframes border-pulse {
+                0%,
+                100% {
+                    opacity: 0.5;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            #ui .stat-line {
+                margin: 8px 0;
+                padding: 6px 12px;
+                background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(0, 255, 255, 0.1) 50%,
+                    transparent 100%
+                );
+                border-left: 3px solid rgba(0, 255, 255, 0.8);
+                position: relative;
+                letter-spacing: 1px;
+            }
+
+            #ui .stat-line::before {
+                content: "";
+                position: absolute;
+                left: -1px;
+                top: 50%;
+                width: 6px;
+                height: 6px;
+                background: #00ffff;
+                transform: translateY(-50%);
+                box-shadow: 0 0 8px #00ffff;
+            }
+
+            #ui .stat-value {
+                color: #00ff9f;
+                font-weight: bold;
+                text-shadow: 0 0 8px rgba(0, 255, 159, 0.5);
+                font-size: 16px;
+            }
+
+            #ui .stat-label {
+                color: #8ecfff;
+                margin-right: 8px;
+            }
+
+            /* Mission Panel Styles */
+            .mission-panel {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                min-width: 280px;
+                background:
+                    radial-gradient(
+                        circle at 90% 10%,
+                        rgba(0, 255, 255, 0.15) 0%,
+                        transparent 50%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 0.95) 0%,
+                        rgba(0, 15, 30, 0.95) 100%
+                    );
+                border: 1px solid rgba(0, 255, 255, 0.6);
+                box-shadow:
+                    0 0 20px rgba(0, 255, 255, 0.3),
+                    inset 0 0 15px rgba(0, 255, 255, 0.1),
+                    0 8px 32px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(15px);
+                clip-path: polygon(
+                    15px 0,
+                    100% 0,
+                    100% calc(100% - 15px),
+                    calc(100% - 15px) 100%,
+                    0 100%,
+                    0 15px
+                );
+                padding: 20px;
+                color: #00ffff;
+                font-family: "Courier New", monospace;
+                z-index: 100;
+            }
+
+            .mission-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            }
+
+            .mission-icon {
+                width: 12px;
+                height: 12px;
+                background: #00ffff;
+                margin-right: 10px;
+                clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+                box-shadow: 0 0 10px #00ffff;
+                animation: pulse-icon 2s ease-in-out infinite;
+            }
+
+            @keyframes pulse-icon {
+                0%,
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                50% {
+                    transform: scale(1.2);
+                    opacity: 0.7;
+                }
+            }
+
+            .mission-title {
+                font-size: 12px;
+                font-weight: bold;
+                letter-spacing: 2px;
+                color: #8ecfff;
+            }
+
+            .mission-name {
+                font-size: 14px;
+                color: #00ff9f;
+                margin-bottom: 15px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                text-shadow: 0 0 8px rgba(0, 255, 159, 0.5);
+            }
+
+            .mission-progress-container {
+                position: relative;
+                margin-bottom: 12px;
+            }
+
+            .progress-track {
+                height: 6px;
+                background: rgba(0, 255, 255, 0.2);
+                border: 1px solid rgba(0, 255, 255, 0.4);
+                margin-bottom: 8px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .progress-fill {
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    #00ffff 0%,
+                    #00ff9f 50%,
+                    #00ffff 100%
+                );
+                width: 0%;
+                transition: width 0.5s ease;
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+                animation: progress-glow 2s ease-in-out infinite;
+            }
+
+            @keyframes progress-glow {
+                0%,
+                100% {
+                    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+                }
+                50% {
+                    box-shadow: 0 0 20px rgba(0, 255, 255, 1);
+                }
+            }
+
+            .progress-segments {
+                display: flex;
+                justify-content: space-between;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 6px;
+            }
+
+            .segment {
+                width: 1px;
+                height: 100%;
+                background: rgba(0, 255, 255, 0.8);
+                box-shadow: 0 0 3px #00ffff;
+            }
+
+            .mission-progress-text {
+                font-size: 11px;
+                color: #8ecfff;
+                text-align: center;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+
+            #instructions {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #00ffff;
+                text-align: center;
+                font-size: 14px;
+                background:
+                    radial-gradient(
+                        circle at 50% 50%,
+                        rgba(0, 255, 255, 0.15) 0%,
+                        transparent 70%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 0.98) 0%,
+                        rgba(0, 15, 30, 0.98) 100%
+                    );
+                padding: 40px;
+                border: 2px solid rgba(0, 255, 255, 0.6);
+                box-shadow:
+                    0 0 30px rgba(0, 255, 255, 0.4),
+                    0 0 60px rgba(0, 255, 255, 0.2),
+                    inset 0 0 20px rgba(0, 255, 255, 0.1),
+                    0 12px 48px rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(20px);
+                z-index: 200;
+                max-width: 650px;
+                width: 90vw;
+                font-family: "Courier New", monospace;
+                clip-path: polygon(
+                    20px 0,
+                    100% 0,
+                    100% calc(100% - 20px),
+                    calc(100% - 20px) 100%,
+                    0 100%,
+                    0 20px
+                );
+                position: relative;
+            }
+
+            #instructions::before {
+                content: "";
+                position: absolute;
+                top: -3px;
+                left: -3px;
+                right: -3px;
+                bottom: -3px;
+                background: linear-gradient(
+                    45deg,
+                    transparent 20%,
+                    rgba(0, 255, 255, 0.6) 40%,
+                    rgba(0, 255, 159, 0.6) 60%,
+                    transparent 80%
+                );
+                z-index: -1;
+                clip-path: polygon(
+                    20px 0,
+                    100% 0,
+                    100% calc(100% - 20px),
+                    calc(100% - 20px) 100%,
+                    0 100%,
+                    0 20px
+                );
+                animation: instruction-border 4s ease-in-out infinite;
+            }
+
+            @keyframes instruction-border {
+                0%,
+                100% {
+                    opacity: 0.4;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            #instructions h2 {
+                font-size: 32px;
+                margin-bottom: 25px;
+                color: #00ffff;
+                text-shadow:
+                    0 0 10px rgba(0, 255, 255, 0.8),
+                    0 0 20px rgba(0, 255, 255, 0.6),
+                    0 0 30px rgba(0, 255, 255, 0.4);
+                font-weight: 700;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                font-family: "Courier New", monospace;
+                position: relative;
+            }
+
+            #instructions h2::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                height: 2px;
+                background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    #00ffff 50%,
+                    transparent 100%
+                );
+                box-shadow: 0 0 10px #00ffff;
+            }
+
+            #instructions details {
+                margin: 12px 0;
+                background: rgba(64, 150, 255, 0.08);
+                border: 1px solid rgba(64, 150, 255, 0.2);
+                border-radius: 8px;
+                padding: 8px;
+            }
+
+            #instructions summary {
+                cursor: pointer;
+                font-weight: 600;
+                font-size: 16px;
+                color: #80c7ff;
+                padding: 8px 12px;
+                border-radius: 6px;
+                transition: all 0.2s ease;
+                outline: none;
+            }
+
+            #instructions summary:hover {
+                background: rgba(64, 150, 255, 0.15);
+                color: #ffffff;
+            }
+
+            #instructions details[open] summary {
+                border-bottom: 1px solid rgba(64, 150, 255, 0.25);
+                margin-bottom: 8px;
+            }
+
+            #instructions .detail-content {
+                padding: 8px 12px;
+                line-height: 1.5;
+                color: #c0d0e0;
+            }
+
+            #instructions .detail-content p {
+                margin: 6px 0;
+            }
+
+            #instructions .voice-commands {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 6px;
+                margin: 8px 0;
+            }
+
+            #instructions .voice-command {
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 255, 255, 0.15) 0%,
+                        rgba(0, 255, 159, 0.15) 100%
+                    ),
+                    rgba(0, 30, 60, 0.8);
+                border: 1px solid rgba(0, 255, 255, 0.6);
+                clip-path: polygon(
+                    5px 0,
+                    100% 0,
+                    100% calc(100% - 5px),
+                    calc(100% - 5px) 100%,
+                    0 100%,
+                    0 5px
+                );
+                padding: 6px 12px;
+                font-size: 12px;
+                text-align: center;
+                color: #00ffff;
+                font-family: "Courier New", monospace;
+                font-weight: bold;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                box-shadow:
+                    0 0 10px rgba(0, 255, 255, 0.3),
+                    inset 0 0 5px rgba(0, 255, 255, 0.1);
+                transition: all 0.2s ease;
+            }
+
+            #instructions .voice-command:hover {
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 255, 255, 0.25) 0%,
+                        rgba(0, 255, 159, 0.25) 100%
+                    ),
+                    rgba(0, 30, 60, 1);
+                box-shadow:
+                    0 0 15px rgba(0, 255, 255, 0.5),
+                    inset 0 0 8px rgba(0, 255, 255, 0.2);
+                text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+            }
+
+            #startButton {
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 255, 255, 0.2) 0%,
+                        rgba(0, 255, 159, 0.2) 100%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 0.9) 0%,
+                        rgba(0, 15, 30, 0.9) 100%
+                    );
+                color: #00ffff;
+                border: 2px solid rgba(0, 255, 255, 0.8);
+                padding: 15px 40px;
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+                margin-top: 30px;
+                transition: all 0.3s ease;
+                font-family: "Courier New", monospace;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                position: relative;
+                clip-path: polygon(
+                    10px 0,
+                    100% 0,
+                    100% calc(100% - 10px),
+                    calc(100% - 10px) 100%,
+                    0 100%,
+                    0 10px
+                );
+                box-shadow:
+                    0 0 20px rgba(0, 255, 255, 0.4),
+                    inset 0 0 15px rgba(0, 255, 255, 0.1),
+                    0 8px 32px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(10px);
+            }
+
+            #startButton::before {
+                content: "";
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(
+                    45deg,
+                    transparent 30%,
+                    rgba(0, 255, 255, 0.6) 50%,
+                    transparent 70%
+                );
+                z-index: -1;
+                clip-path: polygon(
+                    10px 0,
+                    100% 0,
+                    100% calc(100% - 10px),
+                    calc(100% - 10px) 100%,
+                    0 100%,
+                    0 10px
+                );
+                animation: button-glow 2s ease-in-out infinite;
+            }
+
+            @keyframes button-glow {
+                0%,
+                100% {
+                    opacity: 0.5;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            #startButton:hover {
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 255, 255, 0.4) 0%,
+                        rgba(0, 255, 159, 0.4) 100%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 1) 0%,
+                        rgba(0, 15, 30, 1) 100%
+                    );
+                transform: translateY(-2px);
+                box-shadow:
+                    0 0 30px rgba(0, 255, 255, 0.6),
+                    inset 0 0 20px rgba(0, 255, 255, 0.2),
+                    0 12px 48px rgba(0, 0, 0, 0.7);
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            }
+
+            #webcam {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+                z-index: 50;
+                opacity: 0.3;
+                display: none;
+                transform: scaleX(-1);
+            }
+
+            #faceOverlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 60;
+                pointer-events: none;
+                display: none;
+            }
+
+            /* Laser beam styles removed */
+
+
+
+            .nose-tracker {
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    #ffff00 30%,
+                    #ffaa00 60%,
+                    transparent 80%
+                );
+                box-shadow:
+                    0 0 15px #ffff00,
+                    0 0 30px #ffff00;
+                animation: pulse-nose 1.5s ease-in-out infinite alternate;
+                transform: translate(-50%, -50%);
+            }
+
+
+
+            @keyframes pulse-nose {
+                0% {
+                    transform: translate(-50%, -50%) scale(0.9);
+                    box-shadow:
+                        0 0 10px #ffff00,
+                        0 0 20px #ffff00;
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(1.1);
+                    box-shadow:
+                        0 0 20px #ffff00,
+                        0 0 40px #ffff00;
+                }
+            }
+
+            #status {
+                position: absolute;
+                bottom: 20px;
+                left: 20px;
+                color: #00ffff;
+                background:
+                    radial-gradient(
+                        circle at 10% 90%,
+                        rgba(0, 255, 255, 0.15) 0%,
+                        transparent 50%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(0, 30, 60, 0.95) 0%,
+                        rgba(0, 15, 30, 0.95) 100%
+                    );
+                padding: 15px 20px;
+                border: 1px solid rgba(0, 255, 255, 0.6);
+                box-shadow:
+                    0 0 20px rgba(0, 255, 255, 0.3),
+                    inset 0 0 15px rgba(0, 255, 255, 0.1),
+                    0 8px 32px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(15px);
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 15px) 0,
+                    100% 15px,
+                    100% 100%,
+                    15px 100%,
+                    0 calc(100% - 15px)
+                );
+                z-index: 100;
+                font-family: "Courier New", monospace;
+                font-size: 12px;
+                min-width: 200px;
+            }
+
+            #status .status-line {
+                margin: 6px 0;
+                padding: 4px 8px;
+                background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(0, 255, 255, 0.1) 50%,
+                    transparent 100%
+                );
+                border-left: 2px solid rgba(0, 255, 255, 0.6);
+                letter-spacing: 1px;
+                position: relative;
+            }
+
+            #status .status-line::before {
+                content: "";
+                position: absolute;
+                left: -1px;
+                top: 50%;
+                width: 4px;
+                height: 4px;
+                background: #00ffff;
+                transform: translateY(-50%);
+                box-shadow: 0 0 6px #00ffff;
+            }
+
+            #status .status-indicator {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                margin-right: 8px;
+                animation: status-pulse 1.5s ease-in-out infinite;
+            }
+
+            #status .status-active {
+                background: #00ff9f;
+                box-shadow: 0 0 10px #00ff9f;
+            }
+
+            #status .status-inactive {
+                background: #ff6b6b;
+                box-shadow: 0 0 10px #ff6b6b;
+            }
+
+            @keyframes status-pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 0.6;
+                    transform: scale(1.2);
+                }
+            }
+
+            /* Central HUD Circle */
+            .hud-circle {
+                position: absolute;
+                top: 50%;
+                right: 50px;
+                transform: translateY(-50%);
+                width: 120px;
+                height: 120px;
+                border: 2px solid rgba(0, 255, 255, 0.6);
+                border-radius: 50%;
+                background:
+                    radial-gradient(
+                        circle,
+                        rgba(0, 255, 255, 0.1) 0%,
+                        transparent 70%
+                    ),
+                    conic-gradient(
+                        from 0deg,
+                        transparent 0deg,
+                        rgba(0, 255, 255, 0.3) 90deg,
+                        transparent 180deg,
+                        rgba(0, 255, 255, 0.3) 270deg,
+                        transparent 360deg
+                    );
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 90;
+                animation: rotate-hud 10s linear infinite;
+            }
+
+            .hud-circle::before {
+                content: "";
+                position: absolute;
+                width: 80px;
+                height: 80px;
+                border: 1px solid rgba(0, 255, 255, 0.4);
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(0, 255, 255, 0.05) 0%,
+                    transparent 100%
+                );
+            }
+
+            .hud-circle::after {
+                content: "";
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                border: 1px solid rgba(0, 255, 255, 0.8);
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(0, 255, 255, 0.2) 0%,
+                    transparent 100%
+                );
+                box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            }
+
+            @keyframes rotate-hud {
+                0% {
+                    transform: translateY(-50%) rotate(0deg);
+                }
+                100% {
+                    transform: translateY(-50%) rotate(360deg);
+                }
+            }
+
+            /* Geometric corner elements */
+            .corner-element {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                border: 1px solid rgba(0, 255, 255, 0.4);
+                clip-path: polygon(0 0, 100% 0, 100% 30%, 70% 100%, 0 100%);
+                background: linear-gradient(
+                    45deg,
+                    rgba(0, 255, 255, 0.1) 0%,
+                    transparent 100%
+                );
+            }
+
+            .corner-tl {
+                top: 10px;
+                left: 10px;
+            }
+
+            .corner-tr {
+                top: 10px;
+                right: 10px;
+                transform: rotate(90deg);
+            }
+
+            .corner-bl {
+                bottom: 10px;
+                left: 10px;
+                transform: rotate(-90deg);
+            }
+
+            .corner-br {
+                bottom: 10px;
+                right: 10px;
+                transform: rotate(180deg);
+            }
+
+            .hidden {
+                display: none !important;
+            }
+
+            #gameOver {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #e0e8f0;
+                text-align: center;
+                font-size: 16px;
+                background: rgba(15, 25, 40, 0.92);
+                padding: 30px;
+                border-radius: 15px;
+                border: 1px solid rgba(64, 150, 255, 0.4);
+                box-shadow:
+                    0 8px 32px rgba(0, 0, 0, 0.6),
+                    0 0 20px rgba(64, 150, 255, 0.1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(15px);
+                z-index: 200;
+                max-width: 500px;
+                width: 85vw;
+                font-family: "Segoe UI", system-ui, sans-serif;
+            }
+
+            #gameOver h2 {
+                color: #4196ff;
+                font-size: 28px;
+                margin-bottom: 20px;
+                text-shadow: 0 0 8px rgba(65, 150, 255, 0.5);
+                font-weight: 700;
+                letter-spacing: 1px;
+            }
+
+            #gameOver p {
+                margin: 12px 0;
+                color: #c0d0e0;
+                font-size: 16px;
+            }
+
+            #gameOver #finalScore {
+                color: #ffd700;
+                font-weight: bold;
+                font-size: 20px;
+                text-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+            }
+
+            #gameOver details {
+                margin: 12px 0;
+                background: rgba(64, 150, 255, 0.08);
+                border: 1px solid rgba(64, 150, 255, 0.2);
+                border-radius: 8px;
+                padding: 8px;
+                text-align: left;
+            }
+
+            #gameOver summary {
+                cursor: pointer;
+                font-weight: 600;
+                font-size: 16px;
+                color: #80c7ff;
+                padding: 8px 12px;
+                border-radius: 6px;
+                transition: all 0.2s ease;
+                outline: none;
+            }
+
+            #gameOver summary:hover {
+                background: rgba(64, 150, 255, 0.15);
+                color: #ffffff;
+            }
+
+            #gameOver .detail-content {
+                padding: 8px 12px;
+                line-height: 1.5;
+                color: #c0d0e0;
+                text-align: center;
+            }
+
+            #restartButton {
+                background: linear-gradient(135deg, #4196ff, #0066cc);
+                color: #ffffff;
+                border: 1px solid rgba(64, 150, 255, 0.5);
+                padding: 12px 32px;
+                font-size: 16px;
+                font-weight: 600;
+                border-radius: 8px;
+                cursor: pointer;
+                margin-top: 20px;
+                transition: all 0.2s ease;
+                box-shadow:
+                    0 4px 12px rgba(64, 150, 255, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            }
+
+            #restartButton:hover {
+                background: linear-gradient(135deg, #5aa7ff, #0077dd);
+                transform: translateY(-1px);
+                box-shadow:
+                    0 6px 20px rgba(64, 150, 255, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="gameContainer">
+            <!-- Game Canvas -->
+            <canvas id="gameCanvas"></canvas>
+
+            <!-- Webcam Feed -->
+            <video id="webcam" autoplay muted></video>
+
+            <!-- Face Tracking Overlay -->
+            <div id="faceOverlay">
+                <div id="noseTip" class="nose-tracker"></div>
+            </div>
+
+            <!-- HUD Elements -->
+            <div class="hud-circle"></div>
+            <div class="corner-element corner-tl"></div>
+            <div class="corner-element corner-tr"></div>
+            <div class="corner-element corner-bl"></div>
+            <div class="corner-element corner-br"></div>
+
+            <!-- UI Elements -->
+            <div id="ui">
+                <div class="stat-line">
+                    <span class="stat-label">POPULATION</span>
+                    <span class="stat-value" id="score">0</span>
+                </div>
+                <div class="stat-line">
+                    <span class="stat-label">HAPPINESS</span>
+                    <span class="stat-value" id="lives">3</span>
+                </div>
+                <div
+                    class="stat-line"
+                    id="streak-display"
+                    style="display: none"
+                >
+                    <span class="stat-label">CULTURE</span>
+                    <span class="stat-value" id="streak">0</span>
+                </div>
+                <div class="stat-line">
+                    <span class="stat-label">ERA</span>
+                    <span class="stat-value" id="level">1</span>
+                    <span class="stat-label" style="margin-left: 15px">GOLD</span>
+                    <span class="stat-value" id="xp">0</span>
+                </div>
+            </div>
+
+            <!-- Mission Progress Panel -->
+            <div id="mission-ui" class="mission-panel">
+                <div class="mission-header">
+                    <div class="mission-icon"></div>
+                    <span class="mission-title">CIVILIZATION STATUS</span>
+                </div>
+                <div id="mission-name" class="mission-name">
+                    SAY START TO BEGIN...
+                </div>
+                <div class="mission-progress-container">
+                    <div class="progress-track">
+                        <div id="mission-bar" class="progress-fill"></div>
+                    </div>
+                    <div class="progress-segments">
+                        <div class="segment"></div>
+                        <div class="segment"></div>
+                        <div class="segment"></div>
+                        <div class="segment"></div>
+                        <div class="segment"></div>
+                    </div>
+                </div>
+                <div id="mission-progress" class="mission-progress-text">
+                    STANDBY
+                </div>
+            </div>
+
+            <!-- Instructions Screen -->
+            <div id="instructions">
+                <h2>🏛️ Civilization AR</h2>
+                <div class="detail-content">
+                    <p>
+                        Use your <strong>face direction</strong> to control where
+                        you place buildings and units!
+                    </p>
+                    <p>
+                        Turn your head to look around the 3D terrain, then use voice
+                        commands to build your civilization
+                    </p>
+                    <p>
+                        Say <strong>"START"</strong> to begin or click the
+                        button below
+                    </p>
+                </div>
+
+                <details>
+                    <summary>🏗️ Building Commands</summary>
+                    <div class="detail-content">
+                        <p>Build different structures with voice commands:</p>
+                        <div class="voice-commands">
+                            <div class="voice-command">"House"</div>
+                            <div class="voice-command">"Farm"</div>
+                            <div class="voice-command">"Mine"</div>
+                            <div class="voice-command">"Temple"</div>
+                            <div class="voice-command">"Barracks"</div>
+                            <div class="voice-command">"Library"</div>
+                            <div class="voice-command">"Market"</div>
+                            <div class="voice-command">"Palace"</div>
+                        </div>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>👥 Unit Commands</summary>
+                    <div class="detail-content">
+                        <p>Create and control units:</p>
+                        <div class="voice-commands">
+                            <div class="voice-command">"Worker"</div>
+                            <div class="voice-command">"Warrior"</div>
+                            <div class="voice-command">"Archer"</div>
+                            <div class="voice-command">"Settler"</div>
+                        </div>
+                        <p>
+                            <em
+                                >Units will appear where you're looking and can be controlled with voice commands!</em
+                            >
+                        </p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>⚙️ System Requirements</summary>
+                    <div class="detail-content">
+                        <p>Allow camera and microphone access when prompted</p>
+                        <p>
+                            <em
+                                >If camera unavailable, mouse movement will
+                                control the view</em
+                            >
+                        </p>
+                    </div>
+                </details>
+
+                <button id="startButton">Start Civilization</button>
+            </div>
+
+            <!-- Game Over Screen -->
+            <div id="gameOver" class="hidden">
+                <h2>🏛️ Civilization Complete</h2>
+                <div class="detail-content">
+                    <p>FINAL SCORE: <span id="finalScore">0</span></p>
+                </div>
+
+                <details>
+                    <summary>📊 Civilization Stats</summary>
+                    <div class="detail-content" id="performance-stats">
+                        <p>Loading comprehensive statistics...</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>🎯 Next Era</summary>
+                    <div class="detail-content">
+                        <p>
+                            Ready to build another great civilization?
+                        </p>
+                        <p>Your leadership skills are needed once again, Emperor!</p>
+                    </div>
+                </details>
+
+                <button id="restartButton">Start New Era</button>
+            </div>
+
+            <!-- Status Display -->
+            <div id="status">
+                <div class="status-line">
+                    <span
+                        class="status-indicator status-inactive"
+                        id="faceIndicator"
+                    ></span>
+                    <span id="faceStatus">FACE: SCANNING</span>
+                </div>
+                <div class="status-line">
+                    <span
+                        class="status-indicator status-active"
+                        id="voiceIndicator"
+                    ></span>
+                    <span id="voiceStatus">VOICE: ACTIVE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load Libraries via CDN -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
+        <script>
+            // Game variables
+            let scene,
+                camera,
+                renderer,
+                buildings = [],
+                units = [],
+                resources = [];
+            let gameState = "menu"; // 'menu', 'playing', 'gameOver'
+            let population = 0;
+            let happiness = 3;
+            let faceMesh, webcamVideo;
+            let faceDetected = false;
+            let pointerPosition = { x: 0, y: 0, z: 0 };
+            let recognition;
+            let jsConfetti;
+
+            // Face tracking variables
+            let faceRotation = { x: 0, y: 0, z: 0 };
+
+            // Enhanced gameplay variables
+            let culture = 0;
+            let cultureMultiplier = 1;
+            let totalBuildings = 0;
+            let gameStartTime = 0;
+            let currentMission = null;
+            let missionProgress = 0;
+            let currentEra = 1;
+            let gold = 0;
+
+            // Comprehensive game statistics
+            let gameStats = {
+                totalBuildingsConstructed: 0,
+                totalUnitsCreated: 0,
+                buildingsByType: {
+                    house: 0,
+                    farm: 0,
+                    mine: 0,
+                    temple: 0,
+                    barracks: 0,
+                    library: 0,
+                    market: 0,
+                    palace: 0,
+                },
+                unitsByType: {
+                    worker: 0,
+                    warrior: 0,
+                    archer: 0,
+                    settler: 0,
+                },
+                perfectPlacements: 0,
+                highestCulture: 0,
+                totalGoldEarned: 0,
+                totalCultureEarned: 0,
+                buildingTypesUsed: new Set(),
+                voiceCommandsUsed: 0,
+                buildCommandsUsed: 0,
+                gameTimeInSeconds: 0,
+                buildingsPerMinute: 0,
+                averageGoldPerBuilding: 0,
+                highestMultiplier: 1,
+            };
+
+            // Building system
+            let currentBuildingType = "house"; // Default building
+            let currentBuildingTypeName = "house";
+            const buildingTypes = {
+                house: { color: 0x8B4513, name: "House", cost: 10, population: 5 },
+                farm: { color: 0x228B22, name: "Farm", cost: 15, food: 10 },
+                mine: { color: 0x696969, name: "Mine", cost: 20, gold: 15 },
+                temple: { color: 0xFFD700, name: "Temple", cost: 30, culture: 20 },
+                barracks: { color: 0x8B0000, name: "Barracks", cost: 25, military: 10 },
+                library: { color: 0x4169E1, name: "Library", cost: 35, science: 15 },
+                market: { color: 0xFF6347, name: "Market", cost: 40, trade: 25 },
+                palace: { color: 0x9932CC, name: "Palace", cost: 100, prestige: 50 },
+            };
+
+            // Unit types with colors, costs, and behaviors
+            const unitTypes = {
+                worker: {
+                    color: 0x8B4513,
+                    cost: 5,
+                    spawnRate: 0.4,
+                    name: "Worker",
+                    speed: 0.02,
+                },
+                warrior: {
+                    color: 0x8B0000,
+                    cost: 10,
+                    spawnRate: 0.2,
+                    name: "Warrior",
+                    speed: 0.03,
+                },
+                archer: {
+                    color: 0x0066ff,
+                    cost: 15,
+                    spawnRate: 0.15,
+                    name: "Archer",
+                    speed: 0.025,
+                },
+                settler: {
+                    color: 0x228B22,
+                    cost: 20,
+                    spawnRate: 0.1,
+                    name: "Settler",
+                    speed: 0.015,
+                },
+            };
+
+            // Mission system
+            const missions = [
+                {
+                    id: "building_specialist",
+                    name: "Master Builder",
+                    description: "Build 10 houses to establish your city",
+                    target: 10,
+                    type: "building_specific",
+                    building: "house",
+                    reward: 100,
+                },
+                {
+                    id: "perfect_placement",
+                    name: "Perfect Placement",
+                    description: "Achieve 15 perfect building placements",
+                    target: 15,
+                    type: "perfect_placements",
+                    reward: 150,
+                },
+                {
+                    id: "rapid_expansion",
+                    name: "Rapid Expansion",
+                    description: "Reach 300 population in under 90 seconds",
+                    target: 300,
+                    type: "speed_population",
+                    timeLimit: 90,
+                    reward: 200,
+                },
+                {
+                    id: "diverse_city",
+                    name: "Diverse City",
+                    description: "Build 5 different building types in one game",
+                    target: 5,
+                    type: "building_variety",
+                    reward: 120,
+                },
+            ];
+
+            let usedColors = new Set();
+            let missionColorCount = 0;
+
+            // Game settings
+            const UNIT_SPAWN_RATE = 0.025;
+            const RESOURCE_SPAWN_RATE = 0.008;
+            const UNIT_MOVE_SPEED = 0.02;
+            const RESOURCE_FALL_SPEED = 0.015;
+            const POINTER_SENSITIVITY = 3;
+            const GAME_BOUNDS = { x: 10, y: 8, z: 10 };
+
+            // Initialize the game
+            $(document).ready(function () {
+                // Initialize game state
+                gameState = "menu";
+                window.gameState = "menu"; // Expose to window for face tracking
+                
+                initThreeJS();
+                initWebcam();
+                initVoiceRecognition();
+                initEventListeners();
+                initConfetti();
+                animate();
+                
+                // Add debug function to window for testing
+                window.debugGameState = function() {
+                    console.log("=== GAME DEBUG INFO ===");
+                    console.log("Game State:", gameState);
+                    console.log("Window Game State:", window.gameState);
+                    console.log("Face Detected:", faceDetected);
+                    console.log("Face Rotation:", faceRotation);
+                    console.log("Window Face Rotation:", window.faceRotation);
+                    console.log("DuckHuntGame exists:", !!window.duckHuntGame);
+                    if (window.duckHuntGame) {
+                        console.log("DuckHuntGame eyePointer:", window.duckHuntGame.eyePointer);
+                        console.log("DuckHuntGame isPlaying:", window.duckHuntGame.isPlaying);
+                    }
+                    console.log("Placement Pointer exists:", !!window.placementPointer);
+                    console.log("========================");
+                };
+                
+                // Call debug function every 5 seconds
+                setInterval(window.debugGameState, 5000);
+            });
+
+            function initThreeJS() {
+                // Create scene
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x87CEEB); // Sky blue background
+
+                // Create camera - fixed position, no movement
+                camera = new THREE.PerspectiveCamera(
+                    75,
+                    window.innerWidth / window.innerHeight,
+                    0.1,
+                    1000,
+                );
+                camera.position.set(0, 5, 10);
+                camera.lookAt(0, 0, 0);
+
+                // Create renderer
+                const canvas = document.getElementById("gameCanvas");
+                renderer = new THREE.WebGLRenderer({
+                    canvas: canvas,
+                    antialias: true,
+                });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.shadowMap.enabled = true;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+                // Add lighting
+                const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+                scene.add(ambientLight);
+
+                const directionalLight = new THREE.DirectionalLight(
+                    0xffffff,
+                    0.8,
+                );
+                directionalLight.position.set(-10, 10, 5);
+                directionalLight.castShadow = true;
+                directionalLight.shadow.mapSize.width = 1024;
+                directionalLight.shadow.mapSize.height = 1024;
+                scene.add(directionalLight);
+
+                // Create terrain
+                createTerrain();
+
+                console.log("Three.js initialized");
+            }
+
+            function createPointer() {
+                const geometry = new THREE.ConeGeometry(0.2, 1, 8);
+                const material = new THREE.MeshLambertMaterial({
+                    color: 0xff0000,
+                    emissive: 0x440000,
+                });
+                pointer = new THREE.Mesh(geometry, material);
+                pointer.position.set(0, 0, 5);
+                pointer.castShadow = true;
+                scene.add(pointer);
+
+                // Add laser beam effect
+                const beamGeometry = new THREE.CylinderGeometry(0.05, 0.05, 20);
+                const beamMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xff0000,
+                    transparent: true,
+                    opacity: 0.3,
+                });
+                const beam = new THREE.Mesh(beamGeometry, beamMaterial);
+                beam.position.set(0, 0, -5);
+                beam.rotation.x = Math.PI / 2;
+                pointer.add(beam);
+            }
+
+            function createTerrain() {
+                // Create a large flat ground plane
+                const groundGeometry = new THREE.PlaneGeometry(20, 20);
+                const groundMaterial = new THREE.MeshLambertMaterial({
+                    color: 0x228B22, // Forest green
+                });
+                const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+                ground.rotation.x = -Math.PI / 2; // Rotate to be horizontal
+                ground.position.y = -1;
+                ground.receiveShadow = true;
+                scene.add(ground);
+
+                // Add some terrain features (hills, trees)
+                for (let i = 0; i < 15; i++) {
+                    const hillGeometry = new THREE.ConeGeometry(0.5, 1, 8);
+                    const hillMaterial = new THREE.MeshLambertMaterial({
+                        color: 0x8B4513, // Brown
+                    });
+                    const hill = new THREE.Mesh(hillGeometry, hillMaterial);
+                    hill.position.set(
+                        (Math.random() - 0.5) * 15,
+                        -0.5,
+                        (Math.random() - 0.5) * 15
+                    );
+                    hill.castShadow = true;
+                    scene.add(hill);
+                }
+
+                // Add some trees
+                for (let i = 0; i < 10; i++) {
+                    const trunkGeometry = new THREE.CylinderGeometry(0.1, 0.1, 1);
+                    const trunkMaterial = new THREE.MeshLambertMaterial({
+                        color: 0x8B4513, // Brown
+                    });
+                    const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+                    trunk.position.set(
+                        (Math.random() - 0.5) * 12,
+                        -0.5,
+                        (Math.random() - 0.5) * 12
+                    );
+                    trunk.castShadow = true;
+                    scene.add(trunk);
+
+                    const leavesGeometry = new THREE.SphereGeometry(0.8, 8, 8);
+                    const leavesMaterial = new THREE.MeshLambertMaterial({
+                        color: 0x228B22, // Green
+                    });
+                    const leaves = new THREE.Mesh(leavesGeometry, leavesMaterial);
+                    leaves.position.set(
+                        trunk.position.x,
+                        trunk.position.y + 1.5,
+                        trunk.position.z
+                    );
+                    leaves.castShadow = true;
+                    scene.add(leaves);
+                }
+            }
+
+            function createUnit(unitType = null) {
+                // Determine unit type if not specified
+                if (!unitType) {
+                    const random = Math.random();
+                    let cumulativeRate = 0;
+                    let selectedType = "worker";
+
+                    for (const [type, config] of Object.entries(unitTypes)) {
+                        cumulativeRate += config.spawnRate;
+                        if (random <= cumulativeRate) {
+                            selectedType = type;
+                            break;
+                        }
+                    }
+                    unitType = selectedType;
+                }
+
+                const unitConfig = unitTypes[unitType];
+                const geometry = new THREE.BoxGeometry(0.8, 1.2, 0.8);
+                const material = new THREE.MeshLambertMaterial({
+                    color: unitConfig.color,
+                    emissive: unitConfig.color,
+                    emissiveIntensity: 0.1,
+                });
+                const unit = new THREE.Mesh(geometry, material);
+
+                // Place unit where player is looking using MediaPipe face tracking
+                let targetX = 0;
+                let targetZ = 0;
+                
+                if (window.duckHuntGame && window.duckHuntGame.eyePointer) {
+                    // Use MediaPipe face tracking data
+                    const eyeData = window.duckHuntGame.eyePointer;
+                    
+                    // Fallback to face rotation
+                    targetX = (faceRotation.y / 2) * 8;
+                    targetZ = (faceRotation.x / 2) * 8;
+                } else {
+                    // Fallback to face rotation
+                    targetX = (faceRotation.y / 2) * 8;
+                    targetZ = (faceRotation.x / 2) * 8;
+                }
+                
+                // Clamp position to terrain bounds
+                const clampedX = Math.max(-8, Math.min(8, targetX));
+                const clampedZ = Math.max(-8, Math.min(8, targetZ));
+                
+                unit.position.set(clampedX, 0, clampedZ); // Place on ground level
+                unit.castShadow = true;
+                unit.userData = {
+                    type: unitType,
+                    cost: unitConfig.cost,
+                    name: unitConfig.name,
+                };
+
+                scene.add(unit);
+                units.push(unit);
+                
+                // Add population and gold
+                population += 2;
+                gold += unitConfig.cost;
+                
+                // Update statistics
+                gameStats.totalUnitsCreated++;
+                gameStats.unitsByType[unitType]++;
+                
+                updateUI();
+                
+                console.log(`${unitConfig.name} recruited at position (${clampedX.toFixed(1)}, ${clampedZ.toFixed(1)})! Population: ${population}, Gold: ${gold}`);
+            }
+
+            function createResource() {
+                // This function is kept for potential future features
+                // but resources are no longer falling objects
+                console.log("Resource creation disabled - using placement system instead");
+            }
+
+            function createBuilding(buildingType) {
+                if (!buildingTypes[buildingType]) return;
+                
+                const buildingConfig = buildingTypes[buildingType];
+                const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+                const material = new THREE.MeshLambertMaterial({
+                    color: buildingConfig.color,
+                    emissive: buildingConfig.color,
+                    emissiveIntensity: 0.2,
+                });
+                const building = new THREE.Mesh(geometry, material);
+
+                // Place building where player is looking using MediaPipe face tracking
+                let targetX = 0;
+                let targetZ = 0;
+                
+                if (window.duckHuntGame && window.duckHuntGame.eyePointer) {
+                    // Use MediaPipe face tracking data
+                    const eyeData = window.duckHuntGame.eyePointer;
+                    
+                    // Fallback to face rotation
+                    targetX = (faceRotation.y / 2) * 8;
+                    targetZ = (faceRotation.x / 2) * 8;
+                } else {
+                    // Fallback to face rotation
+                    targetX = (faceRotation.y / 2) * 8;
+                    targetZ = (faceRotation.x / 2) * 8;
+                }
+                
+                // Clamp position to terrain bounds
+                const clampedX = Math.max(-8, Math.min(8, targetX));
+                const clampedZ = Math.max(-8, Math.min(8, targetZ));
+                
+                building.position.set(clampedX, 0, clampedZ); // Place on ground level
+                building.castShadow = true;
+                building.userData = {
+                    type: buildingType,
+                    name: buildingConfig.name,
+                    cost: buildingConfig.cost,
+                    population: buildingConfig.population || 0,
+                    food: buildingConfig.food || 0,
+                    gold: buildingConfig.gold || 0,
+                    culture: buildingConfig.culture || 0,
+                    military: buildingConfig.military || 0,
+                    science: buildingConfig.science || 0,
+                    trade: buildingConfig.trade || 0,
+                    prestige: buildingConfig.prestige || 0,
+                };
+
+                scene.add(building);
+                buildings.push(building);
+                
+                // Update statistics
+                gameStats.totalBuildingsConstructed++;
+                gameStats.buildingsByType[buildingType]++;
+                gameStats.buildingTypesUsed.add(buildingType);
+                
+                // Add population and other bonuses
+                population += buildingConfig.population || 0;
+                gold += buildingConfig.gold || 0;
+                culture += buildingConfig.culture || 0;
+                
+                // Update mission progress
+                updateMissionProgress(buildingType, true);
+                
+                // Visual feedback
+                createBuildingEffect(building.position, buildingType);
+                
+                // Trigger confetti for perfect placement
+                if (buildingType === currentBuildingTypeName) {
+                    triggerPerfectBuildingConfetti();
+                }
+                
+                // Clean up placement pointer after building is placed
+                if (window.placementPointer) {
+                    scene.remove(window.placementPointer);
+                    window.placementPointer = null;
+                }
+                if (window.groundIndicator) {
+                    scene.remove(window.groundIndicator);
+                    window.groundIndicator = null;
+                }
+                if (window.buildingText) {
+                    scene.remove(window.buildingText);
+                    window.buildingText = null;
+                }
+                
+                console.log(`${buildingConfig.name} built at position (${clampedX.toFixed(1)}, ${clampedZ.toFixed(1)})! Population: ${population}, Gold: ${gold}, Culture: ${culture}`);
+            }
+
+            function createBuildingEffect(position, buildingType) {
+                // Create building construction effect
+                const geometry = new THREE.RingGeometry(0.5, 1.5, 8);
+                const material = new THREE.MeshBasicMaterial({
+                    color: 0x00ff00,
+                    transparent: true,
+                    opacity: 0.8,
+                });
+                const effect = new THREE.Mesh(geometry, material);
+                effect.position.copy(position);
+                effect.lookAt(camera.position);
+
+                scene.add(effect);
+
+                // Animate and remove effect
+                let scale = 1;
+                const animate = () => {
+                    scale += 0.1;
+                    effect.scale.set(scale, scale, scale);
+                    effect.material.opacity -= 0.05;
+
+                    if (effect.material.opacity > 0) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        scene.remove(effect);
+                    }
+                };
+                animate();
+            }
+
+            function initWebcam() {
+                webcamVideo = document.getElementById("webcam");
+
+                navigator.mediaDevices
+                    .getUserMedia({
+                        video: {
+                            width: 640,
+                            height: 480,
+                            facingMode: "user",
+                        },
+                    })
+                    .then((stream) => {
+                        webcamVideo.srcObject = stream;
+                        webcamVideo.onloadedmetadata = () => {
+                            initFaceMesh();
+                            $("#webcam").show();
+                            $("#faceOverlay").show();
+                        };
+                    })
+                    .catch((err) => {
+                        console.error("Error accessing webcam:", err);
+                        $("#faceStatus").text("Face: Using mouse control");
+                        // Enable fallback mode with mouse control
+                        initMouseControl();
+                    });
+            }
+
+            function initMouseControl() {
+                // Show the face overlay and trackers for demo
+                $("#faceOverlay").show();
+
+                // Simulate face tracking with mouse movement
+                $(document).mousemove(function (e) {
+                    const mouseX = e.clientX / window.innerWidth;
+                    const mouseY = e.clientY / window.innerHeight;
+
+                                    // Simulate face landmarks based on mouse position (mirrored for display)
+                const fakeLeftEye = { x: 0, y: 0 }; // Not used
+                const fakeRightEye = { x: 0, y: 0 }; // Not used
+                const fakeNose = { x: 1 - mouseX, y: mouseY };
+
+                updateTrackerPositions(fakeLeftEye, fakeRightEye, fakeNose);
+
+                    // Simulate pure head orientation for mouse control
+                    // Mouse X = head yaw (left/right turn)
+                    // Mouse Y = head pitch (up/down nod)
+                    faceRotation.y = (mouseX - 0.5) * 3; // Head yaw simulation
+                    faceRotation.x = (mouseY - 0.5) * 3; // Head pitch simulation
+                    faceDetected = true;
+
+                    if (gameState === "playing") {
+                        updatePointerFromFace();
+                    }
+                });
+
+                console.log("Mouse control enabled as webcam fallback");
+            }
+
+            function initFaceMesh() {
+                faceMesh = new FaceMesh({
+                    locateFile: (file) => {
+                        return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+                    },
+                });
+
+                faceMesh.setOptions({
+                    maxNumFaces: 1,
+                    refineLandmarks: true,
+                    minDetectionConfidence: 0.5,
+                    minTrackingConfidence: 0.5
+                });
+
+                faceMesh.onResults(onFaceMeshResults);
+
+                const camera_utils = new Camera(webcamVideo, {
+                    onFrame: async () => {
+                        await faceMesh.send({ image: webcamVideo });
+                    },
+                    width: 640,
+                    height: 480,
+                });
+                camera_utils.start();
+
+                console.log("Face mesh initialized with iris tracking");
+            }
+
+            function onFaceMeshResults(results) {
+                if (
+                    results.multiFaceLandmarks &&
+                    results.multiFaceLandmarks.length > 0
+                ) {
+                    faceDetected = true;
+                    $("#faceStatus").text("Face: Detected ✓");
+
+                    const landmarks = results.multiFaceLandmarks[0];
+
+                    // Get key landmarks for tracking
+                    const noseTip = landmarks[1]; // Nose tip
+                    const leftEye = landmarks[33]; // Left eye outer corner
+                    const rightEye = landmarks[362]; // Right eye outer corner
+                    const leftEar = landmarks[234]; // Left ear
+                    const rightEar = landmarks[454]; // Right ear
+                    const forehead = landmarks[10]; // Forehead center
+                    const chin = landmarks[175]; // Chin
+
+                    // Update tracker positions on screen
+                    updateTrackerPositions(leftEye, rightEye, noseTip);
+
+                    // Calculate head orientation
+                    const noseLandmark = landmarks[1]; // Nose tip
+                    const leftEyeLandmark = landmarks[33]; // Left eye outer corner  
+                    const rightEyeLandmark = landmarks[362]; // Right eye outer corner
+                    const leftEarLandmark = landmarks[234]; // Left ear
+                    const rightEarLandmark = landmarks[454]; // Right ear
+                    
+                    // Calculate head yaw (left/right) from ear positions relative to eyes
+                    const eyeCenterX = (leftEyeLandmark.x + rightEyeLandmark.x) / 2;
+                    const earOffsetX = ((leftEarLandmark.x + rightEarLandmark.x) / 2) - eyeCenterX;
+                    faceRotation.y = earOffsetX * 10; // Head yaw
+                    
+                    // Calculate head pitch (up/down) from nose position relative to eye center
+                    const eyeCenterY = (leftEyeLandmark.y + rightEyeLandmark.y) / 2;
+                    const noseOffsetY = noseLandmark.y - eyeCenterY;
+                    faceRotation.x = noseOffsetY * 10; // Head pitch
+
+                    // Update pointer position based on face rotation and gaze
+                    if (gameState === "playing") {
+                        updatePointerFromFace();
+                    }
+                } else {
+                    faceDetected = false;
+                    $("#faceStatus").text("Face: Not detected");
+                    // Hide trackers when no face detected
+                    $(
+                        "#noseTip",
+                    ).hide();
+                }
+            }
+
+            function updateTrackerPositions(leftEye, rightEye, noseTip) {
+                // Convert normalized coordinates to screen coordinates
+                const screenWidth = window.innerWidth;
+                const screenHeight = window.innerHeight;
+
+                // Position nose tracker (mirrored horizontally)
+                const noseX = (1 - noseTip.x) * screenWidth;
+                const noseY = noseTip.y * screenHeight;
+                $("#noseTip").css({
+                    left: noseX + "px",
+                    top: noseY + "px",
+                    display: "block",
+                });
+            }
+
+            // drawLaserBeams function removed
+
+            // calculateScreenEdgeIntersection function removed (was only used for laser calculations)
+
+            function updatePointerFromFace() {
+                // Create a 3D pointer that shows exactly where buildings will be placed
+                // Map screen coordinates to 3D terrain coordinates using MediaPipe gaze detection
+                
+                // Update pointer even in menu state for testing
+                if (gameState !== "playing" && gameState !== "menu") return;
+                
+                // Remove existing pointer if it exists
+                if (window.placementPointer) {
+                    scene.remove(window.placementPointer);
+                }
+                
+                // Get face tracking data from the game instance
+                let targetX = 0;
+                let targetZ = 0;
+                
+                // First try to get data from the DuckHuntGame instance
+                if (window.duckHuntGame && window.duckHuntGame.eyePointer) {
+                    // Use MediaPipe face tracking data
+                    const eyeData = window.duckHuntGame.eyePointer;
+                    
+                    // Fallback to face rotation
+                    targetX = faceRotation.y * 6;
+                    targetZ = faceRotation.x * 6;
+                    console.log("Using fallback face rotation:", { targetX, targetZ });
+                } else if (window.faceRotation) {
+                    // Use the exposed face rotation data from game.js
+                    targetX = window.faceRotation.y * 8; // Map to terrain X from -8 to 8
+                    targetZ = window.faceRotation.x * 8; // Map to terrain Z from -8 to 8
+                    console.log("Using window.faceRotation:", { targetX, targetZ, faceRotation: window.faceRotation });
+                } else if (window.terrainCoordinates) {
+                    // Use the raw terrain coordinates for more precise control
+                    targetX = window.terrainCoordinates.x * 8; // Map to terrain X from -8 to 8
+                    targetZ = window.terrainCoordinates.z * 8; // Map to terrain Z from -8 to 8
+                    console.log("Using window.terrainCoordinates:", { targetX, targetZ, terrainCoordinates: window.terrainCoordinates });
+                } else {
+                    // Fallback to face rotation
+                    targetX = faceRotation.y * 6;
+                    targetZ = faceRotation.x * 6;
+                    console.log("Using local faceRotation:", { targetX, targetZ });
+                }
+                
+                // Clamp the position to keep cursor within terrain bounds
+                const clampedX = Math.max(-8, Math.min(8, targetX));
+                const clampedZ = Math.max(-8, Math.min(8, targetZ));
+                
+                // Get current building type for visual feedback
+                const currentBuilding = buildingTypes[currentBuildingTypeName];
+                const pointerColor = currentBuilding ? currentBuilding.color : 0xff0000;
+                
+                // Create a visible pointer at the placement location
+                const pointerGeometry = new THREE.CylinderGeometry(0.1, 0.1, 0.3, 8);
+                const pointerMaterial = new THREE.MeshBasicMaterial({
+                    color: pointerColor,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                
+                window.placementPointer = new THREE.Mesh(pointerGeometry, pointerMaterial);
+                window.placementPointer.position.set(clampedX, 0.2, clampedZ); // Slightly above ground
+                window.placementPointer.userData = { 
+                    type: 'placement_pointer',
+                    buildingType: currentBuildingTypeName
+                };
+                
+                // Add pulsing animation
+                window.placementPointer.userData.pulseTime = 0;
+                
+                scene.add(window.placementPointer);
+                
+                // Also create a ground indicator ring with building type color
+                if (window.groundIndicator) {
+                    scene.remove(window.groundIndicator);
+                }
+                
+                const ringGeometry = new THREE.RingGeometry(0.8, 1.2, 8);
+                const ringMaterial = new THREE.MeshBasicMaterial({
+                    color: pointerColor,
+                    transparent: true,
+                    opacity: 0.6,
+                    side: THREE.DoubleSide
+                });
+                
+                window.groundIndicator = new THREE.Mesh(ringGeometry, ringMaterial);
+                window.groundIndicator.position.set(clampedX, 0.01, clampedZ); // Just above ground
+                window.groundIndicator.rotation.x = -Math.PI / 2; // Lay flat on ground
+                window.groundIndicator.userData = { 
+                    type: 'ground_indicator',
+                    buildingType: currentBuildingTypeName
+                };
+                
+                scene.add(window.groundIndicator);
+                
+                // Add a small text indicator showing the building type
+                if (window.buildingText) {
+                    scene.remove(window.buildingText);
+                }
+                
+                if (currentBuilding) {
+                    const canvas = document.createElement("canvas");
+                    const context = canvas.getContext("2d");
+                    canvas.width = 256;
+                    canvas.height = 64;
+                    context.font = "Bold 24px Arial";
+                    context.fillStyle = "#ffffff";
+                    context.strokeStyle = "#000000";
+                    context.lineWidth = 2;
+                    context.textAlign = "center";
+                    context.strokeText(currentBuilding.name.toUpperCase(), 128, 32);
+                    context.fillText(currentBuilding.name.toUpperCase(), 128, 32);
+                    
+                    const texture = new THREE.CanvasTexture(canvas);
+                    const textMaterial = new THREE.MeshBasicMaterial({
+                        map: texture,
+                        transparent: true,
+                        opacity: 0.9
+                    });
+                    const textGeometry = new THREE.PlaneGeometry(2, 0.5);
+                    window.buildingText = new THREE.Mesh(textGeometry, textMaterial);
+                    window.buildingText.position.set(clampedX, 0.8, clampedZ);
+                    window.buildingText.lookAt(camera.position);
+                    window.buildingText.userData = { type: 'building_text' };
+                    
+                    scene.add(window.buildingText);
+                }
+            }
+
+            function initConfetti() {
+                jsConfetti = new JSConfetti();
+                console.log("Confetti system initialized");
+            }
+
+            function changeBuildingType(buildingType) {
+                if (buildingTypes[buildingType]) {
+                    currentBuildingType = buildingType;
+                    currentBuildingTypeName = buildingType;
+
+                    // Track building type usage for missions and statistics
+                    gameStats.buildingTypesUsed.add(buildingType);
+
+                    console.log(
+                        `Building type changed to: ${buildingType}`,
+                    );
+
+                    // Visual feedback - brief flash effect
+                    flashBuildingChange(buildingTypes[buildingType].name);
+                }
+            }
+
+            function getBuildingBonus(buildingType) {
+                // Perfect placement bonus
+                if (buildingType === currentBuildingTypeName) {
+                    return 3;
+                }
+
+                // Compatible building bonuses
+                const compatibleBuildings = {
+                    house: ["farm"],
+                    farm: ["house"],
+                    temple: ["library"],
+                    library: ["temple"],
+                    barracks: ["market"],
+                    market: ["barracks"],
+                };
+
+                if (
+                    compatibleBuildings[buildingType] &&
+                    compatibleBuildings[buildingType].includes(currentBuildingTypeName)
+                ) {
+                    return 2;
+                }
+
+                // Standard building
+                return 1;
+            }
+
+            function adjustBrightness(hexColor, amount) {
+                // Convert hex to RGB
+                const r = parseInt(hexColor.substr(1, 2), 16);
+                const g = parseInt(hexColor.substr(3, 2), 16);
+                const b = parseInt(hexColor.substr(5, 2), 16);
+
+                // Increase brightness
+                const newR = Math.min(255, r + amount);
+                const newG = Math.min(255, g + amount);
+                const newB = Math.min(255, b + amount);
+
+                // Convert back to hex
+                return `#${newR.toString(16).padStart(2, "0")}${newG.toString(16).padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
+            }
+
+            function flashBuildingChange(buildingName) {
+                // Create temporary notification
+                const notification = $(
+                    `<div style="position: fixed; top: 100px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 20px; z-index: 300; font-size: 18px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Building: ${buildingName.toUpperCase()}</div>`,
+                );
+
+                $("body").append(notification);
+
+                setTimeout(() => {
+                    notification.fadeOut(500, () => notification.remove());
+                }, 1500);
+            }
+
+            function triggerConfetti() {
+                if (jsConfetti) {
+                    jsConfetti.addConfetti({
+                        emojis: ["🎉", "✨", "💥", "🌟"],
+                        emojiSize: 50,
+                        confettiNumber: 50,
+                        confettiColors: [
+                            "#ff0000",
+                            "#ffffff",
+                            "#ffd700",
+                            "#ff69b4",
+                        ],
+                    });
+                    console.log("Confetti triggered!");
+                }
+            }
+
+            function triggerUnitConfetti() {
+                if (jsConfetti) {
+                    jsConfetti.addConfetti({
+                        emojis: ["👥", "✨"],
+                        emojiSize: 30,
+                        confettiNumber: 2,
+                        confettiColors: [
+                            "#8B4513",
+                            "#ffffff",
+                            "#ffd700",
+                        ],
+                    });
+                    console.log("Unit confetti triggered!");
+                }
+            }
+
+            function triggerPerfectBuildingConfetti() {
+                if (jsConfetti) {
+                    jsConfetti.addConfetti({
+                        emojis: ["🏛️", "⭐", "🌟", "💫"],
+                        emojiSize: 40,
+                        confettiNumber: 8,
+                        confettiColors: [
+                            "#8B4513",
+                            "#ffffff",
+                            "#ffd700",
+                        ],
+                    });
+                    console.log("Perfect building confetti!");
+                }
+            }
+
+            function triggerResourceConfetti() {
+                if (jsConfetti) {
+                    jsConfetti.addConfetti({
+                        emojis: ["💰", "💎", "🏆", "💫"],
+                        emojiSize: 60,
+                        confettiNumber: 15,
+                        confettiColors: [
+                            "#ffd700",
+                            "#ff0000",
+                            "#ffa500",
+                            "#ffff00",
+                        ],
+                    });
+                    console.log("Resource confetti triggered!");
+                }
+            }
+
+            function handleBuildCommand() {
+                // This function can be used for special building commands
+                console.log("Build command activated!");
+            }
+
+            function updateMissionProgress(buildingType, isPerfectPlacement) {
+                if (!currentMission) return;
+
+                switch (currentMission.type) {
+                    case "building_specific":
+                        if (buildingType === currentMission.building) {
+                            missionProgress++;
+                        }
+                        break;
+                    case "perfect_placements":
+                        if (isPerfectPlacement) {
+                            missionProgress++;
+                        }
+                        break;
+                    case "speed_population":
+                        // Progress is the current population
+                        missionProgress = population;
+                        break;
+                    case "building_variety":
+                        missionProgress = gameStats.buildingTypesUsed.size;
+                        break;
+                }
+
+                // Check if mission is complete
+                if (missionProgress >= currentMission.target) {
+                    completeMission();
+                }
+            }
+
+            function completeMission() {
+                if (!currentMission) return;
+
+                // Award XP and show completion effect
+                playerXP += currentMission.reward;
+                score += Math.floor(currentMission.reward / 2); // Bonus points
+
+                // Show mission complete notification
+                showMissionComplete();
+
+                // Assign new mission
+                assignRandomMission();
+            }
+
+            function showMissionComplete() {
+                const notification = $(`
+                <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                     background: linear-gradient(135deg, #4CAF50, #45a049); color: white; 
+                     padding: 20px 30px; border-radius: 15px; z-index: 400; 
+                     font-size: 22px; font-weight: bold; text-align: center;
+                     box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+                    🎉 MISSION COMPLETE! 🎉<br>
+                    <span style="font-size: 16px;">${currentMission.name}</span><br>
+                    <span style="font-size: 14px;">+${currentMission.reward} XP</span>
+                </div>
+            `);
+
+                $("body").append(notification);
+
+                setTimeout(() => {
+                    notification.fadeOut(800, () => notification.remove());
+                }, 3000);
+            }
+
+            function assignRandomMission() {
+                const availableMissions = missions.filter(
+                    (m) => m.id !== (currentMission ? currentMission.id : null),
+                );
+                currentMission =
+                    availableMissions[
+                        Math.floor(Math.random() * availableMissions.length)
+                    ];
+                missionProgress = 0;
+
+                // Show new mission notification
+                showNewMission();
+            }
+
+            function showNewMission() {
+                const notification = $(`
+                <div style="position: fixed; top: 150px; left: 50%; transform: translateX(-50%); 
+                     background: rgba(33, 150, 243, 0.95); color: white; 
+                     padding: 15px 25px; border-radius: 12px; z-index: 350; 
+                     font-size: 16px; font-weight: bold; text-align: center;
+                     box-shadow: 0 4px 16px rgba(0,0,0,0.4);">
+                    📋 NEW MISSION<br>
+                    <span style="font-size: 14px; font-weight: normal;">${currentMission.description}</span><br>
+                    <span style="font-size: 12px; color: #FFD700;">Reward: ${currentMission.reward} XP</span>
+                </div>
+            `);
+
+                $("body").append(notification);
+
+                setTimeout(() => {
+                    notification.fadeOut(600, () => notification.remove());
+                }, 4000);
+            }
+
+            function initVoiceRecognition() {
+                if ("webkitSpeechRecognition" in window) {
+                    recognition = new webkitSpeechRecognition();
+                    recognition.continuous = true;
+                    recognition.interimResults = false;
+                    recognition.lang = "en-US";
+
+                    recognition.onstart = function () {
+                        $("#voiceStatus").text("Voice: Listening...");
+                    };
+
+                    recognition.onresult = function (event) {
+                        const last = event.results.length - 1;
+                        const command = event.results[last][0].transcript
+                            .toLowerCase()
+                            .trim();
+
+                        console.log("Voice command:", command);
+
+                        if (command.includes("start") && gameState === "menu") {
+                            startGame();
+                        } else if (gameState === "playing") {
+                            // Track voice command usage
+                            gameStats.voiceCommandsUsed++;
+
+                            // Check for building commands
+                            for (const buildingType in buildingTypes) {
+                                if (command.includes(buildingType)) {
+                                    createBuilding(buildingType);
+                                    gameStats.buildCommandsUsed++;
+                                    break;
+                                }
+                            }
+
+                            // Check for unit commands
+                            for (const unitType in unitTypes) {
+                                if (command.includes(unitType)) {
+                                    createUnit(unitType);
+                                    gameStats.buildCommandsUsed++;
+                                    break;
+                                }
+                            }
+                        }
+                    };
+
+                    recognition.onerror = function (event) {
+                        console.error("Speech recognition error:", event.error);
+                        $("#voiceStatus").text("Voice: Error - " + event.error);
+                    };
+
+                    recognition.onend = function () {
+                        if (gameState !== "gameOver") {
+                            recognition.start(); // Restart recognition
+                        }
+                    };
+
+                    recognition.start();
+                } else {
+                    $("#voiceStatus").text("Voice: Not supported");
+                    console.log("Speech recognition not supported");
+                }
+            }
+
+            function initEventListeners() {
+                $("#startButton").click(startGame);
+                $("#restartButton").click(restartGame);
+
+                // Handle window resize
+                $(window).resize(function () {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+                // Add manual game start trigger for testing
+                $(document).keydown(function(e) {
+                    if (e.key === 'Enter' && gameState === "menu") {
+                        console.log("Manual game start triggered");
+                        startGame();
+                    }
+                });
+
+                // The game now uses only face tracking for interaction
+            }
+
+            function startGame() {
+                gameState = "playing";
+                window.gameState = "playing"; // Expose to window for face tracking
+                population = 0;
+                happiness = 3;
+                buildings = [];
+                units = [];
+                resources = [];
+
+                // Reset enhanced gameplay variables
+                culture = 0;
+                cultureMultiplier = 1;
+                gameStartTime = Date.now();
+                gameStats.buildingTypesUsed.clear();
+                gameStats.buildingTypesUsed.add("house"); // Default building
+
+                // Reset comprehensive game statistics
+                gameStats = {
+                    totalBuildingsConstructed: 0,
+                    totalUnitsCreated: 0,
+                    buildingsByType: {
+                        house: 0,
+                        farm: 0,
+                        mine: 0,
+                        temple: 0,
+                        barracks: 0,
+                        library: 0,
+                        market: 0,
+                        palace: 0,
+                    },
+                    unitsByType: {
+                        worker: 0,
+                        warrior: 0,
+                        archer: 0,
+                        settler: 0,
+                    },
+                    perfectPlacements: 0,
+                    highestCulture: 0,
+                    totalGoldEarned: 0,
+                    totalCultureEarned: 0,
+                    buildingTypesUsed: new Set(),
+                    voiceCommandsUsed: 0,
+                    buildCommandsUsed: 0,
+                    gameTimeInSeconds: 0,
+                    buildingsPerMinute: 0,
+                    averageGoldPerBuilding: 0,
+                    highestMultiplier: 1,
+                };
+
+                // Assign initial mission
+                assignRandomMission();
+
+                // Clear existing buildings, units and resources
+                scene.children = scene.children.filter((child) => {
+                    if (
+                        child.userData &&
+                        (child.userData.fallSpeed !== undefined || child.userData.moveSpeed !== undefined)
+                    ) {
+                        scene.remove(child);
+                        return false;
+                    }
+                    return true;
+                });
+
+                updateUI();
+                $("#instructions").addClass("hidden");
+                $("#gameOver").addClass("hidden");
+
+                console.log("Civilization started!");
+            }
+
+            function restartGame() {
+                startGame();
+            }
+
+            function endGame() {
+                gameState = "gameOver";
+                window.gameState = "gameOver"; // Expose to window for face tracking
+
+                // Calculate final statistics
+                gameStats.gameTimeInSeconds = Math.floor(
+                    (Date.now() - gameStartTime) / 1000,
+                );
+                gameStats.buildingsPerMinute =
+                    gameStats.gameTimeInSeconds > 0
+                        ? Math.round(
+                              (gameStats.totalBuildingsConstructed /
+                                  gameStats.gameTimeInSeconds) *
+                                  60 *
+                                  10,
+                          ) / 10
+                        : 0;
+                gameStats.averageGoldPerBuilding =
+                    gameStats.totalBuildingsConstructed > 0
+                        ? Math.round(
+                              (gold / gameStats.totalBuildingsConstructed) * 10,
+                          ) / 10
+                        : 0;
+
+                $("#finalScore").text(population);
+                updatePerformanceStats();
+                $("#gameOver").removeClass("hidden");
+
+                // Clean up placement pointer
+                if (window.placementPointer) {
+                    scene.remove(window.placementPointer);
+                    window.placementPointer = null;
+                }
+                if (window.groundIndicator) {
+                    scene.remove(window.groundIndicator);
+                    window.groundIndicator = null;
+                }
+                if (window.buildingText) {
+                    scene.remove(window.buildingText);
+                    window.buildingText = null;
+                }
+
+                // Stop voice recognition
+                if (recognition) {
+                    recognition.stop();
+                }
+
+                console.log("Civilization ended. Final population:", population);
+            }
+
+            function updatePerformanceStats() {
+                const formatTime = (seconds) => {
+                    const mins = Math.floor(seconds / 60);
+                    const secs = seconds % 60;
+                    return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+                };
+
+                const mostBuiltBuilding = Object.entries(
+                    gameStats.buildingsByType,
+                ).reduce(
+                    (max, [building, count]) =>
+                        count > max.count ? { building, count } : max,
+                    { building: "none", count: 0 },
+                );
+
+                const totalBuildings = gameStats.totalBuildingsConstructed;
+                const perfectPlacementRate =
+                    totalBuildings > 0
+                        ? Math.round(
+                              (gameStats.perfectPlacements / totalBuildings) *
+                                  100,
+                          )
+                        : 0;
+
+                const statsHTML = `
+                <div style="text-align: left; line-height: 1.6;">
+                    <!-- Key performance summary at top -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; padding: 12px; background: rgba(65,150,255,0.15); border-radius: 8px;">
+                        <div style="text-align: center;">
+                            <strong style="color: #4196ff;">🏗️ Perfect Placement Rate:</strong><br>
+                            <span style="color: #ffd700; font-size: 1.2em;">${perfectPlacementRate}%</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <strong style="color: #4196ff;">🏛️ Highest Culture:</strong><br>
+                            <span style="color: #ffd700; font-size: 1.2em;">${gameStats.highestCulture}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Collapsible detailed stats -->
+                    <details style="margin-bottom: 12px;">
+                        <summary style="cursor: pointer; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 8px; font-weight: bold; color: #4196ff;">
+                            🏛️ Civilization Performance Details
+                        </summary>
+                        <div style="padding: 8px; margin-left: 12px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 12px;">
+                                <div>
+                                    <strong>⏱️ Game Duration:</strong><br>
+                                    <span style="color: #ffd700;">${formatTime(gameStats.gameTimeInSeconds)}</span>
+                                </div>
+                                <div>
+                                    <strong>🏗️ Buildings Per Minute:</strong><br>
+                                    <span style="color: #ffd700;">${gameStats.buildingsPerMinute}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    
+                    <details style="margin-bottom: 12px;">
+                        <summary style="cursor: pointer; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 8px; font-weight: bold; color: #4196ff;">
+                            📈 Construction Stats
+                        </summary>
+                        <div style="padding: 8px; margin-left: 12px;">
+                            <div style="margin-bottom: 12px;">
+                                <strong>Total Buildings Constructed:</strong> <span style="color: #ffd700;">${gameStats.totalBuildingsConstructed}</span><br>
+                                <strong>Average Gold/Building:</strong> <span style="color: #ffd700;">${gameStats.averageGoldPerBuilding}</span><br>
+                                <strong>Perfect Placements:</strong> <span style="color: #ffd700;">${gameStats.perfectPlacements}</span><br>
+                                <strong>Highest Multiplier:</strong> <span style="color: #ffd700;">${gameStats.highestMultiplier}x</span>
+                            </div>
+                            
+                            <div style="background: rgba(255,255,255,0.1); padding: 8px; border-radius: 6px;">
+                                <strong>🏗️ Buildings by Type:</strong><br>
+                                ${Object.entries(gameStats.buildingsByType)
+                                    .filter(([building, count]) => count > 0)
+                                    .map(
+                                        ([building, count]) =>
+                                            `<span style="color: #${building === "house" ? "8B4513" : building === "farm" ? "228B22" : building === "mine" ? "696969" : building === "temple" ? "FFD700" : building === "barracks" ? "8B0000" : building === "library" ? "4169E1" : building === "market" ? "FF6347" : "9932CC"};">${building.charAt(0).toUpperCase() + building.slice(1)}: ${count}</span>`,
+                                    )
+                                    .join("<br>")}
+                            </div>
+                        </div>
+                    </details>
+                    
+                    <details style="margin-bottom: 12px;">
+                        <summary style="cursor: pointer; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 8px; font-weight: bold; color: #4196ff;">
+                            👥 Unit Stats
+                        </summary>
+                        <div style="padding: 8px; margin-left: 12px;">
+                            <div>
+                                <strong>🎤 Voice Commands Used:</strong> <span style="color: #ffd700;">${gameStats.voiceCommandsUsed}</span><br>
+                                <strong>🏗️ Build Commands:</strong> <span style="color: #ffd700;">${gameStats.buildCommandsUsed}</span><br>
+                                <strong>👥 Units Created:</strong> <span style="color: #ffd700;">${gameStats.totalUnitsCreated}</span><br>
+                                <strong>🏗️ Building Types Used:</strong> <span style="color: #ffd700;">${gameStats.buildingTypesUsed.size}/8</span>
+                            </div>
+                            
+                            <div style="background: rgba(255,255,255,0.1); padding: 8px; border-radius: 6px; margin-top: 12px;">
+                                <strong>👥 Units by Type:</strong><br>
+                                ${Object.entries(gameStats.unitsByType)
+                                    .filter(([unit, count]) => count > 0)
+                                    .map(
+                                        ([unit, count]) =>
+                                            `<span style="color: #${unit === "worker" ? "8B4513" : unit === "warrior" ? "8B0000" : unit === "archer" ? "0066ff" : "228B22"};">${unit.charAt(0).toUpperCase() + unit.slice(1)}: ${count}</span>`,
+                                    )
+                                    .join("<br>")}
+                            </div>
+                        </div>
+                    </details>
+                    
+                    <div style="text-align: center; margin-top: 15px; padding: 8px; background: rgba(65,150,255,0.1); border-radius: 6px;">
+                        <strong style="color: #4196ff;">🏛️ Great Civilization Built!</strong><br>
+                        <small>You demonstrated excellent leadership skills with facial tracking technology.</small>
+                    </div>
+                </div>
+            `;
+
+                $("#performance-stats").html(statsHTML);
+            }
+
+            function updateUI() {
+                $("#score").text(population);
+                $("#lives").text(happiness);
+
+                // Update culture display
+                if (culture > 0) {
+                    $("#streak").text(
+                        `${culture} (${cultureMultiplier.toFixed(1)}x)`,
+                    );
+                    $("#streak-display").show();
+                } else {
+                    $("#streak-display").hide();
+                }
+
+                // Update mission progress
+                if (currentMission) {
+                    const progressPercent = Math.min(
+                        100,
+                        (missionProgress / currentMission.target) * 100,
+                    );
+                    $("#mission-name").text(currentMission.name);
+                    $("#mission-progress").text(
+                        `${missionProgress}/${currentMission.target}`,
+                    );
+                    $("#mission-bar").css("width", progressPercent + "%");
+                }
+
+                // Update era and gold
+                $("#level").text(currentEra);
+                $("#xp").text(gold);
+            }
+
+            function checkCollisions() {
+                // In the new placement system, we don't need collision detection
+                // since units and buildings are placed directly where the player is looking
+                // This function is kept for potential future features
+                
+                // For now, just check if we're looking at existing buildings/units
+                // and could potentially interact with them
+                
+                // Check if face is detected
+                if (!faceDetected) {
+                    return; // No face detected, skip interaction check
+                }
+
+                // Calculate where player is looking in 3D space
+                const targetX = (faceRotation.y / 2) * 8;
+                const targetZ = (faceRotation.x / 2) * 8;
+                
+                // Check if we're looking at any existing buildings or units
+                // This could be used for future interaction features
+                for (let i = 0; i < buildings.length; i++) {
+                    const building = buildings[i];
+                    const distance = Math.sqrt(
+                        Math.pow(building.position.x - targetX, 2) + 
+                        Math.pow(building.position.z - targetZ, 2)
+                    );
+                    
+                    if (distance < 2) {
+                        // Player is looking at a building - could add interaction here
+                        // For now, just highlight it slightly
+                        building.material.emissiveIntensity = 0.3;
+                    } else {
+                        building.material.emissiveIntensity = 0.2;
+                    }
+                }
+                
+                for (let i = 0; i < units.length; i++) {
+                    const unit = units[i];
+                    const distance = Math.sqrt(
+                        Math.pow(unit.position.x - targetX, 2) + 
+                        Math.pow(unit.position.z - targetZ, 2)
+                    );
+                    
+                    if (distance < 2) {
+                        // Player is looking at a unit - could add interaction here
+                        // For now, just highlight it slightly
+                        unit.material.emissiveIntensity = 0.2;
+                    } else {
+                        unit.material.emissiveIntensity = 0.1;
+                    }
+                }
+            }
+
+            // isPointNearLaserLine function removed (was only used for laser targeting)
+
+            function createCollectionEffect(position, multiplier, points) {
+                // Main ring effect
+                const geometry = new THREE.RingGeometry(0.3, 0.8, 8);
+                const color =
+                    multiplier === 3
+                        ? 0x00ff00
+                        : multiplier === 2
+                          ? 0xffaa00
+                          : 0xffd700;
+                const material = new THREE.MeshBasicMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.8,
+                });
+                const effect = new THREE.Mesh(geometry, material);
+                effect.position.copy(position);
+                effect.lookAt(camera.position);
+
+                scene.add(effect);
+
+                // Points text effect
+                const canvas = document.createElement("canvas");
+                const context = canvas.getContext("2d");
+                canvas.width = 256;
+                canvas.height = 128;
+                context.font = "Bold 48px Arial";
+                context.fillStyle =
+                    multiplier === 3
+                        ? "#00ff00"
+                        : multiplier === 2
+                          ? "#ffaa00"
+                          : "#ffd700";
+                context.textAlign = "center";
+                context.fillText(`+${points}`, 128, 64);
+
+                const texture = new THREE.CanvasTexture(canvas);
+                const textMaterial = new THREE.MeshBasicMaterial({
+                    map: texture,
+                    transparent: true,
+                    opacity: 1.0,
+                });
+                const textGeometry = new THREE.PlaneGeometry(2, 1);
+                const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+                textMesh.position.copy(position);
+                textMesh.position.y += 1;
+                textMesh.lookAt(camera.position);
+
+                scene.add(textMesh);
+
+                // Animate and remove effects
+                let scale = 1;
+                let textY = textMesh.position.y;
+                const animate = () => {
+                    scale += 0.1;
+                    effect.scale.set(scale, scale, scale);
+                    effect.material.opacity -= 0.05;
+
+                    textY += 0.05;
+                    textMesh.position.y = textY;
+                    textMaterial.opacity -= 0.03;
+
+                    if (effect.material.opacity > 0) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        scene.remove(effect);
+                        scene.remove(textMesh);
+                    }
+                };
+                animate();
+            }
+
+            function updateGame() {
+                if (gameState !== "playing") return;
+
+                // Update 3D pointer based on face tracking
+                updatePointerFromFace();
+
+                // No more falling objects - everything is placed by voice commands
+                // Just animate existing buildings and units slightly
+                
+                // Animate buildings (subtle rotation)
+                for (let i = 0; i < buildings.length; i++) {
+                    const building = buildings[i];
+                    building.rotation.y += 0.001; // Very slow rotation
+                }
+
+                // Animate units (subtle movement)
+                for (let i = 0; i < units.length; i++) {
+                    const unit = units[i];
+                    unit.rotation.y += 0.005; // Slight rotation
+                    unit.position.y = Math.sin(Date.now() * 0.001 + i) * 0.1; // Gentle bobbing
+                }
+
+                // Check for resource collection (if any resources exist)
+                checkCollisions();
+            }
+
+            // Add a separate function for pointer updates that runs more frequently
+            function updatePointerOnly() {
+                // Update pointer even when game is not playing (for testing)
+                if (gameState === "playing" || gameState === "menu") {
+                    updatePointerFromFace();
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                updateGame();
+                
+                // Update pointer more frequently for responsive movement
+                updatePointerOnly();
+
+                // Animate placement pointer during gameplay
+                if (gameState === "playing" && window.placementPointer) {
+                    // Pulse animation for the placement pointer
+                    window.placementPointer.userData.pulseTime += 0.1;
+                    const pulseScale = 1 + Math.sin(window.placementPointer.userData.pulseTime) * 0.2;
+                    window.placementPointer.scale.set(pulseScale, pulseScale, pulseScale);
+                    
+                    // Pulse the ground indicator too
+                    if (window.groundIndicator) {
+                        window.groundIndicator.userData.pulseTime = window.placementPointer.userData.pulseTime;
+                        const ringPulse = 1 + Math.sin(window.placementPointer.userData.pulseTime) * 0.3;
+                        window.groundIndicator.scale.set(ringPulse, ringPulse, ringPulse);
+                    }
+                    
+                    // Animate building text (gentle floating)
+                    if (window.buildingText) {
+                        window.buildingText.position.y = 0.8 + Math.sin(window.placementPointer.userData.pulseTime * 0.5) * 0.1;
+                        window.buildingText.lookAt(camera.position);
+                    }
+                }
+
+                // CAMERA IS COMPLETELY STATIC - NO MOVEMENT AT ALL
+
+                renderer.render(scene, camera);
+            }
+
+            // Handle page visibility changes
+            document.addEventListener("visibilitychange", function () {
+                if (document.hidden) {
+                    if (recognition) recognition.stop();
+                } else {
+                    if (recognition && gameState !== "gameOver") {
+                        recognition.start();
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
