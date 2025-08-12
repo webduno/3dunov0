@@ -745,6 +745,15 @@
         releaseSpiritEffect();
         score += energy;
         energy = 0;
+
+        // Kill all orbs
+        orbs.forEach(orb => {
+            scene.remove(orb);
+            orb.geometry.dispose();
+            orb.material.dispose();
+        });
+        orbs = [];
+
         updateUI();
     }
 
