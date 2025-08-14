@@ -193,6 +193,15 @@ body {
     background: #e2e8f0;
 }
 
+.btn-danger {
+    background: #f56565;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #e53e3e;
+}
+
 #start-saving-btn {
     display: block;
     margin: 0 auto;
@@ -387,6 +396,167 @@ body {
 .stat-item i {
     color: #667eea;
     width: 16px;
+}
+
+/* Milestones Section */
+.milestones-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.milestones-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.milestones-header h4 {
+    color: #4a5568;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+.milestones-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.milestone-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: #f7fafc;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.milestone-item.achieved {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.milestone-progress {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.milestone-message {
+    flex: 1;
+    margin-left: 10px;
+    color: #718096;
+}
+
+.milestone-item.achieved .milestone-message {
+    color: #22543d;
+}
+
+.milestone-status {
+    font-size: 1rem;
+}
+
+.milestone-item.achieved .milestone-status {
+    color: #48bb78;
+}
+
+/* Share Section */
+.share-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f7fafc;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.share-section p {
+    margin-bottom: 10px;
+    color: #4a5568;
+    font-weight: 600;
+}
+
+/* Modal Enhancements */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #4a5568;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #718096;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: #4a5568;
+}
+
+.milestones-editor {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.milestone-editor-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: #f7fafc;
+}
+
+.milestone-editor-item input[type="number"] {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.milestone-editor-item input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+}
+
+.milestone-editor-item .btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
 }
 
 /* Success Modal */

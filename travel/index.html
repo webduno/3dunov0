@@ -6,7 +6,7 @@
     <title>Travel Budget Saver</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/travel/styles.css">
 </head>
 <body>
     <div class="container">
@@ -110,6 +110,20 @@
                                 <i class="fas fa-chart-line"></i>
                                 <span>Total Added: <strong>$<span id="total-added">0.00</span></strong></span>
                             </div>
+                            <div class="stat-item">
+                                <i class="fas fa-trophy"></i>
+                                <span>Milestones: <strong id="milestones-achieved">0/6</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="milestones-section">
+                            <div class="milestones-header">
+                                <h4><i class="fas fa-target"></i> Achievement Goals</h4>
+                                <button id="edit-milestones-btn" class="btn btn-secondary btn-small">
+                                    <i class="fas fa-edit"></i> Customize
+                                </button>
+                            </div>
+                            <div id="milestones-list" class="milestones-list"></div>
                         </div>
                     </div>
                 </div>
@@ -126,9 +140,39 @@
                     <p class="success-details">
                         Your journey from <span id="success-source"></span> to <span id="success-destination"></span> is now funded!
                     </p>
+                    <div class="share-section">
+                        <p>Share your achievement:</p>
+                        <button id="copy-url-btn" class="btn btn-secondary">
+                            <i class="fas fa-copy"></i> Copy Journey Link
+                        </button>
+                    </div>
                     <button id="start-new-journey" class="btn btn-primary">
                         Plan Another Journey <i class="fas fa-plane"></i>
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Milestones Editor Modal -->
+        <div id="milestones-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Customize Achievement Goals</h2>
+                    <button id="close-milestones-modal" class="modal-close">×</button>
+                </div>
+                <div class="milestones-editor">
+                    <div id="milestones-editor-list"></div>
+                    <button id="add-milestone-btn" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Add New Goal
+                    </button>
+                    <div class="modal-actions">
+                        <button id="reset-milestones-btn" class="btn btn-secondary">
+                            <i class="fas fa-undo"></i> Reset to Defaults
+                        </button>
+                        <button id="save-milestones-btn" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -137,6 +181,6 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-    <script src="script.js"></script>
+    <script src="/travel/script.js"></script>
 </body>
 </html>

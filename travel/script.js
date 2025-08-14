@@ -20,9 +20,22 @@ class TravelBudgetSaver {
         this.destinationMarker = null;
         this.routeLine = null;
         this.planeMarker = null;
+        this.milestones = [];
+        this.achievedMilestones = [];
 
-        // Storage key for localStorage
+        // Storage keys for localStorage
         this.storageKey = 'travel-budget-saver-data';
+        this.milestonesKey = 'travel-budget-saver-milestones';
+
+        // Default milestones
+        this.defaultMilestones = [
+            { percentage: 10, message: "Great start! You've saved enough for travel insurance!" },
+            { percentage: 25, message: "Quarter way there! This could cover your airport parking!" },
+            { percentage: 50, message: "Halfway there! You can now afford plane tickets!" },
+            { percentage: 75, message: "Almost there! Hotel accommodation is within reach!" },
+            { percentage: 90, message: "So close! Just a bit more for those final travel expenses!" },
+            { percentage: 100, message: "Congratulations! Your dream trip is fully funded!" }
+        ];
 
         // Initialize the app
         this.init();
@@ -33,8 +46,10 @@ class TravelBudgetSaver {
      */
     init() {
         this.loadFromStorage();
+        this.loadMilestonesFromStorage();
         this.setupEventListeners();
         this.initializePhase();
+        this.loadFromURL();
     }
 
     /**
@@ -51,9 +66,84 @@ class TravelBudgetSaver {
                 this.currentSavings = data.currentSavings || 0;
                 this.totalAdded = data.totalAdded || 0;
                 this.startDate = data.startDate ? new Date(data.startDate) : null;
+                this.achievedMilestones = data.achievedMilestones || [];
             }
         } catch (error) {
             console.error('Error loading from storage:', error);
+        }
+    }
+
+    /**
+     * Load milestones from localStorage or use defaults
+     */
+    loadMilestonesFromStorage() {
+        try {
+            const savedMilestones = localStorage.getItem(this.milestonesKey);
+            if (savedMilestones) {
+                this.milestones = JSON.parse(savedMilestones);
+            } else {
+                this.milestones = [...this.defaultMilestones];
+                this.saveMilestonesToStorage();
+            }
+        } catch (error) {
+            console.error('Error loading milestones from storage:', error);
+            this.milestones = [...this.defaultMilestones];
+        }
+    }
+
+    /**
+     * Save milestones to localStorage
+     */
+    saveMilestonesToStorage() {
+        try {
+            localStorage.setItem(this.milestonesKey, JSON.stringify(this.milestones));
+        } catch (error) {
+            console.error('Error saving milestones to storage:', error);
+        }
+    }
+
+    /**
+     * Load journey from URL parameters
+     */
+    loadFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const journeyData = urlParams.get('journey');
+        
+        if (journeyData) {
+            try {
+                const decoded = JSON.parse(atob(journeyData));
+                if (decoded.source && decoded.destination && decoded.budget) {
+                    this.sourceLocation = decoded.source;
+                    this.destinationLocation = decoded.destination;
+                    this.budgetGoal = decoded.budget;
+                    
+                    // Update displays if in setup phase
+                    if (!this.hasCompleteSetup()) {
+                        this.updateSetupDisplay();
+                        document.getElementById('budget-input').value = this.budgetGoal;
+                        this.validateSetup();
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading from URL:', error);
+            }
+        }
+    }
+
+    /**
+     * Update URL with current journey data
+     */
+    updateURL() {
+        if (this.sourceLocation && this.destinationLocation && this.budgetGoal > 0) {
+            const journeyData = {
+                source: this.sourceLocation,
+                destination: this.destinationLocation,
+                budget: this.budgetGoal
+            };
+            
+            const encoded = btoa(JSON.stringify(journeyData));
+            const newURL = `${window.location.pathname}?journey=${encoded}`;
+            window.history.replaceState({}, '', newURL);
         }
     }
 
@@ -68,7 +158,8 @@ class TravelBudgetSaver {
                 budgetGoal: this.budgetGoal,
                 currentSavings: this.currentSavings,
                 totalAdded: this.totalAdded,
-                startDate: this.startDate
+                startDate: this.startDate,
+                achievedMilestones: this.achievedMilestones
             };
             localStorage.setItem(this.storageKey, JSON.stringify(data));
         } catch (error) {
@@ -121,6 +212,14 @@ class TravelBudgetSaver {
 
         // Success modal listeners
         document.getElementById('start-new-journey').addEventListener('click', () => this.resetJourney());
+        document.getElementById('copy-url-btn').addEventListener('click', () => this.copyJourneyURL());
+
+        // Milestones management listeners
+        document.getElementById('edit-milestones-btn').addEventListener('click', () => this.showMilestonesModal());
+        document.getElementById('close-milestones-modal').addEventListener('click', () => this.hideMilestonesModal());
+        document.getElementById('add-milestone-btn').addEventListener('click', () => this.addMilestoneEditor());
+        document.getElementById('reset-milestones-btn').addEventListener('click', () => this.resetMilestones());
+        document.getElementById('save-milestones-btn').addEventListener('click', () => this.saveMilestonesFromEditor());
     }
 
     /**
@@ -435,6 +534,9 @@ class TravelBudgetSaver {
         const daysSaving = this.calculateDaysSaving();
         document.getElementById('days-saving').textContent = daysSaving;
 
+        // Update milestones display
+        this.updateMilestonesDisplay();
+
         // Update plane position
         this.updatePlanePosition();
     }
@@ -476,6 +578,7 @@ class TravelBudgetSaver {
             this.startDate = new Date();
         }
         
+        this.updateURL();
         this.saveToStorage();
         this.showMainPhase();
     }
@@ -500,11 +603,15 @@ class TravelBudgetSaver {
      * Add specific amount to savings
      */
     addSavingsAmount(amount) {
+        const previousSavings = this.currentSavings;
         this.currentSavings += amount;
         this.totalAdded += amount;
 
         // Animate the addition
         this.animateAmountAdd(amount);
+
+        // Check for milestone achievements
+        this.checkMilestones(previousSavings, this.currentSavings);
 
         this.updateMainDisplay();
         this.saveToStorage();
@@ -513,6 +620,335 @@ class TravelBudgetSaver {
         if (this.currentSavings >= this.budgetGoal) {
             this.celebrateGoalReached();
         }
+    }
+
+    /**
+     * Check for milestone achievements
+     */
+    checkMilestones(previousSavings, currentSavings) {
+        const previousProgress = this.budgetGoal > 0 ? (previousSavings / this.budgetGoal) * 100 : 0;
+        const currentProgress = this.budgetGoal > 0 ? (currentSavings / this.budgetGoal) * 100 : 0;
+
+        this.milestones.forEach(milestone => {
+            const milestoneId = `${milestone.percentage}`;
+            
+            // Check if this milestone was just achieved
+            if (previousProgress < milestone.percentage && 
+                currentProgress >= milestone.percentage && 
+                !this.achievedMilestones.includes(milestoneId)) {
+                
+                this.achievedMilestones.push(milestoneId);
+                this.celebrateMilestone(milestone);
+            }
+        });
+    }
+
+    /**
+     * Celebrate milestone achievement
+     */
+    celebrateMilestone(milestone) {
+        // Show confetti
+        this.jsConfetti.addConfetti({
+            emojis: ['🎉', '⭐', '🎊', '🥳'],
+            emojiSize: 80,
+            confettiNumber: 30
+        });
+
+        // Show milestone notification
+        this.showMilestoneNotification(milestone);
+    }
+
+    /**
+     * Show milestone notification
+     */
+    showMilestoneNotification(milestone) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'milestone-notification';
+        notification.innerHTML = `
+            <div class="milestone-content">
+                <div class="milestone-icon">🎯</div>
+                <div class="milestone-text">
+                    <div class="milestone-title">${milestone.percentage}% Milestone Reached!</div>
+                    <div class="milestone-message">${milestone.message}</div>
+                </div>
+                <button class="milestone-close" onclick="this.parentElement.parentElement.remove()">×</button>
+            </div>
+        `;
+
+        // Add styles if not already present
+        if (!document.getElementById('milestone-notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'milestone-notification-styles';
+            style.textContent = `
+                .milestone-notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    border-radius: 15px;
+                    padding: 20px;
+                    max-width: 350px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                    z-index: 1000;
+                    animation: slideInRight 0.5s ease-out;
+                }
+                
+                .milestone-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                }
+                
+                .milestone-icon {
+                    font-size: 2rem;
+                }
+                
+                .milestone-text {
+                    flex: 1;
+                }
+                
+                .milestone-title {
+                    font-weight: bold;
+                    font-size: 1.1rem;
+                    margin-bottom: 5px;
+                }
+                
+                .milestone-message {
+                    font-size: 0.9rem;
+                    opacity: 0.9;
+                    line-height: 1.4;
+                }
+                
+                .milestone-close {
+                    background: rgba(255, 255, 255, 0.2);
+                    border: none;
+                    color: white;
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    cursor: pointer;
+                    font-size: 1.2rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .milestone-close:hover {
+                    background: rgba(255, 255, 255, 0.3);
+                }
+                
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        document.body.appendChild(notification);
+
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.style.animation = 'slideInRight 0.5s ease-out reverse';
+                setTimeout(() => notification.remove(), 500);
+            }
+        }, 5000);
+    }
+
+    /**
+     * Update milestones display
+     */
+    updateMilestonesDisplay() {
+        const milestonesList = document.getElementById('milestones-list');
+        const milestonesAchieved = document.getElementById('milestones-achieved');
+        
+        if (!milestonesList) return;
+
+        const currentProgress = this.budgetGoal > 0 ? (this.currentSavings / this.budgetGoal) * 100 : 0;
+        
+        // Sort milestones by percentage
+        const sortedMilestones = [...this.milestones].sort((a, b) => a.percentage - b.percentage);
+        
+        milestonesList.innerHTML = '';
+        
+        sortedMilestones.forEach(milestone => {
+            const isAchieved = this.achievedMilestones.includes(`${milestone.percentage}`);
+            const milestoneItem = document.createElement('div');
+            milestoneItem.className = `milestone-item ${isAchieved ? 'achieved' : ''}`;
+            
+            milestoneItem.innerHTML = `
+                <span class="milestone-progress">${milestone.percentage}%</span>
+                <span class="milestone-message">${milestone.message}</span>
+                <span class="milestone-status">${isAchieved ? '✅' : '⏳'}</span>
+            `;
+            
+            milestonesList.appendChild(milestoneItem);
+        });
+
+        // Update achieved count
+        if (milestonesAchieved) {
+            milestonesAchieved.textContent = `${this.achievedMilestones.length}/${this.milestones.length}`;
+        }
+    }
+
+    /**
+     * Copy journey URL to clipboard
+     */
+    async copyJourneyURL() {
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            
+            // Show feedback
+            const button = document.getElementById('copy-url-btn');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            button.style.background = '#48bb78';
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.background = '';
+            }, 2000);
+        } catch (error) {
+            console.error('Failed to copy URL:', error);
+            alert('Could not copy URL. Please copy manually from the address bar.');
+        }
+    }
+
+    /**
+     * Show milestones modal
+     */
+    showMilestonesModal() {
+        const modal = document.getElementById('milestones-modal');
+        this.populateMilestonesEditor();
+        modal.classList.remove('hidden');
+    }
+
+    /**
+     * Hide milestones modal
+     */
+    hideMilestonesModal() {
+        const modal = document.getElementById('milestones-modal');
+        modal.classList.add('hidden');
+    }
+
+    /**
+     * Populate milestones editor
+     */
+    populateMilestonesEditor() {
+        const editorList = document.getElementById('milestones-editor-list');
+        editorList.innerHTML = '';
+
+        this.milestones.forEach((milestone, index) => {
+            this.addMilestoneEditorItem(milestone, index);
+        });
+    }
+
+    /**
+     * Add milestone editor item
+     */
+    addMilestoneEditorItem(milestone, index) {
+        const editorList = document.getElementById('milestones-editor-list');
+        const editorItem = document.createElement('div');
+        editorItem.className = 'milestone-editor-item';
+        editorItem.dataset.index = index;
+
+        editorItem.innerHTML = `
+            <input type="number" value="${milestone.percentage}" min="1" max="100" step="1" class="milestone-percentage">
+            <span>%</span>
+            <input type="text" value="${milestone.message}" placeholder="Achievement message" class="milestone-message">
+            <button class="btn btn-danger btn-small remove-milestone">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+
+        // Add remove listener
+        editorItem.querySelector('.remove-milestone').addEventListener('click', () => {
+            editorItem.remove();
+        });
+
+        editorList.appendChild(editorItem);
+    }
+
+    /**
+     * Add new milestone editor
+     */
+    addMilestoneEditor() {
+        const newMilestone = { percentage: 50, message: 'You\'re halfway there!' };
+        const index = this.milestones.length;
+        this.addMilestoneEditorItem(newMilestone, index);
+    }
+
+    /**
+     * Reset milestones to defaults
+     */
+    resetMilestones() {
+        if (confirm('Reset all achievement goals to defaults? This will remove any custom goals you\'ve created.')) {
+            this.milestones = [...this.defaultMilestones];
+            this.achievedMilestones = [];
+            this.saveMilestonesToStorage();
+            this.saveToStorage();
+            this.populateMilestonesEditor();
+            this.updateMilestonesDisplay();
+        }
+    }
+
+    /**
+     * Save milestones from editor
+     */
+    saveMilestonesFromEditor() {
+        const editorItems = document.querySelectorAll('.milestone-editor-item');
+        const newMilestones = [];
+
+        editorItems.forEach(item => {
+            const percentage = parseInt(item.querySelector('.milestone-percentage').value);
+            const message = item.querySelector('.milestone-message').value.trim();
+
+            if (percentage >= 1 && percentage <= 100 && message) {
+                newMilestones.push({ percentage, message });
+            }
+        });
+
+        if (newMilestones.length === 0) {
+            alert('Please add at least one valid achievement goal.');
+            return;
+        }
+
+        // Remove duplicates by percentage
+        const uniqueMilestones = newMilestones.filter((milestone, index, self) => 
+            index === self.findIndex(m => m.percentage === milestone.percentage)
+        );
+
+        this.milestones = uniqueMilestones;
+        
+        // Reset achieved milestones that no longer exist
+        this.achievedMilestones = this.achievedMilestones.filter(achievedId => 
+            this.milestones.some(m => `${m.percentage}` === achievedId)
+        );
+
+        this.saveMilestonesToStorage();
+        this.saveToStorage();
+        this.updateMilestonesDisplay();
+        this.hideMilestonesModal();
+
+        // Show success feedback
+        const saveBtn = document.getElementById('save-milestones-btn');
+        const originalText = saveBtn.innerHTML;
+        saveBtn.innerHTML = '<i class="fas fa-check"></i> Saved!';
+        saveBtn.style.background = '#48bb78';
+        
+        setTimeout(() => {
+            saveBtn.innerHTML = originalText;
+            saveBtn.style.background = '';
+        }, 2000);
     }
 
     /**
@@ -612,9 +1048,13 @@ class TravelBudgetSaver {
         this.totalAdded = 0;
         this.startDate = null;
         this.isSelectingSource = true;
+        this.achievedMilestones = [];
 
         // Clear storage
         localStorage.removeItem(this.storageKey);
+
+        // Clear URL
+        window.history.replaceState({}, '', window.location.pathname);
 
         // Hide success modal
         document.getElementById('success-modal').classList.add('hidden');
