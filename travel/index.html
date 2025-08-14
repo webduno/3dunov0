@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Budget Saver</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1><i class="fas fa-plane"></i> Travel Budget Saver</h1>
+            <p>Save for your dream vacation with gamified progress tracking!</p>
+        </header>
+
+        <!-- Setup Phase -->
+        <div id="setup-phase" class="phase">
+            <div class="setup-container">
+                <h2>Plan Your Adventure</h2>
+                
+                <div class="setup-step">
+                    <label for="budget-input">Set Your Budget Goal ($)</label>
+                    <input type="number" id="budget-input" placeholder="e.g. 2500" min="1" step="0.01">
+                </div>
+
+                <div class="setup-step">
+                    <h3>Select Your Journey</h3>
+                    <p class="instruction">Click on the map to select your <strong>starting point</strong>, then your <strong>destination</strong></p>
+                </div>
+
+                <div id="setup-map" class="map-container"></div>
+
+                <div class="selected-locations">
+                    <div class="location-info">
+                        <span class="location-label">From:</span>
+                        <span id="source-display">Click on map to select</span>
+                    </div>
+                    <div class="location-info">
+                        <span class="location-label">To:</span>
+                        <span id="destination-display">Click on map to select</span>
+                    </div>
+                </div>
+
+                <button id="start-saving-btn" class="btn btn-primary" disabled>
+                    Start Saving Journey <i class="fas fa-rocket"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main App Phase -->
+        <div id="main-phase" class="phase hidden">
+            <div class="app-layout">
+                <div class="map-section">
+                    <div class="journey-header">
+                        <h3>Your Journey</h3>
+                        <span id="journey-display" class="journey-text"></span>
+                        <button id="reset-journey" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> New Journey
+                        </button>
+                    </div>
+                    <div id="main-map" class="map-container main-map"></div>
+                </div>
+
+                <div class="savings-section">
+                    <div class="budget-card">
+                        <h3><i class="fas fa-piggy-bank"></i> Savings Progress</h3>
+                        
+                        <div class="budget-display">
+                            <div class="budget-amounts">
+                                <span class="current-amount">$<span id="current-savings">0.00</span></span>
+                                <span class="goal-amount">of $<span id="goal-amount">0.00</span></span>
+                            </div>
+                            <div class="progress-percentage">
+                                <span id="progress-percent">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="budget-meter">
+                            <div class="meter-background">
+                                <div id="meter-fill" class="meter-fill"></div>
+                                <div id="meter-plane" class="meter-plane">✈️</div>
+                            </div>
+                        </div>
+
+                        <div class="savings-controls">
+                            <div class="add-savings-group">
+                                <input type="number" id="savings-amount" placeholder="Amount to add" min="0.01" step="0.01">
+                                <button id="add-savings-btn" class="btn btn-success">
+                                    <i class="fas fa-plus"></i> Add to Savings
+                                </button>
+                            </div>
+                            
+                            <div class="quick-amounts">
+                                <span class="quick-label">Quick add:</span>
+                                <button class="btn btn-quick" data-amount="10">$10</button>
+                                <button class="btn btn-quick" data-amount="25">$25</button>
+                                <button class="btn btn-quick" data-amount="50">$50</button>
+                                <button class="btn btn-quick" data-amount="100">$100</button>
+                            </div>
+                        </div>
+
+                        <div class="savings-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Days Saving: <strong id="days-saving">0</strong></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Total Added: <strong>$<span id="total-added">0.00</span></strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="success-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="success-content">
+                    <div class="success-icon">🎉</div>
+                    <h2>Congratulations!</h2>
+                    <p>You've reached your travel budget goal!</p>
+                    <p class="success-details">
+                        Your journey from <span id="success-source"></span> to <span id="success-destination"></span> is now funded!
+                    </p>
+                    <button id="start-new-journey" class="btn btn-primary">
+                        Plan Another Journey <i class="fas fa-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

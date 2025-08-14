@@ -1,0 +1,550 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.app-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.app-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Phase Management */
+.phase {
+    transition: opacity 0.3s ease;
+}
+
+.phase.hidden {
+    display: none;
+}
+
+/* Setup Phase */
+.setup-container {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.setup-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #4a5568;
+    font-size: 2rem;
+}
+
+.setup-step {
+    margin-bottom: 25px;
+}
+
+.setup-step label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.setup-step input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.setup-step input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.setup-step h3 {
+    color: #4a5568;
+    margin-bottom: 10px;
+}
+
+.instruction {
+    color: #718096;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+/* Map Styles */
+.map-container {
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.main-map {
+    height: 500px;
+}
+
+/* Selected Locations */
+.selected-locations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.location-info {
+    background: #f7fafc;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.location-label {
+    font-weight: 600;
+    color: #4a5568;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: #4a5568;
+}
+
+.btn-secondary:hover {
+    background: #cbd5e0;
+}
+
+.btn-success {
+    background: #48bb78;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #38a169;
+    transform: translateY(-2px);
+}
+
+.btn-quick {
+    background: #edf2f7;
+    color: #4a5568;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+}
+
+.btn-quick:hover {
+    background: #e2e8f0;
+}
+
+#start-saving-btn {
+    display: block;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    padding: 15px 30px;
+}
+
+/* Main App Layout */
+.app-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.map-section {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.journey-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.journey-header h3 {
+    color: #4a5568;
+}
+
+.journey-text {
+    font-weight: 600;
+    color: #667eea;
+    flex: 1;
+    text-align: center;
+}
+
+/* Savings Section */
+.savings-section {
+    position: sticky;
+    top: 20px;
+}
+
+.budget-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.budget-card h3 {
+    color: #4a5568;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.budget-display {
+    margin-bottom: 20px;
+}
+
+.budget-amounts {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.current-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #48bb78;
+}
+
+.goal-amount {
+    font-size: 1.2rem;
+    color: #718096;
+}
+
+.progress-percentage {
+    text-align: right;
+}
+
+#progress-percent {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #667eea;
+}
+
+/* Budget Meter */
+.budget-meter {
+    margin-bottom: 25px;
+}
+
+.meter-background {
+    position: relative;
+    height: 30px;
+    background: #e2e8f0;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #48bb78, #38a169);
+    border-radius: 15px;
+    width: 0%;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.meter-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.meter-plane {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    transition: left 0.5s ease;
+    z-index: 10;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Savings Controls */
+.add-savings-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#savings-amount {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+#savings-amount:focus {
+    outline: none;
+    border-color: #48bb78;
+}
+
+.quick-amounts {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.quick-label {
+    font-size: 0.9rem;
+    color: #718096;
+    margin-right: 5px;
+}
+
+/* Savings Stats */
+.savings-stats {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+.stat-item i {
+    color: #667eea;
+    width: 16px;
+}
+
+/* Success Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal:not(.hidden) .modal-content {
+    transform: scale(1);
+}
+
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.success-content h2 {
+    color: #4a5568;
+    margin-bottom: 15px;
+    font-size: 2rem;
+}
+
+.success-content p {
+    color: #718096;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.success-details {
+    font-weight: 600;
+    color: #667eea;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .app-header h1 {
+        font-size: 2rem;
+    }
+
+    .app-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .savings-section {
+        position: static;
+    }
+
+    .selected-locations {
+        grid-template-columns: 1fr;
+    }
+
+    .journey-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .add-savings-group {
+        flex-direction: column;
+    }
+
+    .quick-amounts {
+        justify-content: center;
+    }
+
+    .budget-amounts {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+
+    .modal-content {
+        margin: 20px;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .setup-container {
+        padding: 20px;
+    }
+
+    .map-container {
+        height: 300px;
+    }
+
+    .main-map {
+        height: 350px;
+    }
+
+    .current-amount {
+        font-size: 1.5rem;
+    }
+
+    .goal-amount {
+        font-size: 1rem;
+    }
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.btn-success:active {
+    animation: pulse 0.2s ease;
+}
+
+/* Custom Leaflet Marker Styles */
+.custom-marker {
+    background: #667eea;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.source-marker {
+    background: #48bb78;
+}
+
+.destination-marker {
+    background: #f56565;
+}
