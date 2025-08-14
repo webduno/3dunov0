@@ -103,19 +103,37 @@ class TravelBudgetSaver {
     }
 
     /**
-     * Load journey from URL parameters
+     * Load journey from URL path
      */
     loadFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const journeyData = urlParams.get('journey');
+        const path = window.location.pathname;
+        const pathParts = path.split('/').filter(part => part.length > 0);
         
-        if (journeyData) {
+        // URL format: /from/lat,lng/to/lat,lng/budget/amount
+        if (pathParts.length >= 6 && pathParts[0] === 'from' && pathParts[2] === 'to' && pathParts[4] === 'budget') {
             try {
-                const decoded = JSON.parse(atob(journeyData));
-                if (decoded.source && decoded.destination && decoded.budget) {
-                    this.sourceLocation = decoded.source;
-                    this.destinationLocation = decoded.destination;
-                    this.budgetGoal = decoded.budget;
+                const sourceCoords = pathParts[1].split(',');
+                const destCoords = pathParts[3].split(',');
+                const budget = parseFloat(pathParts[5]);
+                
+                if (sourceCoords.length === 2 && destCoords.length === 2 && budget > 0) {
+                    this.sourceLocation = {
+                        lat: parseFloat(sourceCoords[0]),
+                        lng: parseFloat(sourceCoords[1]),
+                        name: `${parseFloat(sourceCoords[0]).toFixed(4)}, ${parseFloat(sourceCoords[1]).toFixed(4)}`
+                    };
+                    
+                    this.destinationLocation = {
+                        lat: parseFloat(destCoords[0]),
+                        lng: parseFloat(destCoords[1]),
+                        name: `${parseFloat(destCoords[0]).toFixed(4)}, ${parseFloat(destCoords[1]).toFixed(4)}`
+                    };
+                    
+                    this.budgetGoal = budget;
+                    
+                    // Get location names via reverse geocoding
+                    this.reverseGeocode(this.sourceLocation.lat, this.sourceLocation.lng, 'source');
+                    this.reverseGeocode(this.destinationLocation.lat, this.destinationLocation.lng, 'destination');
                     
                     // Update displays if in setup phase
                     if (!this.hasCompleteSetup()) {
@@ -135,16 +153,20 @@ class TravelBudgetSaver {
      */
     updateURL() {
         if (this.sourceLocation && this.destinationLocation && this.budgetGoal > 0) {
-            const journeyData = {
-                source: this.sourceLocation,
-                destination: this.destinationLocation,
-                budget: this.budgetGoal
-            };
-            
-            const encoded = btoa(JSON.stringify(journeyData));
-            const newURL = `${window.location.pathname}?journey=${encoded}`;
+            const newURL = `/from/${this.sourceLocation.lat.toFixed(6)},${this.sourceLocation.lng.toFixed(6)}/to/${this.destinationLocation.lat.toFixed(6)},${this.destinationLocation.lng.toFixed(6)}/budget/${this.budgetGoal}`;
             window.history.replaceState({}, '', newURL);
         }
+    }
+
+    /**
+     * Get current journey URL for sharing
+     */
+    getShareableURL() {
+        if (this.sourceLocation && this.destinationLocation && this.budgetGoal > 0) {
+            const baseURL = window.location.origin;
+            return `${baseURL}/from/${this.sourceLocation.lat.toFixed(6)},${this.sourceLocation.lng.toFixed(6)}/to/${this.destinationLocation.lat.toFixed(6)},${this.destinationLocation.lng.toFixed(6)}/budget/${this.budgetGoal}`;
+        }
+        return window.location.href;
     }
 
     /**
@@ -805,7 +827,8 @@ class TravelBudgetSaver {
      */
     async copyJourneyURL() {
         try {
-            await navigator.clipboard.writeText(window.location.href);
+            const shareableURL = this.getShareableURL();
+            await navigator.clipboard.writeText(shareableURL);
             
             // Show feedback
             const button = document.getElementById('copy-url-btn');
@@ -1029,9 +1052,15 @@ class TravelBudgetSaver {
         const modal = document.getElementById('success-modal');
         const sourceSpan = document.getElementById('success-source');
         const destSpan = document.getElementById('success-destination');
+        const urlPreview = document.getElementById('url-preview');
 
         sourceSpan.textContent = this.sourceLocation.name;
         destSpan.textContent = this.destinationLocation.name;
+        
+        // Show the shareable URL
+        if (urlPreview) {
+            urlPreview.textContent = this.getShareableURL();
+        }
 
         modal.classList.remove('hidden');
     }
@@ -1053,8 +1082,8 @@ class TravelBudgetSaver {
         // Clear storage
         localStorage.removeItem(this.storageKey);
 
-        // Clear URL
-        window.history.replaceState({}, '', window.location.pathname);
+        // Clear URL back to root
+        window.history.replaceState({}, '', '/');
 
         // Hide success modal
         document.getElementById('success-modal').classList.add('hidden');

@@ -485,6 +485,20 @@ body {
     font-weight: 600;
 }
 
+.url-preview {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 10px 0;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: #667eea;
+    word-break: break-all;
+    max-height: 60px;
+    overflow-y: auto;
+}
+
 /* Modal Enhancements */
 .modal-header {
     display: flex;
